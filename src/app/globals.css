@@ -3,19 +3,29 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --brand-navy: #0a192f;
+  --brand-gold: #d4c3a3;
+  --brand-cream: #f2f0eb;
+}
+
+html {
+  scroll-behavior: smooth !important;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui;
+  --font-serif: var(--font-playfair), ui-serif, Georgia;
+  --color-navy: var(--brand-navy);
+  --color-gold: var(--brand-gold);
+  --color-cream: var(--brand-cream);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #ffffff;
+    --foreground: #171717;
   }
 }
 
@@ -23,4 +33,145 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  /* ปรับขนาดตัวอักษรพื้นฐานให้ใหญ่ขึ้นเล็กน้อย */
+  @apply text-[16px];
+}
+
+@layer components {
+  /* หัวข้อหลัก: ขยายขนาดและปรับระยะบรรทัดให้โปร่งขึ้น */
+  .heading-serif {
+    font-family: var(--font-playfair), serif; /* ใส่เพื่อให้ Editor มั่นใจ */
+    @apply text-navy leading-[1.1] tracking-tight;
+    @apply text-5xl md:text-7xl lg:text-8xl; /* ขยายขนาดให้ใหญ่สะใจแบบในรูป */
+  }
+
+  /* 3. ปรับสไตล์ตัวหนังสือใน Hero ให้ดูเหมือนเดิม */
+  .hero-title {
+    @apply mb-8 font-light tracking-tight text-white;
+    font-family: var(--font-playfair), serif;
+    font-size: clamp(3rem, 10vw, 7rem); /* ปรับขนาดให้ยืดหยุ่นตามหน้าจอ */
+    line-height: 1.3;
+  }
+
+  /* ปุ่ม: เพิ่ม Padding และขยายตัวหนังสือให้ชัดขึ้น */
+  .btn-gold {
+    @apply border-gold text-navy hover:bg-gold rounded-full border-2 px-12 py-4 text-[12px] font-bold tracking-[0.25em] uppercase transition-all duration-300 hover:text-white;
+  }
+
+  .btn-gold-solid {
+    @apply bg-gold hover:bg-navy rounded-full px-14 py-4 text-[12px] font-bold tracking-[0.25em] text-white uppercase transition-all duration-300;
+  }
+
+  /* ปรับปุ่มให้ดูหนาและเด่นขึ้นแบบในรูป */
+  .btn-hero {
+    @apply border-2 border-white px-16 py-6 text-[14px] font-black tracking-[0.4em] text-white uppercase transition-all duration-300 hover:bg-white hover:text-navy;
+    background-color: rgba(255, 255, 255, 0.05);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+  }
+
+  /* Tag Label: ขยายขนาดและเพิ่มระยะห่างตัวอักษรให้ดูแพง */
+  .tag-label {
+    @apply text-gold mb-4 block text-[13px] font-bold tracking-[0.3em] uppercase;
+  }
+
+  /* Feature & Fleet Card: เพิ่มขนาดตัวหนังสือคำอธิบาย */
+  .feature-title {
+    @apply text-navy font-serif text-2xl tracking-widest uppercase;
+  }
+
+  .fleet-card {
+    @apply flex flex-col bg-white p-10 shadow-md transition-all duration-500 hover:shadow-2xl;
+    min-height: 500px;
+  }
+
+  .fleet-card p {
+    @apply text-[15px] leading-relaxed;
+  }
+
+  .fleet-image-container {
+    @apply relative mb-10 overflow-hidden bg-gray-100;
+    /* เพิ่มส่วนนี้: กำหนดขนาดที่แน่นอนเพื่อให้ Image fill ทำงานได้ */
+    width: 100%;
+    aspect-ratio: 16/9;
+  }
+
+  /* Navbar & Back Button: ปรับขนาดให้พอดีสายตา */
+  .btn-back {
+    @apply text-navy hover:text-gold flex items-center gap-3 transition-all duration-300;
+  }
+
+  .btn-back span {
+    @apply text-[12px] tracking-[0.2em];
+  }
+
+  .nav-link-underline {
+    @apply border-gold text-navy hover:text-gold border-b-2 pb-1 text-[12px] font-bold tracking-[0.2em] uppercase transition-colors;
+  }
+
+  /* Map & Footer: ปรับ Input ให้พิมพ์ง่ายขึ้น */
+  .footer-input {
+    @apply text-navy focus:ring-gold w-full rounded-none border-none bg-[#f8f9fa] px-8 py-5 text-base transition-all outline-none placeholder:text-gray-400 focus:ring-1;
+  }
+
+  .footer-tag {
+    @apply text-gold mb-4 text-[12px] font-bold tracking-[0.35em] uppercase;
+  }
+
+  /* Tour Info: ขยายขนาด Icon และ Text */
+  .tour-info-label {
+    @apply text-gold mb-2 flex items-center text-sm font-bold tracking-wider;
+  }
+
+  .tour-info-detail {
+    @apply flex items-start text-[14px] leading-relaxed text-gray-600;
+  }
+
+  .container-custom {
+    @apply mx-auto max-w-7xl px-10; /* เพิ่ม Padding ข้างให้กว้างขึ้น */
+  }
+
+  .map-tab {
+    @apply rounded-full px-8 py-3 text-[12px] font-bold tracking-widest uppercase transition-all duration-300;
+  }
+
+  /* คอนเทนเนอร์หลักของปุ่มสลับแผนที่ (สีเทาอ่อน) */
+  .map-tabs-container {
+    @apply relative flex items-center bg-[#f8f9fa] rounded-full p-1.5 shadow-inner;
+    width: fit-content;
+    margin: 0 auto;
+  }
+
+  /* ปุ่มตัวเลือกแต่ละอัน */
+  .map-tab-btn {
+    @apply relative z-20 px-10 py-3 text-[11px] font-bold tracking-[0.25em] uppercase transition-colors duration-500;
+    min-width: 180px; /* ปรับความกว้างปุ่มให้เท่ากันเพื่อให้การเลื่อนแม่นยำ */
+  }
+
+  /* กรอบสีน้ำเงินที่วิ่งไปมา (Sliding Indicator) */
+  .map-tab-indicator {
+    @apply absolute top-1.5 bottom-1.5 left-1.5 bg-navy rounded-full shadow-lg transition-all duration-500 ease-in-out z-10;
+  }
+
+  /* กรอบสีน้ำเงินหุ้ม iframe แผนที่ */
+  .map-frame {
+    @apply bg-navy rounded-sm p-4 shadow-2xl transition-all duration-500 md:p-6;
+    border: 1px solid rgba(212, 195, 163, 0.2);
+  }
+
+  /* สไตล์รูปภาพในแกลเลอรี (Gallery Item) */
+  .gallery-item {
+    @apply relative overflow-hidden bg-gray-100 shadow-sm transition-all duration-700;
+    /* สำคัญ: ต้องมั่นใจว่า Container มีความกว้างเต็มที่ */
+    width: 100%; 
+  }
+
+  /* คลาสที่ตัวรูปภาพ (Image) */
+  .gallery-image {
+    /* ✨ บรรทัดนี้คือหัวใจสำคัญที่ทำให้รูปไม่บีบ ✨ */
+    object-fit: cover; 
+    
+    /* เพิ่มอนิเมชันให้ดูแพงตอนเอาเมาส์ไปชี้ */
+    @apply transition-transform duration-1000 hover:scale-110;
+  }
 }
