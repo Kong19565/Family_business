@@ -164,6 +164,7 @@ export const allDestinations = [
 
 export const fleet = [
   {
+    id: "classic-small",
     name: "Classic Small Boat",
     image: "/images/Classic_Small_Boat.png",
     capacity: "6-8 Seats",
@@ -171,6 +172,7 @@ export const fleet = [
       "A charming open-air wooden boat perfect for sightseeing. Experience the natural breeze, ideal for couples or intimate groups of friends.",
   },
   {
+    id: "vintage-taxi",
     name: "Vintage Taxi Boat",
     image: "/images/Vintage_Taxi_Boat.png",
     capacity: "8-12 Seats",
@@ -178,6 +180,7 @@ export const fleet = [
       "A classic heritage design with a protective roof and comfortable seating. Perfectly suited for medium-sized families seeking a nostalgic journey.",
   },
   {
+    id: "grand-longtail",
     name: "Grand Longtail Boat",
     image: "/images/Grand_Longtail_Boat.jpg",
     capacity: "Up to 20 Seats",
@@ -185,6 +188,7 @@ export const fleet = [
       "Our spacious signature longtail boat with ample moving space. The premier choice for large family excursions or organized tour groups.",
   },
   {
+    id: "express-canal",
     name: "Express Canal Boat",
     image: "/images/Express_Canal_Boat.jpg",
     capacity: "20-25 Seats",
@@ -192,6 +196,7 @@ export const fleet = [
       "An extra-large vessel designed for high capacity and maximum comfort. Features excellent ventilation, perfect for large corporate events or big gatherings.",
   },
   {
+    id: "eco-electric",
     name: "Eco Electric Boat",
     image: "/images/gallery_5.jpg",
     capacity: "4-6 Seats",

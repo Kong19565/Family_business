@@ -1,0 +1,173 @@
+{
+  "Navbar": {
+    "fleet": "Fleet",
+    "destinations": "Destinations",
+    "bookNow": "Book Now",
+    "back": "Back",
+    "contact": "Contact"
+  },
+  "Hero": {
+    "tag": "Private & Exclusive",
+    "title": "The Ultimate {br} River Experience",
+    "button": "Explore Routes"
+  },
+  "Features": {
+    "luxury": {
+      "title": "Luxury Fleet",
+      "description": "Private boats maintained to the highest standards with full amenities for your comfort."
+    },
+    "hidden": {
+      "title": "Hidden Gems",
+      "description": "Navigate through narrow canals where large boats can't reach. Experience authentic local life."
+    },
+    "bespoke": {
+      "title": "Bespoke Trips",
+      "description": "Tailor your journey's time and route to perfectly match your personal preferences."
+    }
+  },
+  "TourGrid": {
+    "title": "Discover the River",
+    "seeMore": "See More Destinations",
+    "joinTrip": "Join Trip",
+    "trip": "trip",
+    "duration": "Duration",
+    "highlights": "Highlights"
+  },
+  "Fleet": {
+    "title": "Our Fleet",
+    "tagline": "Traditional craftsmanship meets modern comfort",
+    "viewDetails": "View Details",
+    "seeMore": "See More Fleet",
+    "capacity": "Capacity",
+    "privateVessel": "Private Vessel",
+    "bookVessel": "Book This Vessel"
+  },
+  "Gallery": {
+    "title": "Life on the Water"
+  },
+  "Map": {
+    "parking": "Parking Available",
+    "btsInfo": "BTS Wutthakat Exit 5",
+    "templeInfo": "Parking available at the temple"
+  },
+  "Footer": {
+    "tag": "Book Your Private Trip",
+    "title": "Contact Our Concierge",
+    "description": "Choose your preferred platform to start your journey with us. We are available daily to assist your reservation.",
+    "rights": "© 2026 PRIVATE BOATS. ALL RIGHTS RESERVED.",
+    "heritage": "Experience Bangkok's Heritage"
+  },
+  "Data": {
+    "tours": {
+      "scenic-canal-1hr": {
+        "title": "1-Hour Scenic Canal Tour",
+        "highlights": "Sightseeing, Wat Paknam (Big Buddha) Photo Spot, Khlong Bang Luang Artist House",
+        "description": "A perfect introduction to the charms of Phasi Charoen canal. Cruise past local wooden houses and stop for a breathtaking photo with the Great Golden Buddha.",
+        "tags": "BIG BUDDHA | ARTIST HOUSE",
+        "duration": "1 Hour",
+        "itinerary": [
+          "Scenic canal cruise through local communities",
+          "Wat Paknam Phasi Charoen (Big Buddha Photo Spot)",
+          "Pass by Khlong Bang Luang Artist House",
+          "Experience the authentic riverside atmosphere"
+        ]
+      },
+      "heritage-art-2hr": {
+        "title": "2-Hour Heritage & Art Tour",
+        "highlights": "Wat Paknam (20 mins stop), Khlong Bang Luang Artist House (40 mins stop)",
+        "description": "A deep dive into canal culture. Includes dedicated stops at the Big Buddha and the historic Artist House market for art and coffee lovers.",
+        "tags": "LOCAL MARKET | CULTURE | ART",
+        "duration": "2 Hours",
+        "itinerary": [
+          "Traditional canal cruise along Khlong Bang Luang",
+          "20-minute stop at Wat Paknam (Great Buddha)",
+          "40-minute stop at Artist House (Baan Silapin)",
+          "Fish feeding ritual at Wat Pradu Chimphli",
+          "Sightseeing of centuries-old teak wood houses"
+        ]
+      },
+      "temple-cafe-2hr": {
+        "title": "2-Hour Temple & Cafe Tour",
+        "tags": "WAT KALAYA | BIG BUDDHA | CAFE",
+        "description": "Start from the mouth of the canal at Wat Kalayanamit, visit the Great Buddha, and end your trip at a 100-year-old lychee orchard cafe.",
+        "itinerary": [
+          "Board at Wat Kalayanamit (Luang Pho To)",
+          "30-minute stop at Wat Paknam Phasi Charoen",
+          "30-minute stop at Wat Ratchaorasaram (Thai-Chinese Art)",
+          "Final drop off at Poomjai Garden (Hidden canal-side cafe)"
+        ]
+      },
+      "custom-merit-6hr": {
+        "title": "6-Hour Private Charter (Full Day)",
+        "tags": "FLEXIBLE | 9 TEMPLES | FAMILY",
+        "description": "Design your own spiritual journey. Perfect for families (8-10 persons). Visit 3, 5, or 9 sacred temples along the historic Phasi Charoen and Bangkok Yai canals.",
+        "itinerary": [
+          "Customizable route based on your preference",
+          "Choice of 12+ historic temples (e.g., Wat Hong, Wat Nak Prok)",
+          "Leisurely canal-side lunch break (Self-paid)",
+          "Expert boat captain with local heritage knowledge"
+        ]
+      },
+      "mu-spirit-tour": {
+        "title": "The 'Sai Mu' Spiritual Tour",
+        "tags": "LUCK | WEALTH | PROTECTION",
+        "description": "A specialized tour for those seeking blessings. Visit the most powerful spiritual spots including the Rahu statue and the 300-year-old Naga temple.",
+        "itinerary": [
+          "Wat Nak Prok (Crawling under the 300-year-old temple)",
+          "Wat Khun Chan (Praying to Giant Rahu)",
+          "Wat Paknam (Meditation at the Great Buddha)",
+          "Wat Nang Chi (Heritage temple from King Rama I era)"
+        ]
+      }
+    },
+    "fleet": {
+      "classic-small": {
+        "name": "Classic Small Boat",
+        "capacity": "6-8 Seats",
+        "description": "A charming open-air wooden boat perfect for sightseeing. Experience the natural breeze, ideal for couples or intimate groups of friends."
+      },
+      "vintage-taxi": {
+        "name": "Vintage Taxi Boat",
+        "capacity": "8-12 Seats",
+        "description": "A classic heritage design with a protective roof and comfortable seating. Perfectly suited for medium-sized families seeking a nostalgic journey."
+      },
+      "grand-longtail": {
+        "name": "Grand Longtail Boat",
+        "capacity": "Up to 20 Seats",
+        "description": "Our spacious signature longtail boat with ample moving space. The premier choice for large family excursions or organized tour groups."
+      },
+      "express-canal": {
+        "name": "Express Canal Boat",
+        "capacity": "20-25 Seats",
+        "description": "An extra-large vessel designed for high capacity and maximum comfort. Features excellent ventilation, perfect for large corporate events or big gatherings."
+      },
+      "eco-electric": {
+        "name": "Eco Electric Boat",
+        "capacity": "4-6 Seats",
+        "description": "A modern, silent, and eco-friendly electric vessel. Ideal for a peaceful and sustainable river experience without engine noise or emissions."
+      }
+    }
+  },
+  "Destinations": {
+    "tag": "Exclusive Routes",
+    "title": "Destinations",
+    "curated": "Curated Journeys",
+    "intro": "Explore the hidden gems and iconic landmarks along the Bangkok canals and Chao Phraya river.",
+    "explore": "Explore Details",
+    "privateTrip": "private trip"
+  },
+  "TourDetail": {
+    "story": "The Story",
+    "overview": "Experience Overview",
+    "highlights": "Route Highlights",
+    "inclusions": "Inclusions & Amenities",
+    "rate": "Exclusive Private Rate",
+    "inclusive": "Inclusive of all taxes and fees",
+    "embarkation": "Embarkation",
+    "reserve": "Reserve Now",
+    "concierge": "Personal Concierge",
+    "notFound": "Tour Not Found",
+    "notFoundDesc": "The destination you are looking for does not exist.",
+    "backToDestinations": "Back to Destinations"
+  }
+}

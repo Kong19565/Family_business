@@ -25,8 +25,9 @@ Welcome to **Chao Phraya Trips**, a premium web application designed for a luxur
 
 ## ✨ Key Features Implemented
 
-1. **Smart Navigation**: A dynamic navbar that switches from transparent to blurred white on scroll, perfectly fitting the Hero background.
-2. **Interactive Fleet & Destinations**:
+1. **Multi-language Support (i18n)**: Fully integrated Thai (TH) and English (EN) support using `next-intl`. Automatically detects browser language and preserves user preference in URLs.
+2. **Smart Navigation**: A dynamic navbar that switches from transparent to blurred white on scroll, perfectly fitting the Hero background. Includes an elegant language switcher.
+3. **Interactive Fleet & Destinations**:
    - Dynamic routing for tour details (`/destinations/[id]`).
    - "Staggered" reveal animations for cards.
    - Luxury "mini-hero" headers for sub-pages.

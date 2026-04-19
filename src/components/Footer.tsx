@@ -1,8 +1,14 @@
+"use client";
+
 import React from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { Phone, ExternalLink } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function Footer() {
+  const t = useTranslations("Footer");
+  const navT = useTranslations("Navbar");
+
   const contactLinks = {
     whatsapp: "https://wa.me/66XXXXXXXXX",
     line: "https://line.me/ti/p/~YOUR_ID",
@@ -19,14 +25,13 @@ export default function Footer() {
         {/* Header Section */}
         <div className="mb-20 text-center">
           <span className="mb-4 block text-[10px] font-bold tracking-[0.3em] text-[#d4c3a3] uppercase">
-            Book Your Private Trip
+            {t("tag")}
           </span>
           <h2 className="mb-6 font-serif text-5xl tracking-tight text-white md:text-7xl">
-            Contact Our Concierge
+            {t("title")}
           </h2>
           <p className="mx-auto max-w-2xl text-base leading-relaxed font-light text-gray-400 italic md:text-lg">
-            Choose your preferred platform to start your journey with us. We are
-            available daily to assist your reservation.
+            {t("description")}
           </p>
         </div>
 
@@ -128,7 +133,7 @@ export default function Footer() {
               Chao Phraya Trips
             </h4>
             <p className="text-[10px] font-bold tracking-[0.4em] text-gray-600 uppercase">
-              Experience Bangkok&apos;s Heritage
+              {t("heritage")}
             </p>
           </div>
 
@@ -137,10 +142,10 @@ export default function Footer() {
               href="/destinations"
               className="transition-colors hover:text-white"
             >
-              Destinations
+              {navT("destinations")}
             </Link>
             <Link href="/fleet" className="transition-colors hover:text-white">
-              Our Fleet
+              {navT("fleet")}
             </Link>
             <Link
               href="/gallery"
@@ -151,11 +156,10 @@ export default function Footer() {
           </div>
 
           <div className="text-[10px] font-medium tracking-[0.5em] text-gray-700 uppercase">
-            © 2026 PRIVATE BOATS. ALL RIGHTS RESERVED.
+            {t("rights")}
           </div>
         </div>
       </div>
     </footer>
   );
 }
-

@@ -1,12 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { fleet } from "@/constants/data";
 import { motion } from "motion/react";
 import { fadeInUp, staggerContainer } from "@/constants/animations";
+import { useTranslations } from "next-intl";
 
 export default function Fleet() {
+  const t = useTranslations("Fleet");
+  const d = useTranslations("Data.fleet");
+
   // เลือกแสดงผล 3 ลำแรกในหน้า Home (รวมเรือไฟฟ้า)
   const displayFleet = fleet.slice(0, 3);
 
@@ -19,9 +23,9 @@ export default function Fleet() {
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        <h2 className="heading-serif mb-4 text-3xl md:mb-6 md:text-5xl">Our Fleet</h2>
+        <h2 className="heading-serif mb-4 text-3xl md:mb-6 md:text-5xl">{t("title")}</h2>
         <p className="mx-auto max-w-xl px-4 text-xs text-gray-500 italic md:text-sm">
-          &ldquo;Traditional craftsmanship meets modern comfort&rdquo;
+          &ldquo;{t("tagline")}&rdquo;
         </p>
       </motion.div>
 
@@ -41,7 +45,7 @@ export default function Fleet() {
             <div className="relative aspect-[16/10] overflow-hidden">
               <Image
                 src={boat.image}
-                alt={boat.name}
+                alt={d(`${boat.id}.name`)}
                 fill
                 className="object-cover transition-transform duration-[1.5s] group-hover:scale-110"
               />
@@ -51,19 +55,19 @@ export default function Fleet() {
             <div className="fleet-card-content">
               <div className="mb-6">
                 <span className="text-gold mb-2 block text-[10px] font-bold tracking-[0.3em] uppercase">
-                  {boat.capacity}
+                  {d(`${boat.id}.capacity`)}
                 </span>
                 <h3 className="heading-serif text-2xl tracking-tighter text-navy md:text-3xl">
-                  {boat.name}
+                  {d(`${boat.id}.name`)}
                 </h3>
               </div>
               
               <p className="mb-8 flex-grow">
-                {boat.description}
+                {d(`${boat.id}.description`)}
               </p>
               
               <Link href="/fleet" className="group/link flex items-center gap-4 self-start">
-                <span className="text-[10px] font-bold tracking-[0.2em] text-navy uppercase">View Details</span>
+                <span className="text-[10px] font-bold tracking-[0.2em] text-navy uppercase">{t("viewDetails")}</span>
                 <div className="h-[1px] w-8 bg-gold transition-all duration-300 group-hover/link:w-12"></div>
               </Link>
             </div>
@@ -74,7 +78,7 @@ export default function Fleet() {
       <div className="mt-20 text-center">
         <Link href="/fleet">
           <button type="button" className="btn-gold">
-            See More Fleet
+            {t("seeMore")}
           </button>
         </Link>
       </div>

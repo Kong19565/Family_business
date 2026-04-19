@@ -1,8 +1,13 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 
 export default function Hero() {
+  const t = useTranslations("Hero");
+
   return (
     <section className="bg-navy relative flex h-[90vh] min-h-[600px] items-center justify-center overflow-hidden md:h-screen">
       {/* Background Image with Overlay */}
@@ -20,17 +25,16 @@ export default function Hero() {
       {/* Hero Content */}
       <div className="relative z-10 px-6 text-center text-white">
         <span className="animate-fade-in-up tag-label inline-block text-white/80">
-          Private & Exclusive
+          {t("tag")}
         </span>
         <h1 className="animate-fade-in-up delay-100 mt-6 font-serif text-5xl leading-[1.1] md:text-7xl lg:text-8xl">
-          The Ultimate <br />
-          <span className="text-gold -mt-2 block italic md:-mt-4">
-            River Experience
-          </span>
+          {t.rich("title", {
+            br: () => <br />
+          })}
         </h1>
         <div className="animate-fade-in-up delay-200 mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Link href="/destinations" className="w-full sm:w-auto">
-            <button className="btn-hero w-full sm:w-auto">Explore Routes</button>
+            <button className="btn-hero w-full sm:w-auto">{t("button")}</button>
           </Link>
         </div>
       </div>
