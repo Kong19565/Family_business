@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Chao Phraya Trips - Private & Exclusive River Experience
 
-## Getting Started
+Welcome to **Chao Phraya Trips**, a premium web application designed for a luxury boat tour service in Bangkok. This project focuses on high-end aesthetics, smooth user experience, and secure architecture.
 
-First, run the development server:
+---
 
+## 🇹🇭 บทสรุปสำหรับนักพัฒนา (Thai Summary)
+
+โปรเจกต์นี้คือเว็บไซต์บริการจองเรือนำเที่ยวแบบส่วนตัว (Private Boat Tour) เน้นความหรูหรา (Luxury) และใช้งานง่าย (User Experience)
+- **จุดเด่น**: มีระบบแอนิเมชันที่นุ่มนวล, รองรับหน้าจอมือถืออย่างสมบูรณ์ (Mobile Optimized), และมีการตั้งค่าความปลอดภัยเบื้องต้น (Security Hardened)
+- **เทคโนโลยี**: ใช้ Next.js 16 (Turbopack), Tailwind CSS 4, และ Framer Motion (Motion)
+
+---
+
+## 🚀 Tech Stack & Core Libraries
+
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router + Turbopack)
+- **UI & Styling**: [Tailwind CSS 4](https://tailwindcss.com/) - Using modern CSS variables and utility classes.
+- **Animations**: [Motion (formerly Framer Motion)](https://motion.dev/) - For high-end scroll-reveal and staggered effects.
+- **Icons**: [Lucide React](https://lucide.dev/) - Consistent, clean iconography.
+- **Language**: [TypeScript](https://www.typescriptlang.org/) - Ensuring type safety and better developer experience.
+- **Font**: Inter (Sans-serif) & Playfair Display (Serif) for that "luxury editorial" look.
+
+---
+
+## ✨ Key Features Implemented
+
+1. **Smart Navigation**: A dynamic navbar that switches from transparent to blurred white on scroll, perfectly fitting the Hero background.
+2. **Interactive Fleet & Destinations**:
+   - Dynamic routing for tour details (`/destinations/[id]`).
+   - "Staggered" reveal animations for cards.
+   - Luxury "mini-hero" headers for sub-pages.
+3. **Responsive Optimization**:
+   - Custom `container-custom` logic for various screen sizes.
+   - Specifically optimized for 375px screens (Standard mobile width).
+4. **Integrated Map Section**: Switching between different pier locations (Talat Phlu / BTS Wutthakat) with smooth indicators.
+5. **Contact Hub**: Pre-configured links for WhatsApp, LINE, and WeChat, ready for professional use.
+
+---
+
+## 🛡️ Security Hardening
+
+This project follows security best practices:
+- **Security Headers**: Added to `next.config.ts` (`X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, etc.).
+- **Environment Management**: Includes `.env.example` to prevent hardcoding contact details in the source.
+- **Remote Image Safety**: Configured `remotePatterns` for secure external image loading.
+- **Dependency Audit**: All packages are updated to the latest secure versions as of April 2026.
+
+---
+
+## 🛠️ How to Get Started
+
+### 1. Installation
 ```bash
-npm run dev
+npm install
 # or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+yarn install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Setup Environment Variables
+Copy `.env.example` to `.env` and fill in your actual contact details:
+```bash
+cp .env.example .env
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Running Locally
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 4. Building for Production
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📂 Project Structure Guide
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `/src/app`: Next.js App Router (Pages, Layouts, and dynamic routes).
+- `/src/components`: Reusable UI components (Navbar, Hero, Fleet, Gallery, etc.).
+- `/src/constants`: All static data and animation configurations.
+  - `data.ts`: Central source for Fleet, Tours, and Destinations.
+  - `animations.ts`: Reusable Motion variants.
+- `/src/app/globals.css`: Tailwind `@theme` configurations and custom class-based components.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 💡 Note for Future Developers
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Adding a New Boat**: Simply add a new object to the `fleet` array in `src/constants/data.ts`.
+- **Adding a New Tour**: Update the `allDestinations` array in `src/constants/data.ts`. The detail page will automatically generate for the new ID.
+- **Animations**: Use the `fadeInUp` and `staggerContainer` variants from `src/constants/animations.ts` for consistent reveal effects.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 🛥️ License
+© 2026 Chao Phraya Trips - Private & Exclusive. All Rights Reserved.
