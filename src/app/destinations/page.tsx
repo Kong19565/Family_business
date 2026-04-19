@@ -1,68 +1,88 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { allDestinations } from "@/app/constants/data";
-import Navbar from "@/app/components/Navbar";
-import Footer from "@/app/components/Footer";
+import { allDestinations } from "@/constants/data";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export default function DestinationsPage() {
   return (
-    <main className="min-h-screen bg-cream">
+    <main className="bg-cream min-h-screen">
       <Navbar />
-      
-      {/* Header Section */}
-      <section className="py-24 text-center">
-        <div className="container-custom">
-          <h1 className="heading-serif text-6xl mb-6">Destinations</h1>
-          <div className="mx-auto h-1 w-20 bg-gold"></div>
+
+      {/* Header Section - Modern Hero Style */}
+      <section className="bg-navy relative flex h-[40vh] min-h-[300px] items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/Bangluang.jpg"
+            alt="Destinations"
+            fill
+            className="object-cover opacity-40 brightness-75"
+          />
+        </div>
+        <div className="container-custom relative z-10 text-center">
+          <span className="tag-label text-white/70">Exclusive Routes</span>
+          <h1 className="heading-serif mb-4 text-5xl text-white md:text-7xl">Destinations</h1>
+          <div className="bg-gold mx-auto h-0.5 w-16 opacity-50"></div>
         </div>
       </section>
 
       {/* Destinations List */}
-      <section className="container-custom pb-32">
-        {allDestinations.map((dest, index) => (
-          <div
-            key={index}
-            className={`group mb-20 flex flex-col items-stretch overflow-hidden bg-white shadow-sm md:flex-row ${
-              index % 2 !== 0 ? "md:flex-row-reverse" : ""
-            }`}
-          >
-            {/* Image Part */}
-            <div className="relative min-h-[450px] w-full md:w-1/2 overflow-hidden">
-              <Image
-                src={dest.image}
-                alt={dest.title}
-                fill
-                className="object-cover transition-transform duration-1000 group-hover:scale-110"
-              />
+      <section className="container-custom py-24 md:py-32">
+        <div className="mb-16">
+           <h2 className="heading-serif text-navy text-3xl md:text-4xl">Curated Journeys</h2>
+           <p className="mt-4 max-w-2xl text-sm font-light italic text-gray-500">
+             Explore the hidden gems and iconic landmarks along the Bangkok canals and Chao Phraya river.
+           </p>
+        </div>
+        <div className="space-y-24 md:space-y-40">
+          {allDestinations.map((dest, index) => (
+            <div
+              key={index}
+              className={`group flex flex-col items-center gap-12 lg:flex-row ${
+                index % 2 !== 0 ? "lg:flex-row-reverse" : ""
+              }`}
+            >
+              {/* Image Part */}
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-sm shadow-2xl lg:w-3/5">
+                <Image
+                  src={dest.image}
+                  alt={dest.title}
+                  fill
+                  className="object-cover transition-transform duration-1000 group-hover:scale-105"
+                />
+              </div>
+
+              {/* Content Part */}
+              <div className="flex w-full flex-col justify-center lg:w-2/5">
+                <span className="tag-label">{dest.tags}</span>
+
+                <h2 className="heading-serif text-navy mb-6 text-3xl md:text-5xl">{dest.title}</h2>
+
+                <p className="heading-serif text-navy mb-6 text-2xl font-bold">
+                  {dest.price}{" "}
+                  <span className="font-sans text-[10px] font-normal tracking-widest text-gray-400 uppercase">
+                    / private trip
+                  </span>
+                </p>
+
+                <p className="mb-10 text-base leading-relaxed font-light text-gray-500 italic">
+                  {dest.description}
+                </p>
+
+                <Link href={`/destinations/${dest.id}`}>
+                  <button className="btn-gold self-start border-navy text-navy hover:bg-navy hover:text-white">
+                    Explore Details
+                  </button>
+                </Link>
+              </div>
             </div>
-
-            {/* Content Part */}
-            <div className="flex w-full flex-col justify-center p-12 md:w-1/2 md:p-20">
-              <span className="tag-label">{dest.tags}</span>
-              
-              <h2 className="heading-serif text-4xl mb-6">
-                {dest.title}
-              </h2>
-
-              <p className="mb-6 text-xl heading-serif font-bold">
-                {dest.price} <span className="text-xs font-sans font-normal text-gray-400 italic">/ trip</span>
-              </p>
-
-              <p className="mb-10 text-sm leading-relaxed text-gray-500 font-light italic">
-                {dest.description}
-              </p>
-
-              <Link href={`/destinations/${dest.id}`}>
-                <button className="btn-gold self-start">
-                  Explore Journey
-                </button>
-              </Link>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </section>
-      
+      <Footer />
     </main>
   );
 }
+
+

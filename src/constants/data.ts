@@ -191,6 +191,13 @@ export const fleet = [
     description:
       "An extra-large vessel designed for high capacity and maximum comfort. Features excellent ventilation, perfect for large corporate events or big gatherings.",
   },
+  {
+    name: "Eco Electric Boat",
+    image: "/images/gallery_5.jpg",
+    capacity: "4-6 Seats",
+    description:
+      "A modern, silent, and eco-friendly electric vessel. Ideal for a peaceful and sustainable river experience without engine noise or emissions.",
+  },
 ];
 
 // ข้อมูลสำหรับแผนที่ (ใส่ลิงก์ Embed จาก Google Maps จริง)
@@ -208,3 +215,4 @@ export const mapLocations = {
       "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1938.0426795285837!2d100.4665387!3d13.7132798!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29869ecc03e61%3A0xbda819456cee9c7!2sWutthakat!5e0!3m2!1sen!2sth!4v1773944166958!5m2!1sen!2sth",
   },
 };
+

@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { allDestinations } from "@/app/constants/data";
-import Navbar from "@/app/components/Navbar";
+import { allDestinations } from "@/constants/data";
+import Navbar from "@/components/Navbar";
 import { Clock, MapPin, CheckCircle, ArrowLeft } from "lucide-react";
-import MapSection from "@/app/components/MapSection";
+import Footer from '@/components/Footer';
+import MapSection from "@/components/MapSection";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -34,136 +35,145 @@ export default async function TourDetailPage({ params }: PageProps) {
     <main className="min-h-screen overflow-x-hidden bg-white">
       <Navbar />
 
-      {/* Hero Section - ปรับความสูงให้ดูหรูขึ้น */}
-      <div className="relative h-[50vh] min-h-100 w-full lg:h-[70vh]">
+      {/* Hero Section - Full Height & Elegant Overlay */}
+      <div className="relative h-[60vh] min-h-[450px] w-full overflow-hidden lg:h-[85vh]">
         <Image
           src={tour.image}
           alt={tour.title}
           fill
-          className="object-cover"
+          className="scale-105 object-cover brightness-[0.8] transition-transform duration-[10s] hover:scale-100"
           priority
         />
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 px-6 text-center">
-          <h1 className="heading-serif max-w-4xl text-4xl leading-tight text-white md:text-6xl lg:text-7xl">
+        <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-transparent to-black/20"></div>
+        <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
+          <span className="tag-label animate-fade-in-up mb-6 text-white/80">Private Journey</span>
+          <h1 className="heading-serif animate-fade-in-up delay-100 max-w-5xl text-5xl leading-[1.1] text-white md:text-7xl lg:text-9xl">
             {tour.title}
           </h1>
+          <div className="animate-fade-in-up delay-200 mt-12 h-0.5 w-24 bg-gold"></div>
         </div>
       </div>
 
       {/* Main Content Grid */}
-      <div className="container-custom grid grid-cols-1 gap-12 py-20 lg:grid-cols-3 lg:gap-20">
+      <div className="container-custom relative z-20 -mt-20 grid grid-cols-1 gap-12 pb-32 lg:grid-cols-3 lg:gap-20">
         {/* Left Column: Story & Details */}
-        <div className="space-y-16 lg:col-span-2">
-          <section>
-            <div className="mb-8">
-              <span className="tag-label text-gold">The Experience</span>
-              <h2 className="heading-serif text-navy mt-2 text-4xl">
-                Overview
+        <div className="bg-white p-8 shadow-2xl lg:col-span-2 lg:p-20">
+          <section className="mb-20">
+            <div className="mb-12">
+              <span className="tag-label text-gold">The Story</span>
+              <h2 className="heading-serif text-navy mt-2 text-4xl md:text-5xl">
+                Experience Overview
               </h2>
             </div>
-            <p className="first-letter:text-navy text-lg leading-relaxed font-light text-gray-600 first-letter:float-left first-letter:mr-3 first-letter:font-serif first-letter:text-5xl">
+            <p className="first-letter:text-navy text-xl leading-relaxed font-light text-gray-600 first-letter:float-left first-letter:mr-4 first-letter:font-serif first-letter:text-7xl first-letter:font-bold md:text-2xl">
               {tour.description}
             </p>
           </section>
 
           {/* Itinerary Highlights Box */}
-          <section className="bg-cream/30 border-gold/10 rounded-sm border p-10">
-            <h3 className="heading-serif text-navy mb-8 text-2xl italic">
-              Itinerary Highlights
+          <section className="bg-cream/40 border-gold/10 mb-20 rounded-sm border p-10 md:p-16">
+            <h3 className="heading-serif text-navy mb-10 text-3xl italic">
+              Route Highlights
             </h3>
-            <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
               {tour.details.itinerary.map((item, i) => (
-                <li key={i} className="group flex items-start gap-4">
-                  <div className="bg-navy mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-white transition-transform group-hover:scale-110">
-                    <CheckCircle className="h-3 w-3" />
+                <div key={i} className="group flex items-start gap-5">
+                  <div className="bg-navy mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-gold transition-all group-hover:bg-gold group-hover:text-navy">
+                    <CheckCircle className="h-4 w-4" />
                   </div>
-                  <span className="text-[14px] leading-relaxed font-medium text-gray-600">
+                  <span className="text-base leading-relaxed font-medium text-navy/80">
                     {item}
                   </span>
-                </li>
+                </div>
               ))}
-            </ul>
+            </div>
           </section>
 
           {/* What's Included */}
           <section>
-            <h3 className="heading-serif text-navy mb-6 text-2xl">
-              What&apos;s Included
+            <h3 className="heading-serif text-navy mb-8 text-2xl">
+              Inclusions & Amenities
             </h3>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-4">
               {tour.details.included.map((item, i) => (
-                <span
+                <div
                   key={i}
-                  className="bg-navy/5 text-navy rounded-full px-4 py-2 text-[11px] font-bold tracking-widest uppercase"
+                  className="bg-navy/5 border-navy/10 flex items-center gap-2 rounded-full border px-6 py-3 text-[12px] font-bold tracking-widest text-navy uppercase"
                 >
+                  <div className="bg-gold h-1.5 w-1.5 rounded-full"></div>
                   {item}
-                </span>
+                </div>
               ))}
             </div>
           </section>
         </div>
 
-        {/* Right Column: Booking Card (จัดระเบียบใหม่ไม่ให้เบี้ยว) */}
+        {/* Right Column: Booking Card */}
         <div className="lg:col-span-1">
-          <div className="sticky top-32 overflow-hidden border border-gray-100 bg-white shadow-2xl transition-transform duration-500 hover:-translate-y-1">
+          <div className="sticky top-32 overflow-hidden border border-gray-100 bg-white shadow-[0_20px_50px_rgba(0,0,0,0.1)] transition-all duration-500 hover:shadow-[0_40px_80px_rgba(0,0,0,0.15)]">
             {/* Price Header */}
-            <div className="bg-navy p-10 text-center text-white">
-              <p className="text-gold mb-2 text-[10px] font-bold tracking-[0.3em] uppercase opacity-80">
-                Price Per Private Trip
+            <div className="bg-navy p-12 text-center text-white">
+              <p className="text-gold mb-4 text-[11px] font-bold tracking-[0.4em] uppercase opacity-80">
+                Exclusive Private Rate
               </p>
-              <div className="flex items-baseline justify-center gap-1">
-                <span className="text-4xl font-bold tracking-tight">
+              <div className="flex items-baseline justify-center gap-2">
+                <span className="text-5xl font-bold tracking-tighter">
                   {tour.price}
                 </span>
-                <span className="text-xs font-light tracking-widest text-white/60 uppercase">
+                <span className="text-sm font-light tracking-[0.2em] text-white/50 uppercase">
                   THB
                 </span>
               </div>
+              <p className="mt-4 text-[10px] italic text-white/40">Inclusive of all taxes and fees</p>
             </div>
 
             {/* Info Body */}
-            <div className="text-navy space-y-6 p-6 md:space-y-8 md:p-10">
+            <div className="text-navy space-y-8 p-8 md:p-12">
               {/* Duration Section */}
-              <div className="flex flex-col justify-between gap-2 border-b border-gray-50 pb-4 sm:flex-row sm:items-center md:pb-6">
-                <div className="flex items-center gap-3 text-gray-400">
-                  <Clock className="text-gold h-4 w-4" />
-                  <span className="text-[10px] font-bold tracking-widest uppercase">
+              <div className="flex items-center justify-between border-b border-gray-50 pb-6">
+                <div className="flex items-center gap-4 text-gray-400">
+                  <Clock className="text-gold h-5 w-5" />
+                  <span className="text-[11px] font-bold tracking-widest uppercase">
                     Duration
                   </span>
                 </div>
-                <span className="font-serif text-lg md:text-xl">
+                <span className="font-serif text-2xl">
                   {tour.details.duration}
                 </span>
               </div>
 
               {/* Starting Point Section */}
-              <div className="flex flex-col justify-between gap-2 border-b border-gray-50 pb-4 sm:flex-row sm:items-center md:pb-6">
-                <div className="flex items-center gap-3 text-gray-400">
-                  <MapPin className="text-gold h-4 w-4" />
-                  <span className="text-[10px] font-bold tracking-widest uppercase">
-                    Starting Point
+              <div className="flex flex-col gap-3 border-b border-gray-50 pb-6">
+                <div className="flex items-center gap-4 text-gray-400">
+                  <MapPin className="text-gold h-5 w-5" />
+                  <span className="text-[11px] font-bold tracking-widest uppercase">
+                    Embarkation
                   </span>
                 </div>
-                <span className="text-left text-[11px] leading-tight font-medium tracking-tighter uppercase sm:text-right">
-                  Talat Phlu / Wutthakat
+                <span className="text-[12px] font-bold tracking-tighter text-navy uppercase">
+                  Talat Phlu / BTS Wutthakat Pier
                 </span>
               </div>
 
               {/* Action Button */}
-              <div className="pt-4">
+              <div className="pt-6">
                 <Link
                   href="/#contact-section"
-                  className="group flex w-full flex-col items-center"
+                  className="group block w-full"
                 >
                   <button
                     type="button"
-                    className="bg-navy hover:bg-gold hover:text-navy w-full py-6 text-[11px] font-bold tracking-[0.4em] text-white uppercase shadow-lg transition-all duration-500 active:scale-95"
+                    className="bg-gold hover:bg-navy w-full py-8 text-[12px] font-bold tracking-[0.5em] text-white uppercase shadow-xl transition-all duration-500 active:scale-[0.98]"
                   >
-                    Book This Trip Now
+                    Reserve Now
                   </button>
-                  <p className="mt-10 text-center text-[10px] font-bold tracking-[0.2em] text-gray-400 uppercase opacity-60 transition-opacity group-hover:opacity-100">
-                    *Instant confirmation via WhatsApp
-                  </p>
+                  <div className="mt-8 flex items-center justify-center gap-3 opacity-40 transition-opacity group-hover:opacity-100">
+                     <div className="h-[1px] w-8 bg-navy"></div>
+                     <p className="text-[10px] font-bold tracking-[0.2em] text-navy uppercase">
+                       Personal Concierge
+                     </p>
+                     <div className="h-[1px] w-8 bg-navy"></div>
+                  </div>
                 </Link>
               </div>
             </div>
@@ -172,6 +182,8 @@ export default async function TourDetailPage({ params }: PageProps) {
       </div>
 
       <MapSection />
+      <Footer />
     </main>
   );
 }
+

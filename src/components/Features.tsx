@@ -1,5 +1,9 @@
+"use client";
+
 import React from "react";
 import { Anchor, MapPin, Compass } from "lucide-react";
+import { motion } from "motion/react";
+import { fadeInUp, staggerContainer } from "@/constants/animations";
 
 export default function Features() {
   const featureList = [
@@ -25,19 +29,30 @@ export default function Features() {
 
   return (
     <section className="bg-cream py-24">
-      <div className="container-custom">
+      <motion.div 
+        className="container-custom"
+        variants={staggerContainer}
+        initial="initial"
+        whileInView="whileInView"
+        viewport={{ once: true }}
+      >
         <div className="grid grid-cols-1 gap-16 md:grid-cols-3">
           {featureList.map((item, index) => (
-            <div key={index} className="group space-y-4">
+            <motion.div 
+              key={index} 
+              className="group space-y-4"
+              variants={fadeInUp}
+            >
               {item.icon}
               <h3 className="feature-title">{item.title}</h3>
               <p className="text-sm leading-relaxed text-gray-500 italic">
                 {item.description}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
+
