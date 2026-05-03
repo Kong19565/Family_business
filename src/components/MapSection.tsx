@@ -1,23 +1,13 @@
 "use client";
 import { useState } from "react";
 import { Car, Info } from "lucide-react";
+import { mapLocations } from "@/constants/data";
 
 export default function MapSection() {
   // 1. ตั้งชื่อ state ให้เป็นมาตรฐานเดียวกับปุ่ม (activePier)
   const [activePier, setActivePier] = useState("talat-phlu");
 
-  const mapData = {
-    "talat-phlu": {
-      name: "Talat Phlu Pier (Wat Paknam)",
-      info: "Parking available at the temple",
-      url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1937.9665047479211!2d100.47643914312803!3d13.722505579958224!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e2985bb3ebe235%3A0x9ecaa416911b8c5e!2sTalat%20Phlu%20Pier!5e0!3m2!1sen!2sth!4v1773944993782!5m2!1sen!2sth",
-    },
-    wutthakat: {
-      name: "BTS Wutthakat Pier",
-      info: "BTS Wutthakat Exit 5",
-      url: "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1938.0426795285837!2d100.4665387!3d13.7132798!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29869ecc03e61%3A0xbda819456cee9c7!2sWutthakat!5e0!3m2!1sen!2sth!4v1773944166958!5m2!1sen!2sth",
-    },
-  };
+  const activeLocation = mapLocations[activePier as keyof typeof mapLocations];
 
   return (
     <section className="overflow-x-hidden bg-white py-24">
@@ -70,11 +60,11 @@ export default function MapSection() {
           <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
             <div>
               <h3 className="heading-serif text-navy font-serif text-2xl leading-tight md:text-3xl">
-                {mapData[activePier as keyof typeof mapData].name}
+                {activeLocation.name}
               </h3>
               <div className="mt-2 flex items-center gap-2 text-sm text-gray-500">
                 <Info className="text-gold h-4 w-4" />
-                {mapData[activePier as keyof typeof mapData].info}
+                {activeLocation.info}
               </div>
             </div>
             {activePier === "talat-phlu" && (
@@ -87,8 +77,8 @@ export default function MapSection() {
           {/* ตัวกรอบหุ้มแผนที่ */}
           <div className="bg-navy overflow-hidden rounded-lg p-3 shadow-xl md:p-4">
             <iframe
-              title={`${mapData[activePier as keyof typeof mapData].name} Map`}
-              src={mapData[activePier as keyof typeof mapData].url}
+              title={`${activeLocation.name} Map`}
+              src={activeLocation.embedUrl}
               width="100%"
               height="450"
               style={{ border: "none" }}

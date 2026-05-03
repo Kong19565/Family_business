@@ -1,19 +1,127 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Link from "next/link";
-import { Phone, ExternalLink } from "lucide-react";
+import Image from "next/image";
+import { Phone, ExternalLink, X } from "lucide-react";
 
 export default function Footer() {
+  const [activePopup, setActivePopup] = useState<string | null>(null);
+
   const contactLinks = {
-    whatsapp: "https://wa.me/66XXXXXXXXX",
-    line: "https://line.me/ti/p/~YOUR_ID",
-    wechat: "#",
-    phone: "tel:+66XXXXXXXXX",
+    whatsapp: {
+      url: "https://wa.me/66988289849",
+      qr: "/images/whatsapp_qr.jpg",
+      id: "+66 98 828 9849",
+    },
+    line: {
+      url: "https://line.me/ti/p/~YOUR_ID",
+      qr: "/images/line_qr.jpg",
+      id: "@YOURID",
+    },
+    wechat: {
+      qr: "/images/wechat_qr.jpg",
+      id: "YourID",
+    },
+    phone1: { label: "065-446-3694", href: "tel:0654463694" },
+    phone2: { label: "098-828-9849", href: "tel:0988289849" },
+  };
+
+  const renderPopup = () => {
+    if (!activePopup) return null;
+
+    let title = "";
+    let content: React.ReactNode = null;
+
+    if (activePopup === "phone") {
+      title = "Select a Number";
+      content = (
+        <div className="flex flex-col gap-4">
+          <a
+            href={contactLinks.phone1.href}
+            className="flex items-center justify-center gap-3 rounded-xl bg-white/5 py-4 text-lg font-bold tracking-widest text-white transition-all hover:bg-white hover:text-[#1a1917]"
+          >
+            <Phone className="h-5 w-5" />
+            {contactLinks.phone1.label}
+          </a>
+          <a
+            href={contactLinks.phone2.href}
+            className="flex items-center justify-center gap-3 rounded-xl bg-white/5 py-4 text-lg font-bold tracking-widest text-white transition-all hover:bg-white hover:text-[#1a1917]"
+          >
+            <Phone className="h-5 w-5" />
+            {contactLinks.phone2.label}
+          </a>
+        </div>
+      );
+    } else {
+      const type = activePopup as "line" | "whatsapp" | "wechat";
+      const config = contactLinks[type];
+      title = `${type.toUpperCase()} QR Code`;
+      content = (
+        <div className="flex flex-col items-center gap-6">
+          <div className="relative aspect-square w-64 overflow-hidden rounded-2xl bg-white">
+            <Image
+              src={config.qr}
+              alt={`${type} QR Code`}
+              fill
+              className={`object-cover ${
+                type === "whatsapp" ? "scale-[2] -translate-y-6" : "scale-150"
+              } ${type === "line" ? "translate-y-19" : ""} ${type === "wechat" ? "translate-y-2" : ""}`}
+            />
+          </div>
+          <div className="text-center">
+            <p className="mb-4 text-sm font-medium tracking-widest text-white/70">
+              ID: {config.id}
+            </p>
+            {"url" in config && (
+              <a
+                href={config.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-white/10 px-6 py-2 text-xs font-bold tracking-widest text-white transition-colors hover:bg-white hover:text-[#1a1917]"
+              >
+                Open in App <ExternalLink className="h-3 w-3" />
+              </a>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-4 backdrop-blur-sm">
+        <div className="relative w-full max-w-sm rounded-3xl bg-[#1a1917] p-8 shadow-2xl border border-white/10 animate-in fade-in zoom-in duration-300">
+          <button
+            onClick={() => setActivePopup(null)}
+            className="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors"
+          >
+            <X className="h-6 w-6" />
+          </button>
+
+          <div className="mb-8 text-center">
+            <span className="mb-2 block text-[10px] font-bold tracking-[0.3em] text-[#d4c3a3] uppercase">
+              Contact Us
+            </span>
+            <h3 className="font-serif text-2xl text-white">{title}</h3>
+          </div>
+
+          {content}
+
+          <button
+            onClick={() => setActivePopup(null)}
+            className="mt-8 w-full text-sm font-bold tracking-[0.2em] text-gray-500 uppercase hover:text-white transition-colors"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    );
   };
 
   return (
     <footer
       id="contact-section"
-      className="border-t border-white/5 bg-[#1a1917] px-6 py-24 text-white md:px-12 md:py-32"
+      className="relative border-t border-white/5 bg-[#1a1917] px-6 py-24 text-white md:px-12 md:py-32"
     >
       <div className="mx-auto max-w-7xl">
         {/* Header Section */}
@@ -33,10 +141,8 @@ export default function Footer() {
         {/* Contact Hub with Real Icons */}
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-4">
           {/* LINE Button */}
-          <a
-            href={contactLinks.line}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={() => setActivePopup("line")}
             className="group relative flex flex-col items-center justify-center rounded-2xl bg-[#06C755] p-10 shadow-xl transition-all duration-500 hover:-translate-y-2 hover:bg-[#05b34c]"
           >
             <div className="mb-4 text-white">
@@ -46,23 +152,21 @@ export default function Footer() {
                 viewBox="0 0 24 24"
                 fill="currentColor"
               >
-                <path d="M24 10.304c0-5.232-5.373-9.5-12-9.5s-12 4.268-12 9.5c0 4.691 4.268 8.616 10.022 9.352.39.084.92.257 1.054.59.12.3-.078.767-.114 1.068l-.168 1.012c-.05.305-.246 1.193 1.058.65 1.305-.544 7.03-4.14 9.59-7.086 1.748-2.012 2.558-3.905 2.558-5.638zm-15.688 3.522h-1.616c-.23 0-.416-.186-.416-.416v-4.148c0-.23.186-.416.416-.416s.416.186.416.416v3.732h1.2c.23 0 .416.186.416.416s-.186.416-.416.416zm2.348-.416c0 .23-.186.416-.416.416s-.416-.186-.416-.416v-4.148c0-.23.186-.416.416-.416s.416.186.416.416v4.148zm4.49 0c0 .12-.053.23-.146.305-.084.068-.19.108-.303.108-.033 0-.066-.004-.098-.013l-1.954-.53v.13c0 .23-.186.416-.416.416s-.416-.186-.416-.416v-4.148c0-.23.186-.416.416-.416s.416.186.416.416v2.545l1.644.444v-2.989c0-.23.186-.416.416-.416s.416.186.416.416v4.148zm3.256-1.258h-1.2v-1.127h1.2c.23 0 .416-.186.416-.416s-.186-.416-.416-.416h-1.616c-.23 0-.416.186-.416.416v4.148c0 .23.186.416.416.416h1.616c.23 0 .416-.186.416-.416s-.186-.416-.416-.416h-1.2v-1.127h1.2c.23 0 .416-.186.416-.416s-.186-.416-.416-.416z" />
+                <path d="M24 10.304c0-5.232-5.373-9.5-12-9.5s-12 4.268-12 9.5c0 4.691 4.268 8.616 10.022 9.352.39.084.92.257 1.054.59.12.3-.078.767-.114 1.068l-.168 1.012c-.05.305-.246 1.193 1.058.65 1.305-.544 7.03-4.14 9.59-7.086 1.748-2.012 2.558-3.905 2.558-5.638zm-15.688 3.522h-1.616c-.23 0-.416-.186-.416-.416v-4.148c0-.23.186-.416.416-.416s.416.186.416.416v3.732h1.2c.23 0 .416.186.416.416s-.186.416-.416.416zm2.348-.416c0 .23-.186.416-.416.416s-.186-.416-.416-.416v-4.148c0-.23.186-.416.416-.416s.416.186.416.416v4.148zm4.49 0c0 .12-.053.23-.146.305-.084.068-.19.108-.303.108-.033 0-.066-.004-.098-.013l-1.954-.53v.13c0 .23-.186.416-.416.416s-.186-.416-.416-.416v-4.148c0-.23.186-.416.416-.416s.416.186.416.416v2.545l1.644.444v-2.989c0-.23.186-.416.416-.416s.416.186.416.416v4.148zm3.256-1.258h-1.2v-1.127h1.2c.23 0 .416-.186.416-.416s-.186-.416-.416-.416h-1.616c-.23 0-.416.186-.416.416v4.148c0 .23.186.416.416.416h1.616c.23 0 .416-.186.416-.416s-.186-.416-.416-.416h-1.2v-1.127h1.2c.23 0 .416-.186.416-.416s-.186-.416-.416-.416z" />
               </svg>
             </div>
             <h3 className="mb-1 text-xs font-bold tracking-[0.3em] uppercase">
               LINE APP
             </h3>
             <p className="text-[10px] font-medium tracking-widest text-white/70">
-              @YOURID
+              Show QR Code
             </p>
             <ExternalLink className="absolute top-5 right-5 h-4 w-4 opacity-30 transition-opacity group-hover:opacity-100" />
-          </a>
+          </button>
 
           {/* WhatsApp Button */}
-          <a
-            href={contactLinks.whatsapp}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={() => setActivePopup("whatsapp")}
             className="group relative flex flex-col items-center justify-center rounded-2xl bg-[#25D366] p-10 shadow-xl transition-all duration-500 hover:-translate-y-2 hover:bg-[#20bd5a]"
           >
             <div className="mb-4 text-white">
@@ -79,13 +183,16 @@ export default function Footer() {
               WHATSAPP
             </h3>
             <p className="text-[10px] font-medium tracking-widest text-white/70">
-              Quick Message
+              Quick Connect
             </p>
             <ExternalLink className="absolute top-5 right-5 h-4 w-4 opacity-30 transition-opacity group-hover:opacity-100" />
-          </a>
+          </button>
 
           {/* WeChat Button */}
-          <div className="group relative flex cursor-pointer flex-col items-center justify-center rounded-2xl bg-[#07C160] p-10 shadow-xl transition-all duration-500 hover:-translate-y-2 hover:bg-[#06ad56]">
+          <button
+            onClick={() => setActivePopup("wechat")}
+            className="group relative flex flex-col items-center justify-center rounded-2xl bg-[#07C160] p-10 shadow-xl transition-all duration-500 hover:-translate-y-2 hover:bg-[#06ad56]"
+          >
             <div className="mb-4 text-white">
               <svg
                 width="40"
@@ -99,15 +206,16 @@ export default function Footer() {
             <h3 className="mb-1 text-xs font-bold tracking-[0.3em] uppercase">
               WECHAT
             </h3>
-            <p className="text-[10px] font-medium tracking-widest text-white/70 italic">
+            <p className="text-[10px] font-medium tracking-widest text-white/70">
               ID: YourID
             </p>
-          </div>
+            <ExternalLink className="absolute top-5 right-5 h-4 w-4 opacity-30 transition-opacity group-hover:opacity-100" />
+          </button>
 
           {/* Direct Call Button */}
-          <a
-            href={contactLinks.phone}
-            className="group relative flex flex-col items-center justify-center rounded-2xl bg-white p-10 shadow-xl transition-all duration-500 hover:-translate-y-2 hover:bg-gray-50"
+          <button
+            onClick={() => setActivePopup("phone")}
+            className="group relative flex flex-col items-center justify-center rounded-2xl bg-white p-10 shadow-xl transition-all duration-500 hover:-translate-y-2 hover:bg-gray-50 text-left"
           >
             <div className="mb-4 rounded-full bg-[#1a1917]/5 p-4 text-[#1a1917]">
               <Phone className="h-8 w-8" />
@@ -116,10 +224,13 @@ export default function Footer() {
               Call Directly
             </h3>
             <p className="text-[10px] font-bold tracking-widest text-gray-500 uppercase">
-              +66 XX XXX XXXX
+              Select Number
             </p>
-          </a>
+          </button>
         </div>
+
+        {/* Dynamic Popup */}
+        {renderPopup()}
 
         {/* Footer Bottom */}
         <div className="mt-32 flex flex-col items-center justify-between gap-12 border-t border-white/5 pt-16 text-center md:flex-row md:text-left">
@@ -158,4 +269,3 @@ export default function Footer() {
     </footer>
   );
 }
-

@@ -16,7 +16,6 @@ export default function Fleet() {
         className="mb-12 text-center md:mb-20"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
         <h2 className="heading-serif mb-4 text-3xl md:mb-6 md:text-5xl">Our Fleet</h2>
@@ -30,7 +29,6 @@ export default function Fleet() {
         variants={staggerContainer}
         initial="initial"
         whileInView="whileInView"
-        viewport={{ once: true }}
       >
         {displayFleet.map((boat, index) => (
           <motion.div 
@@ -43,6 +41,7 @@ export default function Fleet() {
                 src={boat.image}
                 alt={boat.name}
                 fill
+                sizes="(max-width: 1024px) 100vw, 33vw"
                 className="object-cover transition-transform duration-[1.5s] group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-navy/0 transition-colors duration-500 group-hover:bg-navy/10"></div>

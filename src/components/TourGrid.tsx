@@ -16,7 +16,6 @@ export default function TourGrid() {
         variants={staggerContainer}
         initial="initial"
         whileInView="whileInView"
-        viewport={{ once: true }}
       >
         {/* Header */}
         <motion.div className="mb-16 text-center md:mb-24" variants={fadeInUp}>
@@ -38,6 +37,7 @@ export default function TourGrid() {
                   src={tour.image}
                   alt={tour.title}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 200px, 256px"
                   className="object-cover transition-transform duration-1000 group-hover:scale-110"
                 />
               </div>
@@ -79,13 +79,16 @@ export default function TourGrid() {
         </div>
 
         {/* See More Button */}
-        <div className="animate-fade-in-up mt-20 text-center md:mt-32">
+        <motion.div 
+          variants={fadeInUp}
+          className="mt-20 text-center md:mt-32"
+        >
           <Link href="/destinations">
             <button className="border border-gold text-gold hover:bg-gold hover:text-white px-10 py-4 text-[10px] font-bold tracking-[0.3em] uppercase transition-all duration-500 rounded-sm active:scale-95">
               See More Destinations
             </button>
           </Link>
-        </div>
+        </motion.div>
       </motion.div>
     </section>
   );

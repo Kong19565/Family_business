@@ -16,16 +16,23 @@ export default function Navbar() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
+    handleScroll(); // Check immediately on mount
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const isHomePage = pathname === "/";
+  
+  // Logic for UI state
+  // Dark text if scrolled, not on home page, or mobile menu is open
+  const shouldShowDarkText = isScrolled || !isHomePage || mobileMenuOpen;
 
   return (
     <nav
-      className={`fixed top-0 z-[100] w-full transition-all duration-500 ${
-        isScrolled
+      className={`fixed top-0 z-[100] w-full ${mobileMenuOpen ? "transition-none" : "transition-all duration-500"} ${
+        mobileMenuOpen
+          ? "bg-white py-4 shadow-md"
+          : isScrolled
           ? "bg-white/90 py-3 shadow-md backdrop-blur-lg"
           : isHomePage
           ? "bg-transparent py-6"
@@ -38,9 +45,7 @@ export default function Navbar() {
           {!isHomePage ? (
             <button
               onClick={() => router.back()}
-              className={`group flex items-center gap-2 transition-all active:scale-95 ${
-                isScrolled ? "text-navy" : "text-navy"
-              }`}
+              className={`group flex items-center gap-2 transition-all active:scale-95 text-navy`}
             >
               <div className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-100 bg-white shadow-sm transition-all group-hover:bg-navy group-hover:text-white">
                 <ArrowLeft className="h-4 w-4" />
@@ -51,10 +56,10 @@ export default function Navbar() {
             </button>
           ) : (
             <Link href="/" className="group flex items-center gap-3">
-              <div className={`flex h-10 w-10 items-center justify-center rounded-full transition-all duration-500 ${isScrolled ? 'bg-navy text-white' : 'bg-white/20 backdrop-blur-sm text-white'}`}>
-                <Ship className={`h-5 w-5 transition-transform duration-500 group-hover:rotate-12 ${!isScrolled && isHomePage ? 'text-gold' : ''}`} />
+              <div className={`flex h-10 w-10 items-center justify-center rounded-full ${mobileMenuOpen ? "" : "transition-all duration-500"} ${shouldShowDarkText ? 'bg-navy text-white' : 'bg-white/20 backdrop-blur-sm text-white'}`}>
+                <Ship className={`h-5 w-5 transition-transform duration-500 group-hover:rotate-12 ${!shouldShowDarkText && isHomePage ? 'text-gold' : ''}`} />
               </div>
-              <span className={`text-sm font-bold tracking-tighter uppercase md:text-xl transition-colors duration-500 ${isScrolled ? 'text-navy' : 'text-white'}`}>
+              <span className={`text-sm font-bold tracking-tighter uppercase md:text-xl ${mobileMenuOpen ? "" : "transition-colors duration-500"} ${shouldShowDarkText ? 'text-navy' : 'text-white'}`}>
                 Chao Phraya <span className="text-gold italic font-serif lowercase">Trips</span>
               </span>
             </Link>
@@ -66,7 +71,7 @@ export default function Navbar() {
           <Link
             href="/fleet"
             className={`text-[10px] font-bold uppercase tracking-[0.2em] transition-all hover:text-gold ${
-              isScrolled || !isHomePage ? "text-navy" : "text-white"
+              shouldShowDarkText ? "text-navy" : "text-white"
             }`}
           >
             Fleet
@@ -74,7 +79,7 @@ export default function Navbar() {
           <Link
             href="/destinations"
             className={`text-[10px] font-bold uppercase tracking-[0.2em] transition-all hover:text-gold ${
-              isScrolled || !isHomePage ? "text-navy" : "text-white"
+              shouldShowDarkText ? "text-navy" : "text-white"
             }`}
           >
             Destinations
@@ -91,20 +96,20 @@ export default function Navbar() {
 
         {/* Mobile Menu Toggle */}
         <button 
-          className="md:hidden"
+          className="md:hidden relative z-[110]"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           {mobileMenuOpen ? (
-            <X className={`h-6 w-6 ${isScrolled || !isHomePage ? 'text-navy' : 'text-white'}`} />
+            <X className="h-6 w-6 text-navy" />
           ) : (
-            <Menu className={`h-6 w-6 ${isScrolled || !isHomePage ? 'text-navy' : 'text-white'}`} />
+            <Menu className={`h-6 w-6 ${shouldShowDarkText ? 'text-navy' : 'text-white'}`} />
           )}
         </button>
       </div>
 
       {/* Mobile Menu Overlay */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 top-[70px] z-[90] bg-white p-8 md:hidden animate-in fade-in slide-in-from-top-4 duration-300">
+        <div className="fixed inset-0 z-[90] bg-white p-8 pt-24 md:hidden animate-in slide-in-from-top-4 duration-200">
           <div className="flex flex-col gap-8 text-center">
             <Link 
               href="/fleet" 
@@ -129,7 +134,7 @@ export default function Navbar() {
             </Link>
             <div className="mt-8 border-t border-gray-100 pt-8">
                <p className="text-gold text-[10px] font-bold tracking-widest uppercase mb-4">Private & Exclusive</p>
-               <p className="text-gray-400 text-sm italic">"The Ultimate River Experience"</p>
+               <p className="text-gray-400 text-sm italic">&ldquo;The Ultimate River Experience&rdquo;</p>
             </div>
           </div>
         </div>

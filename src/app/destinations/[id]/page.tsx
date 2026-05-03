@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { allDestinations } from "@/constants/data";
 import Navbar from "@/components/Navbar";
-import { Clock, MapPin, CheckCircle, ArrowLeft } from "lucide-react";
+import { Clock, MapPin, CheckCircle } from "lucide-react";
 import Footer from '@/components/Footer';
 import MapSection from "@/components/MapSection";
 
@@ -41,6 +41,7 @@ export default async function TourDetailPage({ params }: PageProps) {
           src={tour.image}
           alt={tour.title}
           fill
+          sizes="100vw"
           className="scale-105 object-cover brightness-[0.8] transition-transform duration-[10s] hover:scale-100"
           priority
         />

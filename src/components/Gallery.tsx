@@ -64,7 +64,6 @@ export default function Gallery() {
         variants={staggerContainer}
         initial="initial"
         whileInView="whileInView"
-        viewport={{ once: true }}
       >
         {/* Title สำหรับ Gallery ให้ดูพรีเมียมขึ้น */}
         <motion.div className="mb-16 text-center" variants={fadeInUp}>
@@ -87,6 +86,7 @@ export default function Gallery() {
                       src={img.src}
                       alt={img.alt}
                       fill
+                      sizes="(max-width: 768px) 50vw, 25vw"
                       className="gallery-image"
                     />
                   </motion.div>

@@ -34,7 +34,6 @@ export default function Features() {
         variants={staggerContainer}
         initial="initial"
         whileInView="whileInView"
-        viewport={{ once: true }}
       >
         <div className="grid grid-cols-1 gap-16 md:grid-cols-3">
           {featureList.map((item, index) => (

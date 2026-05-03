@@ -193,7 +193,7 @@ export const fleet = [
   },
   {
     name: "Eco Electric Boat",
-    image: "/images/gallery_5.jpg",
+    image: "/images/Eco_Electric_Boat.jpg",
     capacity: "4-6 Seats",
     description:
       "A modern, silent, and eco-friendly electric vessel. Ideal for a peaceful and sustainable river experience without engine noise or emissions.",

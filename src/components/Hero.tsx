@@ -1,6 +1,9 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "motion/react";
 
 export default function Hero() {
   return (
@@ -11,7 +14,8 @@ export default function Hero() {
           src="/images/Home_pic.jpg"
           alt="Luxury River Experience"
           fill
-          className="animate-slow-zoom scale-105 object-cover brightness-[0.7] transition-transform duration-[10s]"
+          sizes="100vw"
+          className="scale-105 object-cover brightness-[0.7]"
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-navy/40"></div>
@@ -19,20 +23,37 @@ export default function Hero() {
 
       {/* Hero Content */}
       <div className="relative z-10 px-6 text-center text-white">
-        <span className="animate-fade-in-up tag-label inline-block text-white/80">
+        <motion.span 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="tag-label inline-block text-white/80"
+        >
           Private & Exclusive
-        </span>
-        <h1 className="animate-fade-in-up delay-100 mt-6 font-serif text-5xl leading-[1.1] md:text-7xl lg:text-8xl">
+        </motion.span>
+        
+        <motion.h1 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="mt-6 font-serif text-5xl leading-[1.1] md:text-7xl lg:text-8xl"
+        >
           The Ultimate <br />
           <span className="text-gold -mt-2 block italic md:-mt-4">
             River Experience
           </span>
-        </h1>
-        <div className="animate-fade-in-up delay-200 mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        </motion.h1>
+
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
+        >
           <Link href="/destinations" className="w-full sm:w-auto">
             <button className="btn-hero w-full sm:w-auto">Explore Routes</button>
           </Link>
-        </div>
+        </motion.div>
       </div>
 
       {/* Bottom Decoration */}

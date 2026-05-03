@@ -183,6 +183,18 @@ body {
   }
 }
 
+/* ป้องกันการบันทึกรูปภาพเบื้องต้น */
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
 @layer utilities {
   .animate-reveal {
     animation: reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -213,8 +225,4 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-html {
-  scroll-behavior: smooth;
 }
