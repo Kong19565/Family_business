@@ -1,11 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import Image from "next/image";
 import { Phone, ExternalLink, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function Footer() {
+  const t = useTranslations("Footer");
+  const navT = useTranslations("Navbar");
   const [activePopup, setActivePopup] = useState<string | null>(null);
 
   const contactLinks = {
@@ -34,7 +37,7 @@ export default function Footer() {
     let content: React.ReactNode = null;
 
     if (activePopup === "phone") {
-      title = "Select a Number";
+      title = t("selectNumber");
       content = (
         <div className="flex flex-col gap-4">
           <a
@@ -64,6 +67,7 @@ export default function Footer() {
               src={config.qr}
               alt={`${type} QR Code`}
               fill
+              sizes="256px"
               className={`object-cover ${
                 type === "whatsapp" ? "scale-[2] -translate-y-6" : "scale-150"
               } ${type === "line" ? "translate-y-19" : ""} ${type === "wechat" ? "translate-y-2" : ""}`}
@@ -80,7 +84,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full bg-white/10 px-6 py-2 text-xs font-bold tracking-widest text-white transition-colors hover:bg-white hover:text-[#1a1917]"
               >
-                Open in App <ExternalLink className="h-3 w-3" />
+                {t("openInApp")} <ExternalLink className="h-3 w-3" />
               </a>
             )}
           </div>
@@ -100,7 +104,7 @@ export default function Footer() {
 
           <div className="mb-8 text-center">
             <span className="mb-2 block text-[10px] font-bold tracking-[0.3em] text-[#d4c3a3] uppercase">
-              Contact Us
+              {t("contactUs")}
             </span>
             <h3 className="font-serif text-2xl text-white">{title}</h3>
           </div>
@@ -111,7 +115,7 @@ export default function Footer() {
             onClick={() => setActivePopup(null)}
             className="mt-8 w-full text-sm font-bold tracking-[0.2em] text-gray-500 uppercase hover:text-white transition-colors"
           >
-            Close
+            {t("close")}
           </button>
         </div>
       </div>
@@ -127,14 +131,13 @@ export default function Footer() {
         {/* Header Section */}
         <div className="mb-20 text-center">
           <span className="mb-4 block text-[10px] font-bold tracking-[0.3em] text-[#d4c3a3] uppercase">
-            Book Your Private Trip
+            {t("tag")}
           </span>
           <h2 className="mb-6 font-serif text-5xl tracking-tight text-white md:text-7xl">
-            Contact Our Concierge
+            {t("title")}
           </h2>
           <p className="mx-auto max-w-2xl text-base leading-relaxed font-light text-gray-400 italic md:text-lg">
-            Choose your preferred platform to start your journey with us. We are
-            available daily to assist your reservation.
+            {t("description")}
           </p>
         </div>
 
@@ -159,7 +162,7 @@ export default function Footer() {
               LINE APP
             </h3>
             <p className="text-[10px] font-medium tracking-widest text-white/70">
-              Show QR Code
+              {t("showQr")}
             </p>
             <ExternalLink className="absolute top-5 right-5 h-4 w-4 opacity-30 transition-opacity group-hover:opacity-100" />
           </button>
@@ -183,7 +186,7 @@ export default function Footer() {
               WHATSAPP
             </h3>
             <p className="text-[10px] font-medium tracking-widest text-white/70">
-              Quick Connect
+              {t("quickConnect")}
             </p>
             <ExternalLink className="absolute top-5 right-5 h-4 w-4 opacity-30 transition-opacity group-hover:opacity-100" />
           </button>
@@ -221,10 +224,10 @@ export default function Footer() {
               <Phone className="h-8 w-8" />
             </div>
             <h3 className="mb-1 text-xs font-bold tracking-[0.3em] text-[#1a1917] uppercase">
-              Call Directly
+              {t("callDirectly")}
             </h3>
             <p className="text-[10px] font-bold tracking-widest text-gray-500 uppercase">
-              Select Number
+              {t("selectNumberPrompt")}
             </p>
           </button>
         </div>
@@ -239,7 +242,7 @@ export default function Footer() {
               Chao Phraya Trips
             </h4>
             <p className="text-[10px] font-bold tracking-[0.4em] text-gray-600 uppercase">
-              Experience Bangkok&apos;s Heritage
+              {t("heritage")}
             </p>
           </div>
 
@@ -248,21 +251,21 @@ export default function Footer() {
               href="/destinations"
               className="transition-colors hover:text-white"
             >
-              Destinations
+              {navT("destinations")}
             </Link>
             <Link href="/fleet" className="transition-colors hover:text-white">
-              Our Fleet
+              {navT("fleet")}
             </Link>
             <Link
               href="/gallery"
               className="transition-colors hover:text-white"
             >
-              Gallery
+              {navT("gallery")}
             </Link>
           </div>
 
           <div className="text-[10px] font-medium tracking-[0.5em] text-gray-700 uppercase">
-            © 2026 PRIVATE BOATS. ALL RIGHTS RESERVED.
+            {t("rights")}
           </div>
         </div>
       </div>

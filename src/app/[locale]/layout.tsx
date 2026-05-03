@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google"; // 1. เพิ่ม Playfair_Display
+import { Inter, Playfair_Display } from "next/font/google";
+import "../globals.css";
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
+import { notFound } from 'next/navigation';
+import { routing } from '@/i18n/routing';
 import Script from "next/script";
-import "./globals.css";
 
-// ฟอนต์สำหรับตัวหนังสือทั่วไป
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
 });
 
-// 2. ฟอนต์สำหรับหัวข้อ (Serif)
 const playfair = Playfair_Display({
   variable: "--font-playfair",
   subsets: ["latin"],
@@ -20,15 +22,31 @@ export const metadata: Metadata = {
   description: "Private & Exclusive River Experience",
 };
 
-export default function RootLayout({
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
+export default async function RootLayout({
   children,
-}: Readonly<{
+  params
+}: {
   children: React.ReactNode;
-}>) {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+
+  // Ensure that the incoming `locale` is valid
+  if (!routing.locales.includes(locale as "en" | "th")) {
+    notFound();
+  }
+
+  // Providing all messages to the client
+  // side is the easiest way to get started
+  const messages = await getMessages();
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body
-        /* 3. ใส่ตัวแปรฟอนต์เข้าไปใน body */
         className={`${inter.variable} ${playfair.variable} antialiased`}
       >
         <Script
@@ -49,9 +67,10 @@ export default function RootLayout({
             `,
           }}
         />
-        {children}
+        <NextIntlClientProvider messages={messages}>
+          {children}
+        </NextIntlClientProvider>
       </body>
     </html>
   );
 }
-

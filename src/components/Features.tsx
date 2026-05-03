@@ -4,26 +4,26 @@ import React from "react";
 import { Anchor, MapPin, Compass } from "lucide-react";
 import { motion } from "motion/react";
 import { fadeInUp, staggerContainer } from "@/constants/animations";
+import { useTranslations } from "next-intl";
 
 export default function Features() {
+  const t = useTranslations("Features");
+
   const featureList = [
     {
       icon: <Anchor className="feature-icon" />,
-      title: "Luxury Fleet",
-      description:
-        "Private boats maintained to the highest standards with full amenities for your comfort.",
+      title: t("luxury.title"),
+      description: t("luxury.description"),
     },
     {
       icon: <MapPin className="feature-icon" />,
-      title: "Hidden Gems",
-      description:
-        "Navigate through narrow canals where large boats can't reach. Experience authentic local life.",
+      title: t("hidden.title"),
+      description: t("hidden.description"),
     },
     {
       icon: <Compass className="feature-icon" />,
-      title: "Bespoke Trips",
-      description:
-        "Tailor your journey's time and route to perfectly match your personal preferences.",
+      title: t("bespoke.title"),
+      description: t("bespoke.description"),
     },
   ];
 
@@ -54,4 +54,3 @@ export default function Features() {
     </section>
   );
 }
-
