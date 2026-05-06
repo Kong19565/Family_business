@@ -16,7 +16,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Chao Phraya Trips",
+  title: "Canal tour",
   description: "Private & Exclusive River Experience",
 };
 

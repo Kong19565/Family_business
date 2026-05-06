@@ -1,12 +1,12 @@
-# Chao Phraya Trips - Private & Exclusive River Experience
+# Canal tour - Private & Exclusive River Experience
 
-Welcome to **Chao Phraya Trips**, a premium web application designed for a luxury boat tour service in Bangkok. This project focuses on high-end aesthetics, smooth user experience, and secure architecture.
+Welcome to **Canal tour**, a premium web application designed for a luxury boat tour service in Bangkok. This project focuses on high-end aesthetics, smooth user experience, and secure architecture.
 
 ---
 
 ## 🇹🇭 บทสรุปสำหรับนักพัฒนา (Thai Summary)
 
-โปรเจกต์นี้คือเว็บไซต์บริการจองเรือนำเที่ยวแบบส่วนตัว (Private Boat Tour) เน้นความหรูหรา (Luxury) และใช้งานง่าย (User Experience)
+โปรเจกต์นี้คือเว็บไซต์บริการจองเรือนำเที่ยวแบบส่วนตัว (Private Canal Tour) เน้นความหรูหรา (Luxury) และใช้งานง่าย (User Experience)
 - **จุดเด่น**: มีระบบแอนิเมชันที่นุ่มนวล, รองรับหน้าจอมือถืออย่างสมบูรณ์ (Mobile Optimized), และมีการตั้งค่าความปลอดภัยเบื้องต้น (Security Hardened)
 - **เทคโนโลยี**: ใช้ Next.js 16 (Turbopack), Tailwind CSS 4, และ Framer Motion (Motion)
 
@@ -96,4 +96,4 @@ npm start
 ---
 
 ## 🛥️ License
-© 2026 Chao Phraya Trips - Private & Exclusive. All Rights Reserved.
+© 2026 Canal tour - Private & Exclusive. All Rights Reserved.

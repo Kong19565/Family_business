@@ -234,16 +234,16 @@ export default function Footer() {
 
         {/* Footer Bottom */}
         <div className="mt-32 flex flex-col items-center justify-between gap-12 border-t border-white/5 pt-16 text-center md:flex-row md:text-left">
-          <div>
+          <div className="md:flex-1">
             <h4 className="mb-2 font-serif text-3xl text-[#d4c3a3] italic underline decoration-[#d4c3a3]/10 underline-offset-8">
-              Chao Phraya Trips
+              Canal tour
             </h4>
             <p className="text-[10px] font-bold tracking-[0.4em] text-gray-600 uppercase">
               Experience Bangkok&apos;s Heritage
             </p>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-x-10 gap-y-4 text-[11px] font-bold tracking-[0.2em] text-gray-400 uppercase">
+          <div className="flex flex-wrap justify-center gap-x-10 gap-y-4 text-[11px] font-bold tracking-[0.2em] text-gray-400 uppercase md:flex-1">
             <Link
               href="/destinations"
               className="transition-colors hover:text-white"
@@ -253,15 +253,9 @@ export default function Footer() {
             <Link href="/fleet" className="transition-colors hover:text-white">
               Our Fleet
             </Link>
-            <Link
-              href="/gallery"
-              className="transition-colors hover:text-white"
-            >
-              Gallery
-            </Link>
           </div>
 
-          <div className="text-[10px] font-medium tracking-[0.5em] text-gray-700 uppercase">
+          <div className="text-[10px] font-medium tracking-[0.5em] text-gray-700 uppercase md:flex-1 md:text-right">
             © 2026 PRIVATE BOATS. ALL RIGHTS RESERVED.
           </div>
         </div>

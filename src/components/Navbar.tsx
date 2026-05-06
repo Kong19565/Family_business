@@ -60,7 +60,7 @@ export default function Navbar() {
                 <Ship className={`h-5 w-5 transition-transform duration-500 group-hover:rotate-12 ${!shouldShowDarkText && isHomePage ? 'text-gold' : ''}`} />
               </div>
               <span className={`text-sm font-bold tracking-tighter uppercase md:text-xl ${mobileMenuOpen ? "" : "transition-colors duration-500"} ${shouldShowDarkText ? 'text-navy' : 'text-white'}`}>
-                Chao Phraya <span className="text-gold italic font-serif lowercase">Trips</span>
+                Canal <span className="text-gold italic font-serif lowercase">tour</span>
               </span>
             </Link>
           )}
