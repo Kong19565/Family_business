@@ -34,7 +34,8 @@ Welcome to **Canal tour**, a premium web application designed for a luxury boat 
    - Custom `container-custom` logic for various screen sizes.
    - Specifically optimized for 375px screens (Standard mobile width).
 4. **Integrated Map Section**: Switching between different pier locations (Talat Phlu / BTS Wutthakat) with smooth indicators.
-5. **Contact Hub**: Pre-configured links for WhatsApp, LINE, and WeChat, ready for professional use.
+5. **Luxury Contact Hub**: A professionally re-themed footer featuring "Luxury Yacht Club" aesthetics (Navy & Gold), using custom SVG icons for LINE, WhatsApp, and WeChat.
+6. **Optimized QR Scanning**: Redesigned contact popups with scan-ready, framed QR codes and backdrop blur.
 
 ---
 
