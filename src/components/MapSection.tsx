@@ -3,8 +3,12 @@ import { useState } from "react";
 import { Car, Info } from "lucide-react";
 import { mapLocations } from "@/constants/data";
 
-export default function MapSection() {
-  // 1. ตั้งชื่อ state ให้เป็นมาตรฐานเดียวกับปุ่ม (activePier)
+interface MapSectionProps {
+  lang?: string;
+}
+
+export default function MapSection({ lang = 'en' }: MapSectionProps) {
+  const currentLang = lang as 'en' | 'th';
   const [activePier, setActivePier] = useState("talat-phlu");
 
   const activeLocation = mapLocations[activePier as keyof typeof mapLocations];
@@ -38,7 +42,7 @@ export default function MapSection() {
                 : "hover:text-navy text-gray-400"
             }`}
           >
-            Talat Phlu
+            {currentLang === 'en' ? 'Talat Phlu' : 'ตลาดพลู'}
           </button>
 
           {/* ปุ่มที่ 2 - ใช้ w-1/2 */}
@@ -51,7 +55,7 @@ export default function MapSection() {
                 : "hover:text-navy text-gray-400"
             }`}
           >
-            BTS Wutthakat
+            {currentLang === 'en' ? 'BTS Wutthakat' : 'วุฒากาศ'}
           </button>
         </div>
 
@@ -60,16 +64,16 @@ export default function MapSection() {
           <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
             <div>
               <h3 className="heading-serif text-navy font-serif text-2xl leading-tight md:text-3xl">
-                {activeLocation.name}
+                {activeLocation.name[currentLang]}
               </h3>
               <div className="mt-2 flex items-center gap-2 text-sm text-gray-500">
                 <Info className="text-gold h-4 w-4" />
-                {activeLocation.info}
+                {activeLocation.info[currentLang]}
               </div>
             </div>
             {activePier === "talat-phlu" && (
               <div className="bg-cream text-navy flex items-center gap-2 rounded-full px-4 py-2 text-[10px] font-bold tracking-widest uppercase shadow-sm">
-                <Car className="h-4 w-4" /> Parking Available
+                <Car className="h-4 w-4" /> {currentLang === 'en' ? 'Parking Available' : 'มีที่จอดรถ'}
               </div>
             )}
           </div>
@@ -77,7 +81,7 @@ export default function MapSection() {
           {/* ตัวกรอบหุ้มแผนที่ */}
           <div className="bg-navy overflow-hidden rounded-lg p-3 shadow-xl md:p-4">
             <iframe
-              title={`${activeLocation.name} Map`}
+              title={`${activeLocation.name[currentLang]} Map`}
               src={activeLocation.embedUrl}
               width="100%"
               height="450"
@@ -92,4 +96,3 @@ export default function MapSection() {
     </section>
   );
 }
-

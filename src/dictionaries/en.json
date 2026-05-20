@@ -1,0 +1,32 @@
+{
+  "common": {
+    "nav": {
+      "home": "Home",
+      "destinations": "Destinations",
+      "fleet": "Our Fleet",
+      "contact": "Contact"
+    },
+    "footer": {
+      "description": "Experience the charm of Bangkok's historic canals with our private & exclusive river experience.",
+      "quickLinks": "Quick Links",
+      "contactUs": "Contact Us",
+      "followUs": "Follow Us",
+      "rights": "All rights reserved."
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Experience Bangkok's Charm Through its Canals",
+      "subtitle": "Discover the hidden gems and local life along the historic Phasi Charoen canal.",
+      "cta": "Explore Tours"
+    },
+    "features": {
+      "title": "Why Choose Our Canal Tour?",
+      "items": [
+        { "title": "Private Experience", "desc": "Exclusive boat trips for you and your group." },
+        { "title": "Local Knowledge", "desc": "Experienced captains who know every corner." },
+        { "title": "Safety First", "desc": "Full insurance and safety equipment provided." }
+      ]
+    }
+  }
+}

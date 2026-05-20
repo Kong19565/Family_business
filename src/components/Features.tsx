@@ -5,22 +5,39 @@ import { Anchor, MapPin, Compass } from "lucide-react";
 import { motion } from "motion/react";
 import { fadeInUp, staggerContainer } from "@/constants/animations";
 
-export default function Features() {
-  const featureList = [
+interface FeaturesProps {
+  dict?: {
+    title: string;
+    items: { title: string; desc: string }[];
+  };
+}
+
+export default function Features({ dict }: FeaturesProps) {
+  const icons = [
+    <Anchor key="anchor" className="feature-icon" />,
+    <MapPin key="map" className="feature-icon" />,
+    <Compass key="compass" className="feature-icon" />,
+  ];
+
+  const featureList = dict?.items.map((item, index) => ({
+    icon: icons[index] || icons[0],
+    title: item.title,
+    description: item.desc,
+  })) || [
     {
-      icon: <Anchor className="feature-icon" />,
+      icon: icons[0],
       title: "Luxury Fleet",
       description:
         "Private boats maintained to the highest standards with full amenities for your comfort.",
     },
     {
-      icon: <MapPin className="feature-icon" />,
+      icon: icons[1],
       title: "Hidden Gems",
       description:
         "Navigate through narrow canals where large boats can't reach. Experience authentic local life.",
     },
     {
-      icon: <Compass className="feature-icon" />,
+      icon: icons[2],
       title: "Bespoke Trips",
       description:
         "Tailor your journey's time and route to perfectly match your personal preferences.",
@@ -54,4 +71,3 @@ export default function Features() {
     </section>
   );
 }
-

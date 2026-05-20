@@ -5,7 +5,19 @@ import Link from "next/link";
 import Image from "next/image";
 import { Phone, ExternalLink, X } from "lucide-react";
 
-export default function Footer() {
+interface FooterProps {
+  lang?: string;
+  dict?: {
+    description: string;
+    quickLinks: string;
+    contactUs: string;
+    followUs: string;
+    rights: string;
+  };
+}
+
+export default function Footer({ lang = 'en', dict }: FooterProps) {
+  const currentLang = lang as 'en' | 'th';
   const [activePopup, setActivePopup] = useState<string | null>(null);
 
   const contactLinks = {
@@ -34,7 +46,7 @@ export default function Footer() {
     let content: React.ReactNode = null;
 
     if (activePopup === "phone") {
-      title = "Contact Numbers";
+      title = currentLang === 'en' ? "Contact Numbers" : "เบอร์โทรศัพท์ติดต่อ";
       content = (
         <div className="flex flex-col gap-3">
           {[contactLinks.phone1, contactLinks.phone2].map((phone, idx) => (
@@ -57,7 +69,7 @@ export default function Footer() {
     } else {
       const type = activePopup as "line" | "whatsapp" | "wechat";
       const config = contactLinks[type];
-      title = `${type.toUpperCase()} Contact`;
+      title = `${type.toUpperCase()} ${currentLang === 'en' ? 'Contact' : 'การติดต่อ'}`;
       content = (
         <div className="flex flex-col items-center gap-8">
           <div className="relative aspect-square w-64 overflow-hidden rounded-2xl bg-white">
@@ -72,7 +84,7 @@ export default function Footer() {
           </div>
           <div className="text-center">
             <span className="mb-1 block text-[10px] font-bold tracking-[0.3em] text-gold uppercase">
-              {type === "line" ? "Phone Number" : "Account ID"}
+              {type === "line" ? (currentLang === 'en' ? "Phone Number" : "เบอร์โทรศัพท์") : (currentLang === 'en' ? "Account ID" : "ไอดีบัญชี")}
             </span>
             <p className="mb-6 text-xl font-serif text-white italic">
               {config.id}
@@ -84,7 +96,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 rounded-full bg-gold px-8 py-3 text-[10px] font-bold tracking-[0.2em] text-navy transition-all hover:bg-white hover:scale-105 active:scale-95 uppercase"
               >
-                Open Application <ExternalLink className="h-3 w-3" />
+                {currentLang === 'en' ? 'Open Application' : 'เปิดแอปพลิเคชัน'} <ExternalLink className="h-3 w-3" />
               </a>
             )}
           </div>
@@ -104,7 +116,7 @@ export default function Footer() {
 
           <div className="mb-10 text-center">
             <span className="mb-3 block text-[10px] font-bold tracking-[0.4em] text-gold uppercase">
-              Concierge Service
+              {currentLang === 'en' ? 'Concierge Service' : 'บริการผู้ช่วยส่วนตัว'}
             </span>
             <h3 className="font-serif text-3xl text-white italic underline decoration-gold/20 underline-offset-8 decoration-1">
               {title}
@@ -117,7 +129,7 @@ export default function Footer() {
             onClick={() => setActivePopup(null)}
             className="mt-10 w-full text-[10px] font-bold tracking-[0.3em] text-gray-500 uppercase hover:text-white transition-colors"
           >
-            Close Window
+            {currentLang === 'en' ? 'Close Window' : 'ปิดหน้าต่าง'}
           </button>
         </div>
       </div>
@@ -133,14 +145,13 @@ export default function Footer() {
         {/* Header Section */}
         <div className="mb-24 text-center">
           <span className="footer-tag">
-            Private & Personalized
+            {currentLang === 'en' ? 'Private & Personalized' : 'ส่วนตัว & เป็นกันเอง'}
           </span>
           <h2 className="mb-8 font-serif text-5xl tracking-tight text-white md:text-7xl lg:text-8xl italic">
-            Connect <span className="text-gold not-italic">With Us</span>
+            {currentLang === 'en' ? 'Connect' : 'ติดต่อ'} <span className="text-gold not-italic">{currentLang === 'en' ? 'With Us' : 'เรา'}</span>
           </h2>
           <p className="mx-auto max-w-2xl text-base leading-relaxed font-light text-gray-400 italic md:text-lg">
-            Experience the finest canal tours with our dedicated concierge. 
-            Choose your preferred platform to start your journey.
+            {dict?.description || "Experience the finest canal tours with our dedicated concierge. Choose your preferred platform to start your journey."}
           </p>
         </div>
 
@@ -163,7 +174,7 @@ export default function Footer() {
               LINE APP
             </h3>
             <p className="text-[10px] font-medium tracking-widest text-gray-400 uppercase">
-              Official Contact
+              {currentLang === 'en' ? 'Official Contact' : 'ติดต่ออย่างเป็นทางการ'}
             </p>
             <div className="absolute inset-0 border-2 border-gold/0 rounded-3xl transition-all duration-500 group-hover:border-gold/20"></div>
           </button>
@@ -185,7 +196,7 @@ export default function Footer() {
               WHATSAPP
             </h3>
             <p className="text-[10px] font-medium tracking-widest text-gray-400 uppercase">
-              Quick Inquiry
+              {currentLang === 'en' ? 'Quick Inquiry' : 'สอบถามเร่งด่วน'}
             </p>
             <div className="absolute inset-0 border-2 border-gold/0 rounded-3xl transition-all duration-500 group-hover:border-gold/20"></div>
           </button>
@@ -207,7 +218,7 @@ export default function Footer() {
               WECHAT
             </h3>
             <p className="text-[10px] font-medium tracking-widest text-gray-400 uppercase">
-              Global Support
+              {currentLang === 'en' ? 'Global Support' : 'บริการรองรับทั่วโลก'}
             </p>
             <div className="absolute inset-0 border-2 border-gold/0 rounded-3xl transition-all duration-500 group-hover:border-gold/20"></div>
           </button>
@@ -221,10 +232,10 @@ export default function Footer() {
               <Phone className="h-6 w-6" />
             </div>
             <h3 className="mb-2 text-[10px] font-bold tracking-[0.3em] text-navy uppercase">
-              DIRECT CALL
+              {currentLang === 'en' ? 'DIRECT CALL' : 'โทรติดต่อโดยตรง'}
             </h3>
             <p className="text-[10px] font-bold tracking-widest text-navy/60 uppercase">
-              Select Number
+              {currentLang === 'en' ? 'Select Number' : 'เลือกเบอร์โทรศัพท์'}
             </p>
           </button>
         </div>
@@ -239,24 +250,24 @@ export default function Footer() {
               Canal tour
             </h4>
             <p className="text-[10px] font-bold tracking-[0.4em] text-gray-500 uppercase">
-              Bangkok&apos;s Private Heritage
+              {currentLang === 'en' ? "Bangkok's Private Heritage" : "มรดกทางวัฒนธรรมส่วนตัวแห่งกรุงเทพฯ"}
             </p>
           </div>
 
           <div className="flex flex-wrap justify-center gap-x-12 gap-y-4 text-[11px] font-bold tracking-[0.2em] text-gray-400 uppercase md:flex-1">
             <Link
-              href="/destinations"
+              href={`/${lang}/destinations`}
               className="transition-colors hover:text-gold"
             >
-              Routes
+              {currentLang === 'en' ? 'Routes' : 'เส้นทาง'}
             </Link>
-            <Link href="/fleet" className="transition-colors hover:text-gold">
-              Fleet
+            <Link href={`/${lang}/fleet`} className="transition-colors hover:text-gold">
+              {currentLang === 'en' ? 'Fleet' : 'เรือของเรา'}
             </Link>
           </div>
 
           <div className="text-[10px] font-medium tracking-[0.5em] text-gray-700 uppercase md:flex-1 md:text-right">
-            © 2026 LUXURY CANALS. ESTABLISHED HERITAGE.
+            {dict?.rights || (currentLang === 'en' ? "© 2026 LUXURY CANALS. ALL RIGHTS RESERVED." : "© 2026 LUXURY CANALS. สงวนลิขสิทธิ์ทั้งหมด")}
           </div>
         </div>
       </div>

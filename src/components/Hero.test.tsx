@@ -13,7 +13,7 @@ describe('Hero Component', () => {
   it('renders the explore button with correct link', () => {
     render(<Hero />)
     const link = screen.getByRole('link', { name: /Explore Routes/i })
-    expect(link).toHaveAttribute('href', '/destinations')
+    expect(link).toHaveAttribute('href', '/en/destinations')
   })
 
   it('renders the brand tag', () => {

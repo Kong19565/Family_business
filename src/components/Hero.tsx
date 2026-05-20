@@ -5,7 +5,22 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 
-export default function Hero() {
+interface HeroProps {
+  lang?: string;
+  dict?: {
+    title: string;
+    subtitle: string;
+    cta: string;
+  };
+}
+
+export default function Hero({ lang = 'en', dict }: HeroProps) {
+  const content = dict || {
+    title: "The Ultimate River Experience",
+    subtitle: "Private & Exclusive",
+    cta: "Explore Routes"
+  };
+
   return (
     <section className="bg-navy relative flex h-[90vh] min-h-[600px] items-center justify-center overflow-hidden md:h-screen">
       {/* Background Image with Overlay */}
@@ -29,7 +44,7 @@ export default function Hero() {
           transition={{ duration: 0.8 }}
           className="tag-label inline-block text-white/80"
         >
-          Private & Exclusive
+          {content.subtitle}
         </motion.span>
         
         <motion.h1 
@@ -38,9 +53,9 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="mt-6 font-serif text-5xl leading-[1.1] md:text-7xl lg:text-8xl"
         >
-          The Ultimate <br />
+          {content.title.split(' ').slice(0, -2).join(' ')} <br />
           <span className="text-gold -mt-2 block italic md:-mt-4">
-            River Experience
+            {content.title.split(' ').slice(-2).join(' ')}
           </span>
         </motion.h1>
 
@@ -50,8 +65,8 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
         >
-          <Link href="/destinations" className="w-full sm:w-auto">
-            <button className="btn-hero w-full sm:w-auto">Explore Routes</button>
+          <Link href={`/${lang}/destinations`} className="w-full sm:w-auto">
+            <button className="btn-hero w-full sm:w-auto">{content.cta}</button>
           </Link>
         </motion.div>
       </div>

@@ -4,11 +4,20 @@ import Link from "next/link";
 import { allDestinations } from "@/constants/data";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { getDictionary } from "@/dictionaries/dictionaries";
 
-export default function DestinationsPage() {
+export default async function DestinationsPage({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
+  const { lang } = await params;
+  const currentLang = lang as 'en' | 'th';
+  const dict = await getDictionary(currentLang);
+
   return (
     <main className="bg-cream min-h-screen">
-      <Navbar />
+      <Navbar lang={lang} dict={dict.common.nav} />
 
       {/* Header Section - Modern Hero Style */}
       <section className="bg-navy relative flex h-[40vh] min-h-[300px] items-center justify-center overflow-hidden">
@@ -21,8 +30,12 @@ export default function DestinationsPage() {
           />
         </div>
         <div className="container-custom relative z-10 text-center">
-          <span className="tag-label text-white/70">Exclusive Routes</span>
-          <h1 className="heading-serif mb-4 text-5xl text-white md:text-7xl">Destinations</h1>
+          <span className="tag-label text-white/70">
+            {currentLang === 'en' ? 'Exclusive Routes' : 'เส้นทางพิเศษ'}
+          </span>
+          <h1 className="heading-serif mb-4 text-5xl text-white md:text-7xl">
+            {currentLang === 'en' ? 'Destinations' : 'จุดหมายปลายทาง'}
+          </h1>
           <div className="bg-gold mx-auto h-0.5 w-16 opacity-50"></div>
         </div>
       </section>
@@ -30,9 +43,13 @@ export default function DestinationsPage() {
       {/* Destinations List */}
       <section className="container-custom py-24 md:py-32">
         <div className="mb-16">
-           <h2 className="heading-serif text-navy text-3xl md:text-4xl">Curated Journeys</h2>
+           <h2 className="heading-serif text-navy text-3xl md:text-4xl">
+             {currentLang === 'en' ? 'Curated Journeys' : 'การเดินทางที่คัดสรรมาเพื่อคุณ'}
+           </h2>
            <p className="mt-4 max-w-2xl text-sm font-light italic text-gray-500">
-             Explore the hidden gems and iconic landmarks along the Bangkok canals and Chao Phraya river.
+             {currentLang === 'en' 
+               ? 'Explore the hidden gems and iconic landmarks along the Bangkok canals and Chao Phraya river.'
+               : 'สำรวจอัญมณีที่ซ่อนอยู่และจุดหมายสำคัญทางประวัติศาสตร์ริมคลองกรุงเทพฯ และแม่น้ำเจ้าพระยา'}
            </p>
         </div>
         <div className="space-y-24 md:space-y-40">
@@ -47,7 +64,7 @@ export default function DestinationsPage() {
               <div className="relative aspect-[4/3] w-full overflow-hidden rounded-sm shadow-2xl lg:w-3/5">
                 <Image
                   src={dest.image}
-                  alt={dest.title}
+                  alt={dest.title[currentLang]}
                   fill
                   className="object-cover transition-transform duration-1000 group-hover:scale-105"
                 />
@@ -57,22 +74,22 @@ export default function DestinationsPage() {
               <div className="flex w-full flex-col justify-center lg:w-2/5">
                 <span className="tag-label">{dest.tags}</span>
 
-                <h2 className="heading-serif text-navy mb-6 text-3xl md:text-5xl">{dest.title}</h2>
+                <h2 className="heading-serif text-navy mb-6 text-3xl md:text-5xl">{dest.title[currentLang]}</h2>
 
                 <p className="heading-serif text-navy mb-6 text-2xl font-bold">
                   {dest.price}{" "}
                   <span className="font-sans text-[10px] font-normal tracking-widest text-gray-400 uppercase">
-                    / private trip
+                    {currentLang === 'en' ? '/ private trip' : '/ ทริปส่วนตัว'}
                   </span>
                 </p>
 
                 <p className="mb-10 text-base leading-relaxed font-light text-gray-500 italic">
-                  {dest.description}
+                  {dest.description[currentLang]}
                 </p>
 
-                <Link href={`/destinations/${dest.id}`}>
+                <Link href={`/${lang}/destinations/${dest.id}`}>
                   <button className="btn-gold self-start border-navy text-navy hover:bg-navy hover:text-white">
-                    Explore Details
+                    {currentLang === 'en' ? 'Explore Details' : 'ดูรายละเอียด'}
                   </button>
                 </Link>
               </div>
@@ -80,9 +97,7 @@ export default function DestinationsPage() {
           ))}
         </div>
       </section>
-      <Footer />
+      <Footer lang={lang} dict={dict.common.footer} />
     </main>
   );
 }
-
-

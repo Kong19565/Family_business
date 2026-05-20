@@ -4,11 +4,20 @@ import Link from "next/link";
 import { fleet } from "@/constants/data";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { getDictionary } from "@/dictionaries/dictionaries";
 
-export default function FleetPage() {
+export default async function FleetPage({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
+  const { lang } = await params;
+  const currentLang = lang as 'en' | 'th';
+  const dict = await getDictionary(currentLang);
+
   return (
     <main className="bg-cream min-h-screen">
-      <Navbar />
+      <Navbar lang={lang} dict={dict.common.nav} />
 
       {/* Header Section */}
       <section className="bg-navy relative flex h-[40vh] min-h-[300px] items-center justify-center overflow-hidden">
@@ -21,8 +30,12 @@ export default function FleetPage() {
           />
         </div>
         <div className="container-custom relative z-10 text-center">
-          <span className="tag-label text-white/70">Exclusive Collection</span>
-          <h1 className="heading-serif mb-4 text-5xl text-white md:text-7xl">Our Fleet</h1>
+          <span className="tag-label text-white/70">
+            {currentLang === 'en' ? 'Exclusive Collection' : 'คอลเลกชันพิเศษ'}
+          </span>
+          <h1 className="heading-serif mb-4 text-5xl text-white md:text-7xl">
+            {currentLang === 'en' ? 'Our Fleet' : 'เรือของเรา'}
+          </h1>
           <div className="bg-gold mx-auto h-0.5 w-16 opacity-50"></div>
         </div>
       </section>
@@ -31,10 +44,13 @@ export default function FleetPage() {
         <div className="container-custom">
           {/* Intro */}
           <div className="mb-24">
-            <h2 className="heading-serif text-navy text-3xl md:text-4xl">Timeless Vessels</h2>
+            <h2 className="heading-serif text-navy text-3xl md:text-4xl">
+              {currentLang === 'en' ? 'Timeless Vessels' : 'เรือที่เหนือกาลเวลา'}
+            </h2>
             <p className="mt-4 max-w-2xl text-sm font-light italic text-gray-500">
-              From intimate sunset cruises to large family gatherings, choose
-              the perfect vessel for your Chao Phraya river journey.
+              {currentLang === 'en' 
+                ? 'From intimate sunset cruises to large family gatherings, choose the perfect vessel for your Chao Phraya river journey.'
+                : 'ตั้งแต่การล่องเรือชมพระอาทิตย์ตกแบบส่วนตัวไปจนถึงการรวมตัวของครอบครัวใหญ่ เลือกเรือที่สมบูรณ์แบบสำหรับการเดินทางในแม่น้ำเจ้าพระยาของคุณ'}
             </p>
           </div>
 
@@ -46,7 +62,7 @@ export default function FleetPage() {
                 <div className="relative aspect-[16/10] overflow-hidden">
                   <Image
                     src={boat.image}
-                    alt={boat.name}
+                    alt={boat.name[currentLang]}
                     fill
                     className="object-cover transition-transform duration-[1.5s] group-hover:scale-110"
                   />
@@ -58,30 +74,32 @@ export default function FleetPage() {
                   <div className="mb-6 flex items-center justify-between border-b border-gray-50 pb-6">
                     <div>
                       <span className="text-gold mb-1 block text-[10px] font-bold tracking-[0.3em] uppercase">
-                        Private Vessel
+                        {currentLang === 'en' ? 'Private Vessel' : 'เรือส่วนตัว'}
                       </span>
                       <h3 className="heading-serif text-3xl text-navy lg:text-4xl">
-                        {boat.name}
+                        {boat.name[currentLang]}
                       </h3>
                     </div>
                     <div className="text-right">
                       <span className="text-navy text-[11px] font-bold tracking-widest uppercase">
-                        Capacity
+                        {currentLang === 'en' ? 'Capacity' : 'ความจุ'}
                       </span>
-                      <p className="text-gold font-serif text-xl">{boat.capacity}</p>
+                      <p className="text-gold font-serif text-xl">{boat.capacity[currentLang]}</p>
                     </div>
                   </div>
                   
                   <p className="mb-10 text-base leading-relaxed">
-                    {boat.description}
+                    {boat.description[currentLang]}
                   </p>
 
                   {/* ปุ่มสอบถาม */}
                   <Link
-                    href="/#contact-section"
+                    href={`/${lang}/#contact-section`}
                     className="group/link inline-flex items-center gap-6 self-start"
                   >
-                    <span className="text-[11px] font-bold tracking-[0.3em] text-navy uppercase">Book This Vessel</span>
+                    <span className="text-[11px] font-bold tracking-[0.3em] text-navy uppercase">
+                      {currentLang === 'en' ? 'Book This Vessel' : 'จองเรือลำนี้'}
+                    </span>
                     <div className="h-[1px] w-12 bg-gold transition-all duration-300 group-hover/link:w-20"></div>
                   </Link>
                 </div>
@@ -90,9 +108,7 @@ export default function FleetPage() {
           </div>
         </div>
       </section>
-      <Footer />
+      <Footer lang={lang} dict={dict.common.footer} />
     </main>
   );
 }
-
-

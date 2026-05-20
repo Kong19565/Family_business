@@ -2,10 +2,20 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { ArrowLeft, Ship, Menu, X } from "lucide-react";
+import { ArrowLeft, Ship, Menu, X, Globe } from "lucide-react";
 import Link from "next/link";
 
-export default function Navbar() {
+interface NavbarProps {
+  lang?: string;
+  dict?: {
+    home: string;
+    destinations: string;
+    fleet: string;
+    contact: string;
+  };
+}
+
+export default function Navbar({ lang = 'en', dict }: NavbarProps) {
   const router = useRouter();
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -21,11 +31,23 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const isHomePage = pathname === "/";
+  const isHomePage = pathname === `/${lang}` || pathname === `/${lang}/`;
   
   // Logic for UI state
-  // Dark text if scrolled, not on home page, or mobile menu is open
   const shouldShowDarkText = isScrolled || !isHomePage || mobileMenuOpen;
+
+  const toggleLanguage = () => {
+    const newLang = lang === 'en' ? 'th' : 'en';
+    const newPathname = pathname.replace(`/${lang}`, `/${newLang}`);
+    router.push(newPathname);
+  };
+
+  const navLabels = dict || {
+    home: "Home",
+    destinations: "Destinations",
+    fleet: "Fleet",
+    contact: "Book Now"
+  };
 
   return (
     <nav
@@ -51,11 +73,11 @@ export default function Navbar() {
                 <ArrowLeft className="h-4 w-4" />
               </div>
               <span className="text-[10px] font-bold uppercase tracking-widest hidden lg:block">
-                Back
+                {lang === 'en' ? 'Back' : 'กลับ'}
               </span>
             </button>
           ) : (
-            <Link href="/" className="group flex items-center gap-3">
+            <Link href={`/${lang}`} className="group flex items-center gap-3">
               <div className={`flex h-10 w-10 items-center justify-center rounded-full ${mobileMenuOpen ? "" : "transition-all duration-500"} ${shouldShowDarkText ? 'bg-navy text-white' : 'bg-white/20 backdrop-blur-sm text-white'}`}>
                 <Ship className={`h-5 w-5 transition-transform duration-500 group-hover:rotate-12 ${!shouldShowDarkText && isHomePage ? 'text-gold' : ''}`} />
               </div>
@@ -67,44 +89,65 @@ export default function Navbar() {
         </div>
 
         {/* 2. Center/Right: Nav Links */}
-        <div className="hidden items-center gap-10 md:flex">
+        <div className="hidden items-center gap-6 md:flex lg:gap-10">
           <Link
-            href="/fleet"
+            href={`/${lang}/fleet`}
             className={`text-[10px] font-bold uppercase tracking-[0.2em] transition-all hover:text-gold ${
               shouldShowDarkText ? "text-navy" : "text-white"
             }`}
           >
-            Fleet
+            {navLabels.fleet}
           </Link>
           <Link
-            href="/destinations"
+            href={`/${lang}/destinations`}
             className={`text-[10px] font-bold uppercase tracking-[0.2em] transition-all hover:text-gold ${
               shouldShowDarkText ? "text-navy" : "text-white"
             }`}
           >
-            Destinations
+            {navLabels.destinations}
           </Link>
+          
+          {/* Language Switcher */}
+          <button
+            onClick={toggleLanguage}
+            className={`flex items-center gap-1 text-[10px] font-bold uppercase tracking-[0.2em] transition-all hover:text-gold ${
+              shouldShowDarkText ? "text-navy" : "text-white"
+            }`}
+          >
+            <Globe className="h-3 w-3" />
+            {lang === 'en' ? 'TH' : 'EN'}
+          </button>
+
           <Link
-            href="/#contact-section"
+            href={`/${lang}/#contact-section`}
             className={`bg-gold px-8 py-3 text-[10px] font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-navy hover:scale-105 active:scale-95 rounded-full shadow-sm ${
                !isScrolled && isHomePage ? "bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white hover:text-navy" : ""
             }`}
           >
-            Book Now
+            {navLabels.contact}
           </Link>
         </div>
 
         {/* Mobile Menu Toggle */}
-        <button 
-          className="md:hidden relative z-[110]"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          {mobileMenuOpen ? (
-            <X className="h-6 w-6 text-navy" />
-          ) : (
-            <Menu className={`h-6 w-6 ${shouldShowDarkText ? 'text-navy' : 'text-white'}`} />
-          )}
-        </button>
+        <div className="flex items-center gap-4 md:hidden">
+          <button
+            onClick={toggleLanguage}
+            className={`flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest ${shouldShowDarkText ? 'text-navy' : 'text-white'}`}
+          >
+            <Globe className="h-4 w-4" />
+            {lang === 'en' ? 'TH' : 'EN'}
+          </button>
+          <button 
+            className="relative z-[110]"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? (
+              <X className="h-6 w-6 text-navy" />
+            ) : (
+              <Menu className={`h-6 w-6 ${shouldShowDarkText ? 'text-navy' : 'text-white'}`} />
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu Overlay */}
@@ -112,25 +155,25 @@ export default function Navbar() {
         <div className="fixed inset-0 z-[90] bg-white p-8 pt-24 md:hidden animate-in slide-in-from-top-4 duration-200">
           <div className="flex flex-col gap-8 text-center">
             <Link 
-              href="/fleet" 
+              href={`/${lang}/fleet`} 
               onClick={() => setMobileMenuOpen(false)}
               className="text-navy font-serif text-3xl"
             >
-              Our Fleet
+              {navLabels.fleet}
             </Link>
             <Link 
-              href="/destinations" 
+              href={`/${lang}/destinations`} 
               onClick={() => setMobileMenuOpen(false)}
               className="text-navy font-serif text-3xl"
             >
-              Destinations
+              {navLabels.destinations}
             </Link>
             <Link 
-              href="/#contact-section" 
+              href={`/${lang}/#contact-section`} 
               onClick={() => setMobileMenuOpen(false)}
               className="text-navy font-serif text-3xl"
             >
-              Contact Us
+              {navLabels.contact}
             </Link>
             <div className="mt-8 border-t border-gray-100 pt-8">
                <p className="text-gold text-[10px] font-bold tracking-widest uppercase mb-4">Private & Exclusive</p>

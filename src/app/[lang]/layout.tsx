@@ -6,7 +6,7 @@ import "./globals.css";
 // ฟอนต์สำหรับตัวหนังสือทั่วไป
 const inter = Inter({
   variable: "--font-inter",
-  subsets: ["latin"],
+  subsets: ["latin", "thai"],
 });
 
 // 2. ฟอนต์สำหรับหัวข้อ (Serif)
@@ -20,13 +20,17 @@ export const metadata: Metadata = {
   description: "Private & Exclusive River Experience",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
-}: Readonly<{
+  params,
+}: {
   children: React.ReactNode;
-}>) {
+  params: Promise<{ lang: string }>;
+}) {
+  const { lang } = await params;
+
   return (
-    <html lang="en">
+    <html lang={lang}>
       <body
         /* 3. ใส่ตัวแปรฟอนต์เข้าไปใน body */
         className={`${inter.variable} ${playfair.variable} antialiased`}

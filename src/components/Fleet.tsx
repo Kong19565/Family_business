@@ -6,7 +6,12 @@ import { fleet } from "@/constants/data";
 import { motion } from "motion/react";
 import { fadeInUp, staggerContainer } from "@/constants/animations";
 
-export default function Fleet() {
+interface FleetProps {
+  lang?: string;
+}
+
+export default function Fleet({ lang = 'en' }: FleetProps) {
+  const currentLang = lang as 'en' | 'th';
   // เลือกแสดงผล 3 ลำแรกในหน้า Home (รวมเรือไฟฟ้า)
   const displayFleet = fleet.slice(0, 3);
 
@@ -18,9 +23,11 @@ export default function Fleet() {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <h2 className="heading-serif mb-4 text-3xl md:mb-6 md:text-5xl">Our Fleet</h2>
+        <h2 className="heading-serif mb-4 text-3xl md:mb-6 md:text-5xl">
+          {currentLang === 'en' ? 'Our Fleet' : 'เรือของเรา'}
+        </h2>
         <p className="mx-auto max-w-xl px-4 text-xs text-gray-500 italic md:text-sm">
-          &ldquo;Traditional craftsmanship meets modern comfort&rdquo;
+          &ldquo;{currentLang === 'en' ? 'Traditional craftsmanship meets modern comfort' : 'งานฝีมือดั้งเดิม ผสานความสะดวกสบายสมัยใหม่'}&rdquo;
         </p>
       </motion.div>
 
@@ -39,7 +46,7 @@ export default function Fleet() {
             <div className="relative aspect-[16/10] overflow-hidden">
               <Image
                 src={boat.image}
-                alt={boat.name}
+                alt={boat.name[currentLang]}
                 fill
                 sizes="(max-width: 1024px) 100vw, 33vw"
                 className="object-cover transition-transform duration-[1.5s] group-hover:scale-110"
@@ -50,19 +57,21 @@ export default function Fleet() {
             <div className="fleet-card-content">
               <div className="mb-6">
                 <span className="text-gold mb-2 block text-[10px] font-bold tracking-[0.3em] uppercase">
-                  {boat.capacity}
+                  {boat.capacity[currentLang]}
                 </span>
                 <h3 className="heading-serif text-2xl tracking-tighter text-navy md:text-3xl">
-                  {boat.name}
+                  {boat.name[currentLang]}
                 </h3>
               </div>
               
               <p className="mb-8 flex-grow">
-                {boat.description}
+                {boat.description[currentLang]}
               </p>
               
-              <Link href="/fleet" className="group/link flex items-center gap-4 self-start">
-                <span className="text-[10px] font-bold tracking-[0.2em] text-navy uppercase">View Details</span>
+              <Link href={`/${lang}/fleet`} className="group/link flex items-center gap-4 self-start">
+                <span className="text-[10px] font-bold tracking-[0.2em] text-navy uppercase">
+                  {currentLang === 'en' ? 'View Details' : 'ดูรายละเอียด'}
+                </span>
                 <div className="h-[1px] w-8 bg-gold transition-all duration-300 group-hover/link:w-12"></div>
               </Link>
             </div>
@@ -71,9 +80,9 @@ export default function Fleet() {
       </motion.div>
 
       <div className="mt-20 text-center">
-        <Link href="/fleet">
+        <Link href={`/${lang}/fleet`}>
           <button type="button" className="btn-gold">
-            See More Fleet
+            {currentLang === 'en' ? 'See More Fleet' : 'ดูเรือลำอื่นเพิ่มเติม'}
           </button>
         </Link>
       </div>
