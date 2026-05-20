@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google"; // 1. เพิ่ม Playfair_Display
 import Script from "next/script";
-import "./globals.css";
+import "../globals.css";
 
 // ฟอนต์สำหรับตัวหนังสือทั่วไป
 const inter = Inter({
