@@ -5,7 +5,16 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import { fadeInUp, staggerContainer } from "@/constants/animations";
 
-export default function Gallery() {
+interface GalleryProps {
+  dict?: {
+    title: string;
+  };
+}
+
+export default function Gallery({ dict }: GalleryProps) {
+  const galleryLabels = dict || {
+    title: "Life on the Water",
+  };
   const images = [
     {
       src: "/images/gallery_1.jpg",
@@ -67,7 +76,7 @@ export default function Gallery() {
       >
         {/* Title สำหรับ Gallery ให้ดูพรีเมียมขึ้น */}
         <motion.div className="mb-16 text-center" variants={fadeInUp}>
-          <h2 className="heading-serif mb-4 text-4xl">Life on the Water</h2>
+          <h2 className="heading-serif mb-4 text-4xl">{galleryLabels.title}</h2>
           <div className="bg-gold mx-auto h-0.5 w-16"></div>
         </motion.div>
 

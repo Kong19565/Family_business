@@ -10,10 +10,22 @@ import { fadeInUp, staggerContainer } from "@/constants/animations";
 
 interface TourGridProps {
   lang?: string;
+  dict?: {
+    title: string;
+    perTrip: string;
+    joinTrip: string;
+    seeMore: string;
+  };
 }
 
-export default function TourGrid({ lang = 'en' }: TourGridProps) {
+export default function TourGrid({ lang = 'en', dict }: TourGridProps) {
   const currentLang = lang as 'en' | 'th';
+  const gridLabels = dict || {
+    title: currentLang === 'en' ? 'Discover the River' : 'ค้นพบสุนทรียภาพแห่งสายน้ำ',
+    perTrip: currentLang === 'en' ? '/ trip' : '/ ทริป',
+    joinTrip: currentLang === 'en' ? 'Join Trip' : 'จองทริป',
+    seeMore: currentLang === 'en' ? 'See More Destinations' : 'ดูเส้นทางท่องเที่ยวทั้งหมด'
+  };
 
   return (
     <section className="bg-[#fdfcf9] px-6 py-16 md:px-12 md:py-32">
@@ -26,7 +38,7 @@ export default function TourGrid({ lang = 'en' }: TourGridProps) {
         {/* Header */}
         <motion.div className="mb-16 text-center md:mb-24" variants={fadeInUp}>
           <h2 className="heading-serif mb-4 text-4xl md:text-6xl">
-            {currentLang === 'en' ? 'Discover the River' : 'ค้นพบสุนทรียภาพแห่งสายน้ำ'}
+            {gridLabels.title}
           </h2>
           <div className="mx-auto h-0.5 w-16 bg-gold"></div>
         </motion.div>
@@ -74,12 +86,12 @@ export default function TourGrid({ lang = 'en' }: TourGridProps) {
                   <p className="font-serif text-2xl font-bold text-navy">
                     {tour.price}
                     <span className="ml-1 text-[10px] font-sans font-normal text-gray-400 uppercase">
-                      {currentLang === 'en' ? '/ trip' : '/ ทริป'}
+                      {gridLabels.perTrip}
                     </span>
                   </p>
                   <Link href={`/${lang}/destinations/${tour.id}`}>
                     <button className="bg-navy px-6 py-3 text-[10px] font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-gold rounded-sm active:scale-95">
-                      {currentLang === 'en' ? 'Join Trip' : 'จองทริป'}
+                      {gridLabels.joinTrip}
                     </button>
                   </Link>
                 </div>
@@ -95,7 +107,7 @@ export default function TourGrid({ lang = 'en' }: TourGridProps) {
         >
           <Link href={`/${lang}/destinations`}>
             <button className="border border-gold text-gold hover:bg-gold hover:text-white px-10 py-4 text-[10px] font-bold tracking-[0.3em] uppercase transition-all duration-500 rounded-sm active:scale-95">
-              {currentLang === 'en' ? 'See More Destinations' : 'ดูเส้นทางท่องเที่ยวทั้งหมด'}
+              {gridLabels.seeMore}
             </button>
           </Link>
         </motion.div>

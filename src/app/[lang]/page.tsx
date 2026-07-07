@@ -21,11 +21,11 @@ export default async function YachtStylePage({
       <Navbar lang={lang} dict={dict.common.nav} />
       <Hero dict={dict.home.hero} />
       <Features dict={dict.home.features} />
-      <TourGrid lang={lang} />
-      <Fleet lang={lang} />
-      <Gallery />
-      <MapSection />
-      <Footer dict={dict.common.footer} />
+      <TourGrid lang={lang} dict={dict.home.tourGrid} />
+      <Fleet lang={lang} dict={dict.home.fleet} />
+      <Gallery dict={dict.home.gallery} />
+      <MapSection lang={lang} dict={dict.home.mapSection} />
+      <Footer lang={lang} dict={dict.common.footer} />
     </main>
   );
 }

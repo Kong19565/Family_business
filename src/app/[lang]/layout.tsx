@@ -1,18 +1,32 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google"; // 1. เพิ่ม Playfair_Display
+import { Inter, Playfair_Display, Sarabun, Noto_Serif_Thai } from "next/font/google";
 import Script from "next/script";
 import "../globals.css";
 
-// ฟอนต์สำหรับตัวหนังสือทั่วไป
+// ฟอนต์สำหรับตัวหนังสือทั่วไป (อังกฤษ)
 const inter = Inter({
   variable: "--font-inter",
-  subsets: ["latin", "thai"],
+  subsets: ["latin"],
 });
 
-// 2. ฟอนต์สำหรับหัวข้อ (Serif)
+// ฟอนต์สำหรับหัวข้อ (อังกฤษ)
 const playfair = Playfair_Display({
   variable: "--font-playfair",
   subsets: ["latin"],
+});
+
+// ฟอนต์สำหรับตัวหนังสือทั่วไป (ไทย)
+const sarabun = Sarabun({
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-sarabun",
+  subsets: ["thai", "latin"],
+});
+
+// ฟอนต์สำหรับหัวข้อ (ไทย)
+const notoSerifThai = Noto_Serif_Thai({
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-noto-serif-thai",
+  subsets: ["thai", "latin"],
 });
 
 export const metadata: Metadata = {
@@ -33,7 +47,7 @@ export default async function RootLayout({
     <html lang={lang}>
       <body
         /* 3. ใส่ตัวแปรฟอนต์เข้าไปใน body */
-        className={`${inter.variable} ${playfair.variable} antialiased`}
+        className={`${inter.variable} ${playfair.variable} ${sarabun.variable} ${notoSerifThai.variable} antialiased`}
       >
         <Script
           id="disable-right-click"

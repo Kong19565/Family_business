@@ -16,7 +16,7 @@
   },
   "home": {
     "hero": {
-      "title": "Experience Bangkok's Charm Through its Canals",
+      "title": "Experience Bangkok's Charm | Through its Canals",
       "subtitle": "Discover the hidden gems and local life along the historic Phasi Charoen canal.",
       "cta": "Explore Tours"
     },
@@ -25,8 +25,62 @@
       "items": [
         { "title": "Private Experience", "desc": "Exclusive boat trips for you and your group." },
         { "title": "Local Knowledge", "desc": "Experienced captains who know every corner." },
-        { "title": "Safety First", "desc": "Full insurance and safety equipment provided." }
+        { "title": "Safety First", "desc": "Full safety equipment and life jackets provided." }
       ]
+    },
+    "tourGrid": {
+      "title": "Discover the River",
+      "perTrip": "/ trip",
+      "joinTrip": "Join Trip",
+      "seeMore": "See More Destinations"
+    },
+    "fleet": {
+      "title": "Our Fleet",
+      "tagline": "Traditional craftsmanship meets modern comfort",
+      "viewDetails": "View Details",
+      "seeMore": "See More Fleet"
+    },
+    "gallery": {
+      "title": "Life on the Water"
+    },
+    "mapSection": {
+      "talatPhlu": "Talat Phlu",
+      "wutthakat": "BTS Wutthakat",
+      "parking": "Parking Available"
     }
+  },
+  "destinations": {
+    "tagLabel": "Exclusive Routes",
+    "title": "Destinations",
+    "subtitle": "Curated Journeys",
+    "subdesc": "Explore the hidden gems and iconic landmarks along the Bangkok canals and Chao Phraya river.",
+    "perPrivateTrip": "/ private trip",
+    "exploreDetails": "Explore Details"
+  },
+  "tourDetail": {
+    "notFoundTitle": "Tour Not Found",
+    "notFoundDesc": "The destination you are looking for does not exist.",
+    "backToDestinations": "Back to Destinations",
+    "privateJourney": "Private Journey",
+    "theStory": "The Story",
+    "experienceOverview": "Experience Overview",
+    "routeHighlights": "Route Highlights",
+    "inclusions": "Inclusions & Amenities",
+    "rateLabel": "Exclusive Private Rate",
+    "taxLabel": "Inclusive of all taxes and fees",
+    "duration": "Duration",
+    "embarkation": "Embarkation",
+    "embarkationDetail": "Talat Phlu / BTS Wutthakat Pier",
+    "reserveNow": "Reserve Now",
+    "concierge": "Personal Concierge"
+  },
+  "fleetPage": {
+    "tagLabel": "Exclusive Collection",
+    "title": "Our Fleet",
+    "subtitle": "Timeless Vessels",
+    "subdesc": "From intimate sunset cruises to large family gatherings, choose the perfect vessel for your Chao Phraya river journey.",
+    "privateVessel": "Private Vessel",
+    "capacity": "Capacity",
+    "bookVessel": "Book This Vessel"
   }
 }

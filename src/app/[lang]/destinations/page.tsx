@@ -5,6 +5,21 @@ import { allDestinations } from "@/constants/data";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { getDictionary } from "@/dictionaries/dictionaries";
+import type { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  return {
+    title: lang === "th" ? "เส้นทางท่องเที่ยวแนะนำ | Canal tour" : "Exclusive Routes & Destinations | Canal tour",
+    description: lang === "th"
+      ? "สำรวจคลองประวัติศาสตร์และวัดวาอารามที่งดงามในกรุงเทพฯ ด้วยทริปเรือล่องคลองส่วนตัวที่คัดสรรมาเพื่อคุณ"
+      : "Explore the historic canals and iconic temples of Bangkok. Discover our carefully curated private boat tours.",
+  };
+}
 
 export default async function DestinationsPage({
   params,
@@ -31,10 +46,10 @@ export default async function DestinationsPage({
         </div>
         <div className="container-custom relative z-10 text-center">
           <span className="tag-label text-white/70">
-            {currentLang === 'en' ? 'Exclusive Routes' : 'เส้นทางพิเศษ'}
+            {dict.destinations.tagLabel}
           </span>
           <h1 className="heading-serif mb-4 text-5xl text-white md:text-7xl">
-            {currentLang === 'en' ? 'Destinations' : 'จุดหมายปลายทาง'}
+            {dict.destinations.title}
           </h1>
           <div className="bg-gold mx-auto h-0.5 w-16 opacity-50"></div>
         </div>
@@ -44,12 +59,10 @@ export default async function DestinationsPage({
       <section className="container-custom py-24 md:py-32">
         <div className="mb-16">
            <h2 className="heading-serif text-navy text-3xl md:text-4xl">
-             {currentLang === 'en' ? 'Curated Journeys' : 'การเดินทางที่คัดสรรมาเพื่อคุณ'}
+             {dict.destinations.subtitle}
            </h2>
            <p className="mt-4 max-w-2xl text-sm font-light italic text-gray-500">
-             {currentLang === 'en' 
-               ? 'Explore the hidden gems and iconic landmarks along the Bangkok canals and Chao Phraya river.'
-               : 'สำรวจอัญมณีที่ซ่อนอยู่และจุดหมายสำคัญทางประวัติศาสตร์ริมคลองกรุงเทพฯ และแม่น้ำเจ้าพระยา'}
+             {dict.destinations.subdesc}
            </p>
         </div>
         <div className="space-y-24 md:space-y-40">
@@ -79,7 +92,7 @@ export default async function DestinationsPage({
                 <p className="heading-serif text-navy mb-6 text-2xl font-bold">
                   {dest.price}{" "}
                   <span className="font-sans text-[10px] font-normal tracking-widest text-gray-400 uppercase">
-                    {currentLang === 'en' ? '/ private trip' : '/ ทริปส่วนตัว'}
+                    {dict.destinations.perPrivateTrip}
                   </span>
                 </p>
 
@@ -89,7 +102,7 @@ export default async function DestinationsPage({
 
                 <Link href={`/${lang}/destinations/${dest.id}`}>
                   <button className="btn-gold self-start border-navy text-navy hover:bg-navy hover:text-white">
-                    {currentLang === 'en' ? 'Explore Details' : 'ดูรายละเอียด'}
+                    {dict.destinations.exploreDetails}
                   </button>
                 </Link>
               </div>

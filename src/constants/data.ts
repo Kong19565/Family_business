@@ -32,7 +32,7 @@ export const tours = [
     },
     description: {
       en: "Cruising through the local canals, stop for photos at the Big Buddha, and pass by the historic Artist House.",
-      th: "ล่องเรือชมวิถีชีวิตริมคลอง แวะถ่ายรูปหลวงพ่อโตวัดปากน้ำ และผ่านบ้านศิลปินที่เก่าแก่",
+      th: "ล่องเรือชมวิถีชีวิตริมคลอง แวะเก็บภาพคู่กับหลวงพ่อโตวัดปากน้ำ และผ่านบ้านศิลปินหลังเก่าแก่",
     },
     startingPoint: { en: "BTS Wutthakat Pier", th: "ท่าเรือ BTS วุฒากาศ" },
     image: "/images/Wat_Paknam.jpg",
@@ -51,7 +51,7 @@ export const tours = [
     },
     description: {
       en: "A deep dive into local culture. Includes stops at the Big Buddha and time to walk around the Artist House market.",
-      th: "สัมผัสวัฒนธรรมท้องถิ่นอย่างลึกซึ้ง รวมการแวะชมหลวงพ่อโตและเดินเล่นตลาดบ้านศิลปิน",
+      th: "สัมผัสวัฒนธรรมท้องถิ่นอย่างลึกซึ้ง แวะนมัสการหลวงพ่อโตและเดินเล่นตลาดบ้านศิลปินเก่าแก่",
     },
     startingPoint: { en: "Talat Phlu or Wutthakat Pier", th: "ท่าเรือตลาดพลู หรือ วุฒากาศ" },
     dropOff: { en: "Return to pier or drop-off at MRT/BTS stations", th: "กลับท่าเรือเดิม หรือส่งที่สถานี MRT/BTS" },
@@ -69,7 +69,7 @@ export const allDestinations = [
     image: "/images/Wat_Paknam.jpg",
     description: {
       en: "A perfect introduction to the charms of Phasi Charoen canal. Cruise past local wooden houses and stop for a breathtaking photo with the Great Golden Buddha.",
-      th: "การเริ่มต้นที่สมบูรณ์แบบเพื่อสัมผัสเสน่ห์คลองภาษีเจริญ ล่องเรือผ่านบ้านไม้ท้องถิ่นและแวะถ่ายรูปที่น่าประทับใจกับหลวงพ่อโต",
+      th: "เริ่มต้นการเดินทางเพื่อสัมผัสเสน่ห์คลองภาษีเจริญ ล่องเรือชมเรือนไม้ริมคลอง พร้อมแวะเก็บภาพความประทับใจคู่กับหลวงพ่อโต",
     },
     details: {
       duration: { en: "60 Minutes", th: "60 นาที" },
@@ -89,8 +89,8 @@ export const allDestinations = [
         ],
       },
       included: {
-        en: ["Private Boat", "Life Jacket", "Drinking Water", "Insurance"],
-        th: ["เรือส่วนตัว", "เสื้อชูชีพ", "น้ำดื่ม", "ประกันภัย"],
+        en: ["Private Boat", "Life Jacket", "Drinking Water"],
+        th: ["เรือส่วนตัว", "เสื้อชูชีพ", "น้ำดื่ม"],
       },
     },
   },
@@ -103,7 +103,7 @@ export const allDestinations = [
     image: "/images/Bangluang.jpg",
     description: {
       en: "A deep dive into canal culture. Includes dedicated stops at the Big Buddha and the historic Artist House market for art and coffee lovers.",
-      th: "เจาะลึกวัฒนธรรมริมคลอง รวมจุดแวะพิเศษที่หลวงพ่อโตและตลาดบ้านศิลปินสำหรับคนรักศิลปะและกาแฟ",
+      th: "เจาะลึกวัฒนธรรมริมคลอง คัดสรรจุดแวะพิเศษทั้งหลวงพ่อโตองค์ใหญ่และตลาดบ้านศิลปิน เอาใจคนรักงานศิลป์และคอกาแฟ",
     },
     details: {
       duration: { en: "120 Minutes", th: "120 นาที" },
@@ -130,14 +130,12 @@ export const allDestinations = [
           "Life Jacket",
           "Drinking Water",
           "Fish Food",
-          "Insurance",
         ],
         th: [
           "เรือส่วนตัว",
           "เสื้อชูชีพ",
           "น้ำดื่ม",
           "อาหารปลา",
-          "ประกันภัย",
         ],
       },
     },
@@ -151,7 +149,7 @@ export const allDestinations = [
     image: "/images/Wat_Kalaya.jpg",
     description: {
       en: "Start from the mouth of the canal at Wat Kalayanamit, visit the Great Buddha, and end your trip at a 100-year-old lychee orchard cafe.",
-      th: "เริ่มต้นจากปากคลองที่วัดกัลยาณมิตร เยี่ยมชมหลวงพ่อโต และจบทริปที่คาเฟ่ในสวนลิ้นจี่อายุกว่า 100 ปี",
+      th: "ล่องเรือเริ่มต้นจากปากคลอง ณ วัดกัลยาณมิตร แวะสักการะหลวงพ่อโต และจบทริปพักผ่อนที่คาเฟ่ลับในสวนลิ้นจี่ร้อยปี",
     },
     details: {
       duration: { en: "120 Minutes", th: "120 นาที" },
@@ -171,8 +169,8 @@ export const allDestinations = [
         ],
       },
       included: {
-        en: ["Private Boat", "Life Jacket", "Drinking Water", "Insurance"],
-        th: ["เรือส่วนตัว", "เสื้อชูชีพ", "น้ำดื่ม", "ประกันภัย"],
+        en: ["Private Boat", "Life Jacket", "Drinking Water"],
+        th: ["เรือส่วนตัว", "เสื้อชูชีพ", "น้ำดื่ม"],
       },
     },
   },
@@ -210,14 +208,12 @@ export const allDestinations = [
           "Life Jacket",
           "Drinking Water",
           "Fish Food",
-          "Insurance",
         ],
         th: [
           "เรือส่วนตัว 6 ชั่วโมง",
           "เสื้อชูชีพ",
           "น้ำดื่ม",
-          "อาหารปล",
-          "ประกันภัย",
+          "อาหารปลา",
         ],
       },
     },
@@ -231,7 +227,7 @@ export const allDestinations = [
     image: "/images/Wat_NakProk.jpg",
     description: {
       en: "A specialized tour for those seeking blessings. Visit the most powerful spiritual spots including the Rahu statue and the 300-year-old Naga temple.",
-      th: "ทัวร์พิเศษสำหรับผู้แสวงหาพร เยี่ยมชมจุดศักดิ์สิทธิ์ที่ทรงพลัง รวมถึงรูปปั้นราหูและวัดพญานาคอายุกว่า 300 ปี",
+      th: "ทริปพิเศษสำหรับสายมูและผู้ที่ต้องการกราบขอพร แวะจุดสักการะสิ่งศักดิ์สิทธิ์ชื่อดัง ทั้งราหูองค์ใหญ่และวัดเก่าแก่ที่มีพระพุทธรูปปางนาคปรกอายุกว่า 300 ปี",
     },
     details: {
       duration: { en: "240 Minutes", th: "240 นาที" },
@@ -256,14 +252,12 @@ export const allDestinations = [
           "Life Jacket",
           "Drinking Water",
           "Temple Offerings Set",
-          "Insurance",
         ],
         th: [
           "เรือส่วนตัว",
           "เสื้อชูชีพ",
           "น้ำดื่ม",
           "ชุดเครื่องสักการะ",
-          "ประกันภัย",
         ],
       },
     },
@@ -277,7 +271,7 @@ export const fleet = [
     capacity: { en: "6-8 Seats", th: "6-8 ที่นั่ง" },
     description: {
       en: "A charming open-air wooden boat perfect for sightseeing. Experience the natural breeze, ideal for couples or intimate groups of friends.",
-      th: "เรือไม้เปิดประทุนที่มีเสน่ห์เหมาะสำหรับการชมวิว สัมผัสสายลมธรรมชาติ เหมาะสำหรับคู่รักหรือกลุ่มเพื่อนฝูง",
+      th: "เรือไม้เปิดโล่งดีไซน์มีเสน่ห์ ให้คุณสัมผัสสายลมธรรมชาติและชมทัศนียภาพได้อย่างใกล้ชิด เหมาะเป็นพิเศษสำหรับคู่รักหรือกลุ่มเพื่อนสนิท",
     },
   },
   {
@@ -286,7 +280,7 @@ export const fleet = [
     capacity: { en: "8-12 Seats", th: "8-12 ที่นั่ง" },
     description: {
       en: "A classic heritage design with a protective roof and comfortable seating. Perfectly suited for medium-sized families seeking a nostalgic journey.",
-      th: "ดีไซน์คลาสสิกพร้อมหลังคากันแดดและที่นั่งสะดวกสบาย เหมาะอย่างยิ่งสำหรับครอบครัวขนาดกลางที่ต้องการการเดินทางย้อนยุค",
+      th: "ดีไซน์คลาสสิกย้อนยุคพร้อมหลังคากันแดดและที่นั่งแสนสบาย เหมาะอย่างยิ่งสำหรับทริปครอบครัวขนาดกลาง",
     },
   },
   {
@@ -295,7 +289,7 @@ export const fleet = [
     capacity: { en: "Up to 20 Seats", th: "สูงสุด 20 ที่นั่ง" },
     description: {
       en: "Our spacious signature longtail boat with ample moving space. The premier choice for large family excursions or organized tour groups.",
-      th: "เรือหางยาวเอกลักษณ์ของเราที่มีพื้นที่กว้างขวาง เป็นตัวเลือกอันดับหนึ่งสำหรับการท่องเที่ยวครอบครัวใหญ่หรือกลุ่มทัวร์",
+      th: "เรือหางยาวดีไซน์เป็นเอกลักษณ์ พื้นที่ใช้สอยกว้างขวางลุกนั่งสบาย ตอบโจทย์ที่สุดสำหรับทริปครอบครัวใหญ่หรือกลุ่มคณะ",
     },
   },
   {
@@ -304,7 +298,7 @@ export const fleet = [
     capacity: { en: "20-25 Seats", th: "20-25 ที่นั่ง" },
     description: {
       en: "An extra-large vessel designed for high capacity and maximum comfort. Features excellent ventilation, perfect for large corporate events or big gatherings.",
-      th: "เรือขนาดใหญ่พิเศษที่ออกแบบมาเพื่อรองรับคนจำนวนมากและความสะดวกสบายสูงสุด ระบายอากาศได้ดีเยี่ยม เหมาะสำหรับงานองค์กรหรืองานสังสรรค์ขนาดใหญ่",
+      th: "เรือโดยสารขนาดใหญ่พิเศษ ออกแบบเพื่อรองรับผู้โดยสารจำนวนมากได้อย่างสะดวกสบาย ถ่ายเทอากาศได้ดี เหมาะสำหรับงานเลี้ยงบริษัทหรืองานสังสรรค์กลุ่มใหญ่",
     },
   },
   {
@@ -313,7 +307,7 @@ export const fleet = [
     capacity: { en: "4-6 Seats", th: "4-6 ที่นั่ง" },
     description: {
       en: "A modern, silent, and eco-friendly electric vessel. Ideal for a peaceful and sustainable river experience without engine noise or emissions.",
-      th: "เรือไฟฟ้าที่ทันสมัย เงียบ และเป็นมิตรกับสิ่งแวดล้อม เหมาะสำหรับประสบการณ์ริมน้ำที่สงบและยั่งยืน โดยไม่มีเสียงรบกวนจากเครื่องยนต์หรือการปล่อยมลพิษ",
+      th: "เรือไฟฟ้าดีไซน์ล้ำสมัย เงียบสนิท และเป็นมิตรต่อสิ่งแวดล้อม ให้คุณล่องชมวิวริมน้ำอย่างเงียบสงบโดยไม่มีเสียงเครื่องยนต์รบกวนหรือปล่อยควันพิษ",
     },
   },
 ];

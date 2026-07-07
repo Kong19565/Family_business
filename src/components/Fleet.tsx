@@ -8,10 +8,22 @@ import { fadeInUp, staggerContainer } from "@/constants/animations";
 
 interface FleetProps {
   lang?: string;
+  dict?: {
+    title: string;
+    tagline: string;
+    viewDetails: string;
+    seeMore: string;
+  };
 }
 
-export default function Fleet({ lang = 'en' }: FleetProps) {
+export default function Fleet({ lang = 'en', dict }: FleetProps) {
   const currentLang = lang as 'en' | 'th';
+  const fleetLabels = dict || {
+    title: currentLang === 'en' ? 'Our Fleet' : 'เรือของเรา',
+    tagline: currentLang === 'en' ? 'Traditional craftsmanship meets modern comfort' : 'งานฝีมือดั้งเดิม ผสานความสะดวกสบายสมัยใหม่',
+    viewDetails: currentLang === 'en' ? 'View Details' : 'ดูรายละเอียด',
+    seeMore: currentLang === 'en' ? 'See More Fleet' : 'ดูเรือลำอื่นเพิ่มเติม'
+  };
   // เลือกแสดงผล 3 ลำแรกในหน้า Home (รวมเรือไฟฟ้า)
   const displayFleet = fleet.slice(0, 3);
 
@@ -24,10 +36,10 @@ export default function Fleet({ lang = 'en' }: FleetProps) {
         transition={{ duration: 0.8 }}
       >
         <h2 className="heading-serif mb-4 text-3xl md:mb-6 md:text-5xl">
-          {currentLang === 'en' ? 'Our Fleet' : 'เรือของเรา'}
+          {fleetLabels.title}
         </h2>
         <p className="mx-auto max-w-xl px-4 text-xs text-gray-500 italic md:text-sm">
-          &ldquo;{currentLang === 'en' ? 'Traditional craftsmanship meets modern comfort' : 'งานฝีมือดั้งเดิม ผสานความสะดวกสบายสมัยใหม่'}&rdquo;
+          &ldquo;{fleetLabels.tagline}&rdquo;
         </p>
       </motion.div>
 
@@ -70,7 +82,7 @@ export default function Fleet({ lang = 'en' }: FleetProps) {
               
               <Link href={`/${lang}/fleet`} className="group/link flex items-center gap-4 self-start">
                 <span className="text-[10px] font-bold tracking-[0.2em] text-navy uppercase">
-                  {currentLang === 'en' ? 'View Details' : 'ดูรายละเอียด'}
+                  {fleetLabels.viewDetails}
                 </span>
                 <div className="h-[1px] w-8 bg-gold transition-all duration-300 group-hover/link:w-12"></div>
               </Link>
@@ -82,7 +94,7 @@ export default function Fleet({ lang = 'en' }: FleetProps) {
       <div className="mt-20 text-center">
         <Link href={`/${lang}/fleet`}>
           <button type="button" className="btn-gold">
-            {currentLang === 'en' ? 'See More Fleet' : 'ดูเรือลำอื่นเพิ่มเติม'}
+            {fleetLabels.seeMore}
           </button>
         </Link>
       </div>

@@ -5,10 +5,20 @@ import { mapLocations } from "@/constants/data";
 
 interface MapSectionProps {
   lang?: string;
+  dict?: {
+    talatPhlu: string;
+    wutthakat: string;
+    parking: string;
+  };
 }
 
-export default function MapSection({ lang = 'en' }: MapSectionProps) {
+export default function MapSection({ lang = 'en', dict }: MapSectionProps) {
   const currentLang = lang as 'en' | 'th';
+  const mapLabels = dict || {
+    talatPhlu: currentLang === 'en' ? 'Talat Phlu' : 'ตลาดพลู',
+    wutthakat: currentLang === 'en' ? 'BTS Wutthakat' : 'วุฒากาศ',
+    parking: currentLang === 'en' ? 'Parking Available' : 'มีที่จอดรถ'
+  };
   const [activePier, setActivePier] = useState("talat-phlu");
 
   const activeLocation = mapLocations[activePier as keyof typeof mapLocations];
@@ -42,7 +52,7 @@ export default function MapSection({ lang = 'en' }: MapSectionProps) {
                 : "hover:text-navy text-gray-400"
             }`}
           >
-            {currentLang === 'en' ? 'Talat Phlu' : 'ตลาดพลู'}
+            {mapLabels.talatPhlu}
           </button>
 
           {/* ปุ่มที่ 2 - ใช้ w-1/2 */}
@@ -55,7 +65,7 @@ export default function MapSection({ lang = 'en' }: MapSectionProps) {
                 : "hover:text-navy text-gray-400"
             }`}
           >
-            {currentLang === 'en' ? 'BTS Wutthakat' : 'วุฒากาศ'}
+            {mapLabels.wutthakat}
           </button>
         </div>
 
@@ -73,7 +83,7 @@ export default function MapSection({ lang = 'en' }: MapSectionProps) {
             </div>
             {activePier === "talat-phlu" && (
               <div className="bg-cream text-navy flex items-center gap-2 rounded-full px-4 py-2 text-[10px] font-bold tracking-widest uppercase shadow-sm">
-                <Car className="h-4 w-4" /> {currentLang === 'en' ? 'Parking Available' : 'มีที่จอดรถ'}
+                <Car className="h-4 w-4" /> {mapLabels.parking}
               </div>
             )}
           </div>

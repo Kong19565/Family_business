@@ -53,10 +53,21 @@ export default function Hero({ lang = 'en', dict }: HeroProps) {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="mt-6 font-serif text-5xl leading-[1.1] md:text-7xl lg:text-8xl"
         >
-          {content.title.split(' ').slice(0, -2).join(' ')} <br />
-          <span className="text-gold -mt-2 block italic md:-mt-4">
-            {content.title.split(' ').slice(-2).join(' ')}
-          </span>
+          {content.title.includes('|') ? (
+            <>
+              {content.title.split('|')[0].trim()} <br />
+              <span className="text-gold -mt-2 block italic md:-mt-4">
+                {content.title.split('|')[1].trim()}
+              </span>
+            </>
+          ) : (
+            <>
+              {content.title.split(' ').slice(0, -2).join(' ')} <br />
+              <span className="text-gold -mt-2 block italic md:-mt-4">
+                {content.title.split(' ').slice(-2).join(' ')}
+              </span>
+            </>
+          )}
         </motion.h1>
 
         <motion.div 

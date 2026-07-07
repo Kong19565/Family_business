@@ -6,6 +6,22 @@ import { Clock, MapPin, CheckCircle } from "lucide-react";
 import Footer from '@/components/Footer';
 import MapSection from "@/components/MapSection";
 import { getDictionary } from "@/dictionaries/dictionaries";
+import type { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string; lang: string }>;
+}): Promise<Metadata> {
+  const { id, lang } = await params;
+  const currentLang = lang as 'en' | 'th';
+  const tour = allDestinations.find((d) => d.id === id);
+  if (!tour) return { title: "Tour Not Found | Canal tour" };
+  return {
+    title: `${tour.title[currentLang]} | Canal tour`,
+    description: tour.description[currentLang],
+  };
+}
 
 interface PageProps {
   params: Promise<{ id: string, lang: string }>;
@@ -21,16 +37,16 @@ export default async function TourDetailPage({ params }: PageProps) {
     return (
       <div className="bg-cream flex min-h-screen flex-col items-center justify-center gap-6 p-8 text-center">
         <h1 className="heading-serif text-navy text-3xl">
-          {currentLang === 'en' ? 'Tour Not Found' : 'ไม่พบเส้นทางทัวร์'}
+          {dict.tourDetail.notFoundTitle}
         </h1>
         <p className="text-gray-500">
-          {currentLang === 'en' ? 'The destination you are looking for does not exist.' : 'จุดหมายปลายทางที่คุณกำลังมองหาไม่มีอยู่ในระบบ'}
+          {dict.tourDetail.notFoundDesc}
         </p>
         <Link
           href={`/${lang}/destinations`}
           className="nav-link-underline text-navy font-bold tracking-widest uppercase"
         >
-          {currentLang === 'en' ? 'Back to Destinations' : 'กลับสู่หน้ารวมเส้นทาง'}
+          {dict.tourDetail.backToDestinations}
         </Link>
       </div>
     );
@@ -53,7 +69,7 @@ export default async function TourDetailPage({ params }: PageProps) {
         <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-transparent to-black/20"></div>
         <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">   
           <span className="tag-label animate-fade-in-up mb-6 text-white/80">
-            {currentLang === 'en' ? 'Private Journey' : 'การเดินทางส่วนตัว'}
+            {dict.tourDetail.privateJourney}
           </span>      
           <h1 className="heading-serif animate-fade-in-up delay-100 max-w-5xl text-5xl leading-[1.1] text-white md:text-7xl lg:text-9xl">
             {tour.title[currentLang]}
@@ -69,10 +85,10 @@ export default async function TourDetailPage({ params }: PageProps) {
           <section className="mb-20">
             <div className="mb-12">
               <span className="tag-label text-gold">
-                {currentLang === 'en' ? 'The Story' : 'เรื่องราวของเรา'}
+                {dict.tourDetail.theStory}
               </span>
               <h2 className="heading-serif text-navy mt-2 text-4xl md:text-5xl">
-                {currentLang === 'en' ? 'Experience Overview' : 'ภาพรวมประสบการณ์'}
+                {dict.tourDetail.experienceOverview}
               </h2>
             </div>
             <p className="first-letter:text-navy text-xl leading-relaxed font-light text-gray-600 first-letter:float-left first-letter:mr-4 first-letter:font-serif first-letter:text-7xl first-letter:font-bold md:text-2xl">
@@ -83,7 +99,7 @@ export default async function TourDetailPage({ params }: PageProps) {
           {/* Itinerary Highlights Box */}
           <section className="bg-cream/40 border-gold/10 mb-20 rounded-sm border p-10 md:p-16">
             <h3 className="heading-serif text-navy mb-10 text-3xl italic">
-              {currentLang === 'en' ? 'Route Highlights' : 'จุดเด่นของเส้นทาง'}
+              {dict.tourDetail.routeHighlights}
             </h3>
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
               {tour.details.itinerary[currentLang].map((item: string, i: number) => (
@@ -102,7 +118,7 @@ export default async function TourDetailPage({ params }: PageProps) {
           {/* What's Included */}
           <section>
             <h3 className="heading-serif text-navy mb-8 text-2xl">
-              {currentLang === 'en' ? 'Inclusions & Amenities' : 'สิ่งที่จะได้รับ & สิ่งอำนวยความสะดวก'}
+              {dict.tourDetail.inclusions}
             </h3>
             <div className="flex flex-wrap gap-4">
               {tour.details.included[currentLang].map((item: string, i: number) => (
@@ -124,7 +140,7 @@ export default async function TourDetailPage({ params }: PageProps) {
             {/* Price Header */}
             <div className="bg-navy p-12 text-center text-white">
               <p className="text-gold mb-4 text-[11px] font-bold tracking-[0.4em] uppercase opacity-80">
-                {currentLang === 'en' ? 'Exclusive Private Rate' : 'ราคาพิเศษสำหรับทริปส่วนตัว'}
+                {dict.tourDetail.rateLabel}
               </p>
               <div className="flex items-baseline justify-center gap-2">
                 <span className="text-5xl font-bold tracking-tighter">
@@ -135,7 +151,7 @@ export default async function TourDetailPage({ params }: PageProps) {
                 </span>
               </div>
               <p className="mt-4 text-[10px] italic text-white/40">
-                {currentLang === 'en' ? 'Inclusive of all taxes and fees' : 'รวมภาษีและค่าธรรมเนียมทั้งหมดแล้ว'}
+                {dict.tourDetail.taxLabel}
               </p>  
             </div>
 
@@ -146,7 +162,7 @@ export default async function TourDetailPage({ params }: PageProps) {
                 <div className="flex items-center gap-4 text-gray-400">
                   <Clock className="text-gold h-5 w-5" />
                   <span className="text-[11px] font-bold tracking-widest uppercase">
-                    {currentLang === 'en' ? 'Duration' : 'ระยะเวลา'}
+                    {dict.tourDetail.duration}
                   </span>
                 </div>
                 <span className="font-serif text-2xl">
@@ -159,11 +175,11 @@ export default async function TourDetailPage({ params }: PageProps) {
                 <div className="flex items-center gap-4 text-gray-400">
                   <MapPin className="text-gold h-5 w-5" />
                   <span className="text-[11px] font-bold tracking-widest uppercase">
-                    {currentLang === 'en' ? 'Embarkation' : 'จุดขึ้นเรือ'}
+                    {dict.tourDetail.embarkation}
                   </span>
                 </div>
                 <span className="text-[12px] font-bold tracking-tighter text-navy uppercase">
-                  {currentLang === 'en' ? 'Talat Phlu / BTS Wutthakat Pier' : 'ท่าเรือตลาดพลู / ท่าเรือ BTS วุฒากาศ'}
+                  {dict.tourDetail.embarkationDetail}
                 </span>
               </div>
 
@@ -177,12 +193,12 @@ export default async function TourDetailPage({ params }: PageProps) {
                     type="button"
                     className="bg-gold hover:bg-navy w-full py-8 text-[12px] font-bold tracking-[0.5em] text-white uppercase shadow-xl transition-all duration-500 active:scale-[0.98]"
                   >
-                    {currentLang === 'en' ? 'Reserve Now' : 'จองทันที'}
+                    {dict.tourDetail.reserveNow}
                   </button>
                   <div className="mt-8 flex items-center justify-center gap-3 opacity-40 transition-opacity group-hover:opacity-100">
                      <div className="h-[1px] w-8 bg-navy"></div>
                      <p className="text-[10px] font-bold tracking-[0.2em] text-navy uppercase">
-                       {currentLang === 'en' ? 'Personal Concierge' : 'ผู้ช่วยส่วนตัว'}
+                       {dict.tourDetail.concierge}
                      </p>
                      <div className="h-[1px] w-8 bg-navy"></div>
                   </div>
@@ -193,7 +209,7 @@ export default async function TourDetailPage({ params }: PageProps) {
         </div>
       </div>
 
-      <MapSection lang={lang} />
+      <MapSection lang={lang} dict={dict.home.mapSection} />
       <Footer lang={lang} dict={dict.common.footer} />
     </main>
   );

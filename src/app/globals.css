@@ -15,8 +15,8 @@ html {
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui;
-  --font-serif: var(--font-playfair), ui-serif, Georgia;
+  --font-sans: var(--font-inter), var(--font-sarabun), ui-sans-serif, system-ui;
+  --font-serif: var(--font-playfair), var(--font-noto-serif-thai), ui-serif, Georgia;
   --color-navy: var(--brand-navy);
   --color-gold: var(--brand-gold);
   --color-cream: var(--brand-cream);
@@ -32,7 +32,7 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), sans-serif;
   /* ปรับขนาดตัวอักษรพื้นฐานให้ใหญ่ขึ้นเล็กน้อย */
   @apply text-[16px];
 }
@@ -226,3 +226,60 @@ img {
     transform: translateY(0);
   }
 }
+
+/* ==========================================================================
+   Thai Language (lang="th") Typographic Enhancements (kien-thai & user feedback)
+   ========================================================================== */
+html[lang="th"] {
+  font-size: 106.25%; /* Scales base rem units by 6.25% to match x-height proportionally without breaking layouts */
+}
+
+/* Ensure readable paragraphs and list items have extra vertical breathing room */
+html[lang="th"] p,
+html[lang="th"] li {
+  line-height: 1.75 !important;
+}
+
+/* Reset drop-cap (first-letter styling) in Thai to prevent leading vowel separation (e.g. "เ") */
+html[lang="th"] p::first-letter {
+  float: none !important;
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  font-family: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+}
+
+/* Remove italic style from Thai headings and italic utility classes for clean legibility */
+html[lang="th"] h1,
+html[lang="th"] h2,
+html[lang="th"] h3,
+html[lang="th"] h4,
+html[lang="th"] h5,
+html[lang="th"] h6,
+html[lang="th"] .heading-serif,
+html[lang="th"] .hero-title,
+html[lang="th"] .italic,
+html[lang="th"] italic {
+  font-style: normal !important;
+}
+
+/* Ensure Thai headings stay bold and premium */
+html[lang="th"] h1,
+html[lang="th"] h2,
+html[lang="th"] h3,
+html[lang="th"] h4,
+html[lang="th"] h5,
+html[lang="th"] h6,
+html[lang="th"] .heading-serif,
+html[lang="th"] .hero-title {
+  font-weight: 700 !important;
+}
+
+/* Adjust tracking (letter-spacing) for Thai text elements so they don't sprawl too wide */
+html[lang="th"] .tag-label,
+html[lang="th"] .footer-tag,
+html[lang="th"] .map-tab-btn {
+  letter-spacing: 0.15em !important;
+}
+
