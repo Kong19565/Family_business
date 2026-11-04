@@ -267,7 +267,7 @@ export const allDestinations = [
 export const fleet = [
   {
     name: { en: "Classic Small Boat", th: "เรือพายไม้ดั้งเดิม" },
-    image: "/images/Classic_Small_Boat.png",
+    image: "/images/Classic_Small_Boat.jpg",
     capacity: { en: "6-8 Seats", th: "6-8 ที่นั่ง" },
     description: {
       en: "A charming open-air wooden boat perfect for sightseeing. Experience the natural breeze, ideal for couples or intimate groups of friends.",

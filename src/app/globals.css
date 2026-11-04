@@ -1,285 +1,143 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --brand-navy: #0a192f;
-  --brand-gold: #d4c3a3;
-  --brand-cream: #f2f0eb;
+  --background: #fbf8f2;
+  --foreground: #11283a;
+  --muted: #55646f;
+  --brand: #0b7680;
+  --brand-dark: #0a5f67;
+  --sand: #f1e9db;
+  --mist: #e9f3f2;
+  --line: #e4dccd;
+  --accent: #a8741f;
 }
 
 html {
-  scroll-behavior: smooth !important;
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter), var(--font-sarabun), ui-sans-serif, system-ui;
-  --font-serif: var(--font-playfair), var(--font-noto-serif-thai), ui-serif, Georgia;
-  --color-navy: var(--brand-navy);
-  --color-gold: var(--brand-gold);
-  --color-cream: var(--brand-cream);
+  --color-muted: var(--muted);
+  --color-brand: var(--brand);
+  --color-brand-dark: var(--brand-dark);
+  --color-sand: var(--sand);
+  --color-mist: var(--mist);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-inter), var(--font-sarabun), ui-sans-serif, system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #ffffff;
-    --foreground: #171717;
-  }
+html[lang="th"] body {
+  font-family: var(--font-sarabun), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Thai tone marks need more room than Latin text */
+html[lang="th"] h1,
+html[lang="th"] h2,
+html[lang="th"] h3 {
+  line-height: 1.35;
+  letter-spacing: 0;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), sans-serif;
-  /* ปรับขนาดตัวอักษรพื้นฐานให้ใหญ่ขึ้นเล็กน้อย */
-  @apply text-[16px];
 }
 
+/* In a layer, so Tailwind utilities such as `hidden` can override these. */
 @layer components {
-  /* หัวข้อหลัก: ขยายขนาดและปรับระยะบรรทัดให้โปร่งขึ้น */
-  .heading-serif {
-    font-family: var(--font-playfair), serif; /* ใส่เพื่อให้ Editor มั่นใจ */
-    @apply text-navy leading-[1.1] tracking-tight;
-    @apply text-5xl md:text-7xl lg:text-8xl; /* ขยายขนาดให้ใหญ่สะใจแบบในรูป */
-  }
-
-  /* 3. ปรับสไตล์ตัวหนังสือใน Hero ให้ดูเหมือนเดิม */
-  .hero-title {
-    @apply mb-8 font-light tracking-tight text-white;
-    font-family: var(--font-playfair), serif;
-    font-size: clamp(3rem, 10vw, 7rem); /* ปรับขนาดให้ยืดหยุ่นตามหน้าจอ */
-    line-height: 1.3;
-  }
-
-  /* ปุ่ม: เพิ่ม Padding และขยายตัวหนังสือให้ชัดขึ้น */
-  .btn-gold {
-    @apply border-gold text-navy hover:bg-gold rounded-full border-2 px-12 py-4 text-[12px] font-bold tracking-[0.25em] uppercase transition-all duration-300 hover:text-white;
-  }
-
-  .btn-gold-solid {
-    @apply bg-gold hover:bg-navy rounded-full px-14 py-4 text-[12px] font-bold tracking-[0.25em] text-white uppercase transition-all duration-300;
-  }
-
-  /* ปรับปุ่มให้ดูหนาและเด่นขึ้นแบบในรูป */
-  .btn-hero {
-    @apply hover:text-navy border-2 border-white px-16 py-6 text-[14px] font-black tracking-[0.4em] text-white uppercase transition-all duration-300 hover:bg-white;
-    background-color: rgba(255, 255, 255, 0.05);
-    -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px);
-  }
-
-  /* Tag Label: ขยายขนาดและเพิ่มระยะห่างตัวอักษรให้ดูแพง */
-  .tag-label {
-    @apply text-gold mb-4 block text-[13px] font-bold tracking-[0.3em] uppercase;
-  }
-
-  /* Feature & Fleet Card: เพิ่มขนาดตัวหนังสือคำอธิบาย */
-  .feature-title {
-    @apply text-navy font-serif text-2xl tracking-[0.1em] uppercase;
-  }
-
-  .feature-icon {
-    @apply text-gold mb-6 h-10 w-10 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6;
-  }
-
-  .fleet-card {
-    @apply flex flex-col bg-white shadow-sm transition-all duration-500 hover:shadow-xl rounded-sm overflow-hidden;
-  }
-
-  .fleet-card-content {
-    @apply p-6 md:p-10 flex flex-col flex-grow;
-  }
-
-  .fleet-card p {
-    @apply text-[15px] leading-relaxed font-light text-gray-500 italic;
-  }
-
-  .fleet-image-container {
-    @apply relative mb-10 overflow-hidden bg-gray-100;
-    /* เพิ่มส่วนนี้: กำหนดขนาดที่แน่นอนเพื่อให้ Image fill ทำงานได้ */
+  .container-page {
     width: 100%;
-    aspect-ratio: 16/9;
+    max-width: 72rem;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+  @media (min-width: 640px) {
+    .container-page {
+      padding-inline: 1.5rem;
+    }
   }
 
-  /* Navbar & Back Button: ปรับขนาดให้พอดีสายตา */
-  .btn-back {
-    @apply text-navy hover:text-gold flex items-center gap-3 transition-all duration-300;
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    padding: 0.75rem 1.25rem;
+    font-weight: 600;
+    min-height: 3rem;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.15s, transform 0.15s;
+  }
+  .btn:active {
+    transform: scale(0.98);
+  }
+  .btn-primary {
+    background: var(--brand);
+    color: #fff;
+  }
+  .btn-primary:hover {
+    background: var(--brand-dark);
+  }
+  .btn-ghost {
+    background: #fff;
+    color: var(--foreground);
+    border: 1px solid var(--line);
+  }
+  .btn-ghost:hover {
+    background: var(--sand);
+  }
+  /* LINE brand green darkened so white text stays readable */
+  .btn-line {
+    background: #05963f;
+    color: #fff;
+  }
+  .btn-line:hover {
+    background: #047d35;
   }
 
-  .btn-back span {
-    @apply text-[12px] tracking-[0.2em];
+  .section {
+    padding-block: 3.5rem;
+  }
+  @media (min-width: 768px) {
+    .section {
+      padding-block: 5rem;
+    }
+  }
+  .section-title {
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+  }
+  .section-sub {
+    color: var(--muted);
+    margin-top: 0.5rem;
+    font-size: 1.05rem;
   }
 
-  .nav-link-underline {
-    @apply border-gold text-navy hover:text-gold border-b-2 pb-1 text-[12px] font-bold tracking-[0.2em] uppercase transition-colors;
+  .no-scrollbar {
+    scrollbar-width: none;
   }
-
-  /* Map & Footer: ปรับ Input ให้พิมพ์ง่ายขึ้น */
-  .footer-input {
-    @apply text-navy focus:ring-gold w-full rounded-none border-none bg-[#f8f9fa] px-8 py-5 text-base transition-all outline-none placeholder:text-gray-400 focus:ring-1;
-  }
-
-  .footer-tag {
-    @apply text-gold mb-4 text-[12px] font-bold tracking-[0.35em] uppercase;
-  }
-
-  /* Tour Info: ขยายขนาด Icon และ Text */
-  .tour-info-label {
-    @apply text-gold mb-2 flex items-center text-sm font-bold tracking-wider;
-  }
-
-  .tour-info-detail {
-    @apply flex items-start text-[14px] leading-relaxed text-gray-600;
-  }
-
-  .container-custom {
-    @apply mx-auto max-w-7xl px-5 md:px-10; /* ลดลงจาก px-10 เหลือ px-5 ในหน้าจอมือถือ */
-  }
-
-  .map-tab {
-    @apply rounded-full px-8 py-3 text-[12px] font-bold tracking-widest uppercase transition-all duration-300;
-  }
-
-  /* คอนเทนเนอร์หลักของปุ่มสลับแผนที่ (สีเทาอ่อน) */
-  .map-tabs-container {
-    @apply relative flex items-center rounded-full bg-[#f8f9fa] p-1.5 shadow-inner;
-    width: fit-content;
-    margin: 0 auto;
-  }
-
-  /* ปุ่มตัวเลือกแต่ละอัน */
-  .map-tab-btn {
-    @apply relative z-20 px-10 py-3 text-[11px] font-bold tracking-[0.25em] uppercase transition-colors duration-500;
-    min-width: 180px; /* ปรับความกว้างปุ่มให้เท่ากันเพื่อให้การเลื่อนแม่นยำ */
-  }
-
-  /* กรอบสีน้ำเงินที่วิ่งไปมา (Sliding Indicator) */
-  .map-tab-indicator {
-    @apply bg-navy absolute top-1.5 bottom-1.5 left-1.5 z-10 rounded-full shadow-lg transition-all duration-500 ease-in-out;
-  }
-
-  /* กรอบสีน้ำเงินหุ้ม iframe แผนที่ */
-  .map-frame {
-    @apply bg-navy rounded-sm p-4 shadow-2xl transition-all duration-500 md:p-6;
-    border: 1px solid rgba(212, 195, 163, 0.2);
-  }
-
-  /* สไตล์รูปภาพในแกลเลอรี (Gallery Item) */
-  .gallery-item {
-    @apply relative overflow-hidden bg-gray-100 shadow-sm transition-all duration-700;
-    /* สำคัญ: ต้องมั่นใจว่า Container มีความกว้างเต็มที่ */
-    width: 100%;
-  }
-
-  /* คลาสที่ตัวรูปภาพ (Image) */
-  .gallery-image {
-    /* ✨ บรรทัดนี้คือหัวใจสำคัญที่ทำให้รูปไม่บีบ ✨ */
-    object-fit: cover;
-
-    /* เพิ่มอนิเมชันให้ดูแพงตอนเอาเมาส์ไปชี้ */
-    @apply transition-transform duration-1000 hover:scale-110;
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 }
 
-/* ป้องกันการบันทึกรูปภาพเบื้องต้น */
-img {
-  -webkit-user-drag: none;
-  -khtml-user-drag: none;
-  -moz-user-drag: none;
-  -o-user-drag: none;
-  user-drag: none;
-  user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
 }
-
-@layer utilities {
-  .animate-reveal {
-    animation: reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
-  
-  .animate-fade-in-up {
-    opacity: 0;
-    transform: translateY(30px);
-    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  .delay-100 { animation-delay: 100ms; }
-  .delay-200 { animation-delay: 200ms; }
-  .delay-300 { animation-delay: 300ms; }
-}
-
-@keyframes reveal {
-  from { clip-path: inset(0 100% 0 0); }
-  to { clip-path: inset(0 0 0 0); }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  * {
+    transition: none !important;
   }
 }
-
-/* ==========================================================================
-   Thai Language (lang="th") Typographic Enhancements (kien-thai & user feedback)
-   ========================================================================== */
-html[lang="th"] {
-  font-size: 106.25%; /* Scales base rem units by 6.25% to match x-height proportionally without breaking layouts */
-}
-
-/* Ensure readable paragraphs and list items have extra vertical breathing room */
-html[lang="th"] p,
-html[lang="th"] li {
-  line-height: 1.75 !important;
-}
-
-/* Reset drop-cap (first-letter styling) in Thai to prevent leading vowel separation (e.g. "เ") */
-html[lang="th"] p::first-letter {
-  float: none !important;
-  font-size: inherit !important;
-  font-weight: inherit !important;
-  font-family: inherit !important;
-  color: inherit !important;
-  margin: 0 !important;
-}
-
-/* Remove italic style from Thai headings and italic utility classes for clean legibility */
-html[lang="th"] h1,
-html[lang="th"] h2,
-html[lang="th"] h3,
-html[lang="th"] h4,
-html[lang="th"] h5,
-html[lang="th"] h6,
-html[lang="th"] .heading-serif,
-html[lang="th"] .hero-title,
-html[lang="th"] .italic,
-html[lang="th"] italic {
-  font-style: normal !important;
-}
-
-/* Ensure Thai headings stay bold and premium */
-html[lang="th"] h1,
-html[lang="th"] h2,
-html[lang="th"] h3,
-html[lang="th"] h4,
-html[lang="th"] h5,
-html[lang="th"] h6,
-html[lang="th"] .heading-serif,
-html[lang="th"] .hero-title {
-  font-weight: 700 !important;
-}
-
-/* Adjust tracking (letter-spacing) for Thai text elements so they don't sprawl too wide */
-html[lang="th"] .tag-label,
-html[lang="th"] .footer-tag,
-html[lang="th"] .map-tab-btn {
-  letter-spacing: 0.15em !important;
-}
-

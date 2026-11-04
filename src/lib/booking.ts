@@ -1,0 +1,76 @@
+import { boatBySize, MAX_GUESTS } from "@/constants/site";
+import type { Bilingual, Locale } from "./i18n";
+
+/** Smallest boat that fits the group, or null when the group is too big. */
+export function suggestBoat(guests: number): Bilingual | null {
+  if (guests > MAX_GUESTS) return null;
+  return boatBySize.find((b) => guests <= b.max)?.name ?? null;
+}
+
+export function clampGuests(n: number): number {
+  if (!Number.isFinite(n)) return 2;
+  return Math.max(1, Math.min(MAX_GUESTS + 1, Math.round(n)));
+}
+
+/** Local calendar date as YYYY-MM-DD. */
+export function todayIso(now = new Date()): string {
+  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+}
+
+/** True if `isoDate` (YYYY-MM-DD) is today or later, comparing calendar days only. */
+export function isFutureOrToday(isoDate: string, now = new Date()): boolean {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(isoDate)) return false;
+  return isoDate >= todayIso(now);
+}
+
+/** Human date: "Sat, 5 Dec 2026" / "ส. 5 ธ.ค. 2569". */
+export function formatDate(isoDate: string, lang: Locale): string {
+  const [y, m, d] = isoDate.split("-").map(Number);
+  if (!y || !m || !d) return "";
+  return new Intl.DateTimeFormat(lang === "th" ? "th-TH" : "en-GB", {
+    weekday: "short",
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  }).format(new Date(y, m - 1, d));
+}
+
+export interface MessageLabels {
+  hello: string;
+  tour: string;
+  date: string;
+  guests: string;
+  pickup: string;
+  name: string;
+  price: string;
+}
+
+export interface MessageInput {
+  labels: MessageLabels;
+  tour: string;
+  date: string;
+  guests: number | string;
+  pickup: string;
+  name?: string;
+  price: string;
+  boat?: string;
+}
+
+/** Plain-text message that the customer sends on LINE / WhatsApp. */
+export function buildMessage(input: MessageInput): string {
+  const { labels: l } = input;
+  const lines = [
+    l.hello,
+    `• ${l.tour}: ${input.tour}`,
+    `• ${l.date}: ${input.date}`,
+    `• ${l.guests}: ${input.guests}${input.boat ? ` (${input.boat})` : ""}`,
+    `• ${l.pickup}: ${input.pickup}`,
+    `• ${l.price}: ${input.price}`,
+  ];
+  if (input.name?.trim()) lines.push(`• ${l.name}: ${input.name.trim()}`);
+  return lines.join("\n");
+}
+
+export function whatsappLink(base: string, message: string): string {
+  return `${base}?text=${encodeURIComponent(message)}`;
+}

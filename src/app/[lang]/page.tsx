@@ -1,31 +1,36 @@
-import Hero from '@/components/Hero';
-import TourGrid from '@/components/TourGrid';
-import Fleet from '@/components/Fleet';
-import Gallery from '@/components/Gallery';
-import Footer from '@/components/Footer';
-import MapSection from '@/components/MapSection';
-import Navbar from '@/components/Navbar';
-import Features from '@/components/Features';
-import { getDictionary } from '@/dictionaries/dictionaries';
+import { notFound } from "next/navigation";
+import { allDestinations } from "@/constants/data";
+import { contact } from "@/constants/site";
+import { getDictionary } from "@/dictionaries/dictionaries";
+import { isLocale } from "@/lib/i18n";
+import { panelProps } from "@/lib/panel";
+import Navbar from "@/components/Navbar";
+import BookingPanel from "@/components/BookingPanel";
+import MobileBar from "@/components/MobileBar";
+import { BookingProvider } from "@/components/BookingProvider";
+import { Boats, Contact, Footer, Gallery, Hero, Meeting, Steps, Tours } from "@/components/Sections";
 
-export default async function YachtStylePage({
-  params,
-}: {
-  params: Promise<{ lang: string }>;
-}) {
+export default async function HomePage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
-  const dict = await getDictionary(lang as 'en' | 'th');
+  if (!isLocale(lang)) notFound();
+  const dict = await getDictionary(lang);
+  const p = { lang, dict };
 
   return (
-    <main className="min-h-screen bg-white">
-      <Navbar lang={lang} dict={dict.common.nav} />
-      <Hero dict={dict.home.hero} />
-      <Features dict={dict.home.features} />
-      <TourGrid lang={lang} dict={dict.home.tourGrid} />
-      <Fleet lang={lang} dict={dict.home.fleet} />
-      <Gallery dict={dict.home.gallery} />
-      <MapSection lang={lang} dict={dict.home.mapSection} />
-      <Footer lang={lang} dict={dict.common.footer} />
-    </main>
+    <BookingProvider initialTourId={allDestinations[0].id}>
+      <Navbar {...p} />
+      <main>
+        <Hero {...p} />
+        <Steps {...p} />
+        <Tours {...p} />
+        <Boats {...p} />
+        <BookingPanel {...panelProps(lang, dict)} />
+        <Meeting {...p} />
+        <Gallery {...p} />
+        <Contact {...p} />
+      </main>
+      <Footer {...p} />
+      <MobileBar bookLabel={dict.nav.book} lineUrl={contact.line.url} lineLabel={dict.hero.cta2} />
+    </BookingProvider>
   );
 }

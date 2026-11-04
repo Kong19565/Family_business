@@ -1,9 +1,12 @@
-import 'server-only';
+import "server-only";
+import type { Locale } from "@/lib/i18n";
+import en from "./en.json";
 
-const dictionaries = {
-  en: () => import('./en.json').then((module) => module.default),
-  th: () => import('./th.json').then((module) => module.default),
+export type Dictionary = typeof en;
+
+const dictionaries: Record<Locale, () => Promise<Dictionary>> = {
+  en: () => import("./en.json").then((m) => m.default),
+  th: () => import("./th.json").then((m) => m.default),
 };
 
-export const getDictionary = async (locale: 'en' | 'th') =>
-  dictionaries[locale]?.() ?? dictionaries.en();
+export const getDictionary = (locale: Locale) => dictionaries[locale]();

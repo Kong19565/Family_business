@@ -8,6 +8,14 @@ const nextConfig = {
             },
         ],
     },
+    // Old v1 URLs -> new structure
+    async redirects() {
+        return [
+            { source: '/:lang(en|th)/destinations', destination: '/:lang#tours', permanent: true },
+            { source: '/:lang(en|th)/destinations/:id', destination: '/:lang/tours/:id', permanent: true },
+            { source: '/:lang(en|th)/fleet', destination: '/:lang#boats', permanent: true },
+        ];
+    },
     async headers() {
         return [
             {

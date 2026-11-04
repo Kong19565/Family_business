@@ -1,187 +1,37 @@
-"use client";
-
-import React, { useState, useEffect } from "react";
-import { useRouter, usePathname } from "next/navigation";
-import { ArrowLeft, Ship, Menu, X, Globe } from "lucide-react";
 import Link from "next/link";
+import { Anchor } from "lucide-react";
+import LangSwitch from "./LangSwitch";
+import type { Locale } from "@/lib/i18n";
+import type { Dictionary } from "@/dictionaries/dictionaries";
 
-interface NavbarProps {
-  lang?: string;
-  dict?: {
-    home: string;
-    destinations: string;
-    fleet: string;
-    contact: string;
-  };
-}
-
-export default function Navbar({ lang = 'en', dict }: NavbarProps) {
-  const router = useRouter();
-  const pathname = usePathname();
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  // Scroll detection
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    handleScroll(); // Check immediately on mount
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const isHomePage = pathname === `/${lang}` || pathname === `/${lang}/`;
-  
-  // Logic for UI state
-  const shouldShowDarkText = isScrolled || !isHomePage || mobileMenuOpen;
-
-  const toggleLanguage = () => {
-    const newLang = lang === 'en' ? 'th' : 'en';
-    const newPathname = pathname.replace(`/${lang}`, `/${newLang}`);
-    router.push(newPathname);
-  };
-
-  const navLabels = dict || {
-    home: "Home",
-    destinations: "Destinations",
-    fleet: "Fleet",
-    contact: "Book Now"
-  };
-
+export default function Navbar({ lang, dict }: { lang: Locale; dict: Dictionary }) {
+  const links = [
+    { href: `/${lang}#tours`, label: dict.nav.tours },
+    { href: `/${lang}#boats`, label: dict.nav.boats },
+    { href: `/${lang}#how`, label: dict.nav.howto },
+    { href: `/${lang}#contact`, label: dict.nav.contact },
+  ];
   return (
-    <nav
-      className={`fixed top-0 z-[100] w-full ${mobileMenuOpen ? "transition-none" : "transition-all duration-500"} ${
-        mobileMenuOpen
-          ? "bg-white py-4 shadow-md"
-          : isScrolled
-          ? "bg-white/90 py-3 shadow-md backdrop-blur-lg"
-          : isHomePage
-          ? "bg-transparent py-6"
-          : "bg-white/80 py-4 backdrop-blur-md"
-      }`}
-    >
-      <div className="container-custom flex items-center justify-between">
-        {/* 1. Left Side: Back or Logo-Brand */}
-        <div className="flex items-center gap-4">
-          {!isHomePage ? (
-            <button
-              onClick={() => router.back()}
-              className={`group flex items-center gap-2 transition-all active:scale-95 text-navy`}
-            >
-              <div className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-100 bg-white shadow-sm transition-all group-hover:bg-navy group-hover:text-white">
-                <ArrowLeft className="h-4 w-4" />
-              </div>
-              <span className="text-[12px] font-bold uppercase tracking-widest hidden lg:block">
-                {lang === 'en' ? 'Back' : 'กลับ'}
-              </span>
-            </button>
-          ) : (
-            <Link href={`/${lang}`} className="group flex items-center gap-3">
-              <div className={`flex h-10 w-10 items-center justify-center rounded-full ${mobileMenuOpen ? "" : "transition-all duration-500"} ${shouldShowDarkText ? 'bg-navy text-white' : 'bg-white/20 backdrop-blur-sm text-white'}`}>
-                <Ship className={`h-5 w-5 transition-transform duration-500 group-hover:rotate-12 ${!shouldShowDarkText && isHomePage ? 'text-gold' : ''}`} />
-              </div>
-              <span className={`text-sm font-bold tracking-tighter uppercase md:text-xl ${mobileMenuOpen ? "" : "transition-colors duration-500"} ${shouldShowDarkText ? 'text-navy' : 'text-white'}`}>
-                Canal <span className="text-gold italic font-serif lowercase">tour</span>
-              </span>
+    <header className="sticky top-0 z-40 border-b border-line bg-background/90 backdrop-blur">
+      <div className="container-page flex h-16 items-center justify-between gap-3">
+        <Link href={`/${lang}`} className="flex min-h-11 items-center gap-2 text-lg font-bold">
+          <Anchor className="h-5 w-5 text-brand" aria-hidden /> Canal Tour
+        </Link>
+        <nav aria-label="Main" className="hidden items-center gap-7 text-sm font-medium md:flex">
+          {links.map((l) => (
+            <Link key={l.href} href={l.href} className="py-2 text-muted transition-colors hover:text-foreground">
+              {l.label}
             </Link>
-          )}
-        </div>
-
-        {/* 2. Center/Right: Nav Links */}
-        <div className="hidden items-center gap-6 md:flex lg:gap-10">
-          <Link
-            href={`/${lang}/fleet`}
-            className={`text-[13px] font-bold uppercase tracking-[0.2em] transition-all hover:text-gold ${
-              shouldShowDarkText ? "text-navy" : "text-white"
-            }`}
-          >
-            {navLabels.fleet}
-          </Link>
-          <Link
-            href={`/${lang}/destinations`}
-            className={`text-[13px] font-bold uppercase tracking-[0.2em] transition-all hover:text-gold ${
-              shouldShowDarkText ? "text-navy" : "text-white"
-            }`}
-          >
-            {navLabels.destinations}
-          </Link>
-          
-          {/* Language Switcher */}
-          <button
-            onClick={toggleLanguage}
-            className={`flex items-center gap-1 text-[13px] font-bold uppercase tracking-[0.2em] transition-all hover:text-gold ${
-              shouldShowDarkText ? "text-navy" : "text-white"
-            }`}
-          >
-            <Globe className="h-3 w-3" />
-            {lang === 'en' ? 'TH' : 'EN'}
-          </button>
-
-          <Link
-            href={`/${lang}/#contact-section`}
-            className={`bg-gold px-8 py-3 text-[13px] font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-navy hover:scale-105 active:scale-95 rounded-full shadow-sm ${
-               !isScrolled && isHomePage ? "bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white hover:text-navy" : ""
-            }`}
-          >
-            {navLabels.contact}
-          </Link>
-        </div>
-
-        {/* Mobile Menu Toggle */}
-        <div className="flex items-center gap-4 md:hidden">
-          <button
-            onClick={toggleLanguage}
-            className={`flex items-center gap-1 text-[12px] font-bold uppercase tracking-widest ${shouldShowDarkText ? 'text-navy' : 'text-white'}`}
-          >
-            <Globe className="h-4 w-4" />
-            {lang === 'en' ? 'TH' : 'EN'}
-          </button>
-          <button 
-            className="relative z-[110]"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? (
-              <X className="h-6 w-6 text-navy" />
-            ) : (
-              <Menu className={`h-6 w-6 ${shouldShowDarkText ? 'text-navy' : 'text-white'}`} />
-            )}
-          </button>
+          ))}
+        </nav>
+        <div className="flex items-center gap-2">
+          <LangSwitch lang={lang} label={dict.lang.label} />
+          {/* Every page has its own #book panel, so stay on this page and keep the chosen tour. */}
+          <a href="#book" className="btn btn-primary hidden !min-h-10 !py-2 text-sm md:inline-flex">
+            {dict.nav.book}
+          </a>
         </div>
       </div>
-
-      {/* Mobile Menu Overlay */}
-      {mobileMenuOpen && (
-        <div className="fixed inset-0 z-[90] bg-white p-8 pt-24 md:hidden animate-in slide-in-from-top-4 duration-200">
-          <div className="flex flex-col gap-8 text-center">
-            <Link 
-              href={`/${lang}/fleet`} 
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-navy font-serif text-3xl"
-            >
-              {navLabels.fleet}
-            </Link>
-            <Link 
-              href={`/${lang}/destinations`} 
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-navy font-serif text-3xl"
-            >
-              {navLabels.destinations}
-            </Link>
-            <Link 
-              href={`/${lang}/#contact-section`} 
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-navy font-serif text-3xl"
-            >
-              {navLabels.contact}
-            </Link>
-            <div className="mt-8 border-t border-gray-100 pt-8">
-               <p className="text-gold text-[12px] font-bold tracking-widest uppercase mb-4">Private & Exclusive</p>
-               <p className="text-gray-400 text-sm italic">&ldquo;The Ultimate River Experience&rdquo;</p>
-            </div>
-          </div>
-        </div>
-      )}
-    </nav>
+    </header>
   );
 }

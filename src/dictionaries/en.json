@@ -1,86 +1,85 @@
 {
-  "common": {
-    "nav": {
-      "home": "Home",
-      "destinations": "Destinations",
-      "fleet": "Our Fleet",
-      "contact": "Contact"
-    },
-    "footer": {
-      "description": "Experience the charm of Bangkok's historic canals with our private & exclusive river experience.",
-      "quickLinks": "Quick Links",
-      "contactUs": "Contact Us",
-      "followUs": "Follow Us",
-      "rights": "All rights reserved."
-    }
+  "meta": {
+    "title": "Canal Tour Bangkok – Private Boat Trips",
+    "description": "Private canal boat tours in Bangkok. Pick a tour, choose a date, and book in minutes on LINE or WhatsApp."
   },
-  "home": {
-    "hero": {
-      "title": "Experience Bangkok's Charm | Through its Canals",
-      "subtitle": "Discover the hidden gems and local life along the historic Phasi Charoen canal.",
-      "cta": "Explore Tours"
-    },
-    "features": {
-      "title": "Why Choose Our Canal Tour?",
-      "items": [
-        { "title": "Private Experience", "desc": "Exclusive boat trips for you and your group." },
-        { "title": "Local Knowledge", "desc": "Experienced captains who know every corner." },
-        { "title": "Safety First", "desc": "Full safety equipment and life jackets provided." }
-      ]
-    },
-    "tourGrid": {
-      "title": "Discover the River",
-      "perTrip": "/ trip",
-      "joinTrip": "Join Trip",
-      "seeMore": "See More Destinations"
-    },
-    "fleet": {
-      "title": "Our Fleet",
-      "tagline": "Traditional craftsmanship meets modern comfort",
-      "viewDetails": "View Details",
-      "seeMore": "See More Fleet"
-    },
-    "gallery": {
-      "title": "Life on the Water"
-    },
-    "mapSection": {
-      "talatPhlu": "Talat Phlu",
-      "wutthakat": "BTS Wutthakat",
-      "parking": "Parking Available"
-    }
+  "nav": { "tours": "Tours", "boats": "Boats", "howto": "How to book", "contact": "Contact", "book": "Book now" },
+  "hero": {
+    "eyebrow": "Private canal tours · Bangkok",
+    "title": "Discover Bangkok's hidden canals on your own private boat",
+    "subtitle": "Temples, old teak houses and local life. Only your group on board.",
+    "cta": "Choose a tour",
+    "cta2": "Chat on LINE",
+    "facts": ["Private boat, your group only", "From ฿1,500 per trip", "08:00 – 18:00, other times on request"]
   },
-  "destinations": {
-    "tagLabel": "Exclusive Routes",
-    "title": "Destinations",
-    "subtitle": "Curated Journeys",
-    "subdesc": "Explore the hidden gems and iconic landmarks along the Bangkok canals and Chao Phraya river.",
-    "perPrivateTrip": "/ private trip",
-    "exploreDetails": "Explore Details"
+  "steps": {
+    "title": "Book in 3 easy steps",
+    "items": [
+      { "title": "Pick a tour", "desc": "From 1 hour to a full day." },
+      { "title": "Choose date and guests", "desc": "We suggest the right boat for your group." },
+      { "title": "Send us a message", "desc": "We write it for you. Just paste and send on LINE." }
+    ]
   },
-  "tourDetail": {
-    "notFoundTitle": "Tour Not Found",
-    "notFoundDesc": "The destination you are looking for does not exist.",
-    "backToDestinations": "Back to Destinations",
-    "privateJourney": "Private Journey",
-    "theStory": "The Story",
-    "experienceOverview": "Experience Overview",
-    "routeHighlights": "Route Highlights",
-    "inclusions": "Inclusions & Amenities",
-    "rateLabel": "Exclusive Private Rate",
-    "taxLabel": "Inclusive of all taxes and fees",
+  "tours": {
+    "title": "Choose your tour",
+    "subtitle": "Prices are for the whole private trip, not per person.",
+    "perTrip": "per trip",
+    "book": "Book this tour",
+    "route": "See route"
+  },
+  "tour": {
+    "notFound": "Tour not found",
+    "back": "All tours",
     "duration": "Duration",
-    "embarkation": "Embarkation",
-    "embarkationDetail": "Talat Phlu / BTS Wutthakat Pier",
-    "reserveNow": "Reserve Now",
-    "concierge": "Personal Concierge"
+    "start": "Starts at",
+    "price": "Price per trip",
+    "priceNote": "For the whole private trip, including taxes and fees.",
+    "route": "Your route",
+    "included": "What's included",
+    "book": "Book this tour"
   },
-  "fleetPage": {
-    "tagLabel": "Exclusive Collection",
-    "title": "Our Fleet",
-    "subtitle": "Timeless Vessels",
-    "subdesc": "From intimate sunset cruises to large family gatherings, choose the perfect vessel for your Chao Phraya river journey.",
-    "privateVessel": "Private Vessel",
-    "capacity": "Capacity",
-    "bookVessel": "Book This Vessel"
-  }
+  "boats": {
+    "title": "A boat for every group size",
+    "subtitle": "We match the boat to your group when you book."
+  },
+  "booking": {
+    "title": "Book your trip",
+    "subtitle": "Choose your tour, date and group size, then send us the details.",
+    "tour": "1. Tour",
+    "date": "2. Date",
+    "guests": "3. Guests",
+    "pickup": "Meeting point",
+    "name": "Your name (optional)",
+    "namePlaceholder": "e.g. Anna",
+    "summary": "Your trip",
+    "suggested": "Suggested boat",
+    "total": "Price",
+    "perTrip": "per trip",
+    "confirm": "We confirm availability and the final price for your group in the chat.",
+    "line": "Copy & open LINE",
+    "lineHint": "We copy your details. Just paste them in the chat.",
+    "whatsapp": "WhatsApp",
+    "call": "Call us",
+    "copied": "Copied. Paste it in LINE.",
+    "copyFailed": "Could not copy. Please copy the message below.",
+    "pickDate": "Please choose today or a later date",
+    "pickTour": "Please choose a tour",
+    "tooMany": "More than 25 guests? Message us for a custom plan.",
+    "decrease": "Fewer guests",
+    "increase": "More guests",
+    "message": {
+      "hello": "Hello Canal Tour! I'd like to book a trip:",
+      "tour": "Tour",
+      "date": "Date",
+      "guests": "Guests",
+      "pickup": "Meeting point",
+      "name": "Name",
+      "price": "Price"
+    }
+  },
+  "meeting": { "title": "Where we meet", "map": "Open in Google Maps" },
+  "gallery": { "title": "Life on the water" },
+  "contact": { "title": "Questions? Talk to us" },
+  "footer": { "rights": "All rights reserved.", "tagline": "Private canal tours in Bangkok" },
+  "lang": { "label": "Language" }
 }

@@ -1,38 +1,31 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display, Sarabun, Noto_Serif_Thai } from "next/font/google";
-import Script from "next/script";
+import { notFound } from "next/navigation";
+import { Inter, Sarabun } from "next/font/google";
 import "../globals.css";
+import { getDictionary } from "@/dictionaries/dictionaries";
+import { isLocale, locales } from "@/lib/i18n";
 
-// ฟอนต์สำหรับตัวหนังสือทั่วไป (อังกฤษ)
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
-
-// ฟอนต์สำหรับหัวข้อ (อังกฤษ)
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
-  subsets: ["latin"],
-});
-
-// ฟอนต์สำหรับตัวหนังสือทั่วไป (ไทย)
+const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
 const sarabun = Sarabun({
   weight: ["300", "400", "500", "600", "700"],
   variable: "--font-sarabun",
   subsets: ["thai", "latin"],
 });
 
-// ฟอนต์สำหรับหัวข้อ (ไทย)
-const notoSerifThai = Noto_Serif_Thai({
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-noto-serif-thai",
-  subsets: ["thai", "latin"],
-});
+export function generateStaticParams() {
+  return locales.map((lang) => ({ lang }));
+}
 
-export const metadata: Metadata = {
-  title: "Canal tour",
-  description: "Private & Exclusive River Experience",
-};
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang } = await params;
+  if (!isLocale(lang)) return {};
+  const dict = await getDictionary(lang);
+  return {
+    title: dict.meta.title,
+    description: dict.meta.description,
+    alternates: { languages: { en: "/en", th: "/th" } },
+  };
+}
 
 export default async function RootLayout({
   children,
@@ -42,34 +35,11 @@ export default async function RootLayout({
   params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
+  if (!isLocale(lang)) notFound();
 
   return (
-    <html lang={lang}>
-      <body
-        /* 3. ใส่ตัวแปรฟอนต์เข้าไปใน body */
-        className={`${inter.variable} ${playfair.variable} ${sarabun.variable} ${notoSerifThai.variable} antialiased`}
-      >
-        <Script
-          id="disable-right-click"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              document.addEventListener('contextmenu', function(e) {
-                if (e.target.tagName === 'IMG' || e.target.closest('.gallery-item') || e.target.closest('nav')) {
-                  e.preventDefault();
-                }
-              });
-              document.addEventListener('dragstart', function(e) {
-                if (e.target.tagName === 'IMG') {
-                  e.preventDefault();
-                }
-              });
-            `,
-          }}
-        />
-        {children}
-      </body>
+    <html lang={lang} data-scroll-behavior="smooth">
+      <body className={`${inter.variable} ${sarabun.variable} antialiased`}>{children}</body>
     </html>
   );
 }
-
