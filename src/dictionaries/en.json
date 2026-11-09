@@ -79,7 +79,7 @@
   },
   "meeting": { "title": "Where we meet", "map": "Open in Google Maps" },
   "gallery": { "title": "Life on the water" },
-  "contact": { "title": "Questions? Talk to us" },
+  "contact": { "title": "Questions? Talk to us", "line": "Add us on LINE" },
   "footer": { "rights": "All rights reserved.", "tagline": "Private canal tours in Bangkok" },
   "lang": { "label": "Language" }
 }

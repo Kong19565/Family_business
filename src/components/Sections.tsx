@@ -244,7 +244,7 @@ export function Contact({ dict }: Props) {
         <div className="mt-7 grid items-start gap-8 lg:grid-cols-[1fr_auto]">
           <div className="grid gap-3 sm:grid-cols-2">
             <a href={contact.line.url} target="_blank" rel="noopener noreferrer" className="btn btn-line">
-              <MessageCircle className="h-5 w-5" aria-hidden /> LINE: {contact.line.id}
+              <MessageCircle className="h-5 w-5" aria-hidden /> {dict.contact.line}
             </a>
             <a href={contact.whatsapp.url} target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
               WhatsApp

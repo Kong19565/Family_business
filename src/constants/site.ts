@@ -1,7 +1,8 @@
 import type { Bilingual } from "@/lib/i18n";
 
 export const contact = {
-  line: { url: "https://line.me/R/ti/p/~0988289849", id: "0988289849", qr: "/images/qr-line.png" },
+  // Friend link decoded from the account's own QR. 0988289849 is a phone number, not a LINE ID, so `~0988289849` links fail.
+  line: { url: "https://line.me/ti/p/Qu9Xw6WnH_", qr: "/images/qr-line.png" },
   whatsapp: { url: "https://wa.me/66988289849", qr: "/images/qr-whatsapp.png" },
   wechat: { id: "0988289849", qr: "/images/qr-wechat.png" },
   phones: [
