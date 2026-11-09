@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { buildMessage, clampGuests, formatBaht, formatDate, isFutureOrToday, suggestBoat, tripPrice, whatsappLink } from "./booking";
+import { buildMessage, clampGuests, depositAmount, formatBaht, formatDate, isFutureOrToday, suggestBoat, tripPrice, whatsappLink } from "./booking";
 import { switchLocalePath } from "./i18n";
 import { fleet } from "@/constants/data";
 import { boatBySize } from "@/constants/site";
@@ -48,6 +48,13 @@ describe("tripPrice", () => {
     expect(tripPrice(1600, 5)).toBe(1600);
     expect(tripPrice(1600, 8)).toBe(1900);
     expect(formatBaht(1900)).toBe("฿1,900");
+  });
+});
+
+describe("depositAmount", () => {
+  it("is 60% of the boat price", () => {
+    expect(depositAmount(2000)).toBe(1200);
+    expect(depositAmount(1900)).toBe(1140);
   });
 });
 

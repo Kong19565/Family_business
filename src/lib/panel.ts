@@ -20,7 +20,7 @@ export function panelProps(lang: Locale, dict: Dictionary): BookingPanelProps {
         fixedPickup: c.starts?.length === 1 ? c.starts[0] : undefined,
       })),
     ),
-    pickups: pickups.map((p) => ({ id: p.id, name: pick(p.name, lang), hint: pick(p.hint, lang), courseOnly: p.courseOnly })),
+    pickups: pickups.map((p) => ({ id: p.id, name: pick(p.name, lang), hint: pick(p.hint, lang), courseOnly: p.courseOnly, deposit: p.deposit })),
     boats: boatBySize.map((b) => ({
       max: b.max,
       name: pick(b.name, lang),

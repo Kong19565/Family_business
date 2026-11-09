@@ -1,4 +1,4 @@
-import { boatBySize, EXTRA_GUEST_PRICE, INCLUDED_GUESTS, MAX_GUESTS } from "@/constants/site";
+import { boatBySize, DEPOSIT_RATE, EXTRA_GUEST_PRICE, INCLUDED_GUESTS, MAX_GUESTS } from "@/constants/site";
 import type { Bilingual, Locale } from "./i18n";
 
 /** Smallest boat that fits the group, or null when the group is too big. */
@@ -15,6 +15,10 @@ export function clampGuests(n: number): number {
 /** Per-boat price: the base covers the first guests, then a fee per extra guest. */
 export function tripPrice(base: number, guests: number): number {
   return base + Math.max(0, guests - INCLUDED_GUESTS) * EXTRA_GUEST_PRICE;
+}
+
+export function depositAmount(total: number): number {
+  return Math.round(total * DEPOSIT_RATE);
 }
 
 export function formatBaht(amount: number): string {
@@ -52,6 +56,7 @@ export interface MessageLabels {
   pickup: string;
   name: string;
   price: string;
+  deposit: string;
 }
 
 export interface MessageInput {
@@ -63,6 +68,7 @@ export interface MessageInput {
   name?: string;
   price: string;
   boat?: string;
+  deposit?: string;
 }
 
 /** Plain-text message that the customer sends on LINE / WhatsApp. */
@@ -76,6 +82,7 @@ export function buildMessage(input: MessageInput): string {
     `• ${l.pickup}: ${input.pickup}`,
     `• ${l.price}: ${input.price}`,
   ];
+  if (input.deposit) lines.push(`• ${l.deposit}: ${input.deposit}`);
   if (input.name?.trim()) lines.push(`• ${l.name}: ${input.name.trim()}`);
   return lines.join("\n");
 }

@@ -7,6 +7,7 @@ import { useBooking } from "./BookingProvider";
 import { Reveal, Swap } from "./Motion";
 import {
   buildMessage,
+  depositAmount,
   clampGuests,
   formatBaht,
   formatDate,
@@ -22,7 +23,7 @@ import type { Locale } from "@/lib/i18n";
 export interface BookingPanelProps {
   lang: Locale;
   tours: { id: string; title: string; summary: string; price: number; image: string; fixedPickup?: string }[];
-  pickups: { id: string; name: string; hint: string; courseOnly?: boolean }[];
+  pickups: { id: string; name: string; hint: string; courseOnly?: boolean; deposit?: boolean }[];
   boats: { max: number; name: string; image: string }[];
   contact: { lineUrl: string; whatsappUrl: string; phoneHref: string };
   text: {
@@ -40,6 +41,7 @@ export interface BookingPanelProps {
     total: string;
     perTrip: string;
     confirm: string;
+    depositLabel: string;
     line: string;
     lineHint: string;
     whatsapp: string;
@@ -74,7 +76,9 @@ export default function BookingPanel({ lang, tours, pickups, boats, contact, tex
   const guestsLabel = tooMany ? `${MAX_GUESTS}+` : String(guests);
   const boat = tooMany ? undefined : boats.find((b) => guests <= b.max);
   const dateLabel = date ? formatDate(date, lang) : "—";
-  const priceLabel = tour && !tooMany ? formatBaht(tripPrice(tour.price, guests)) : "—";
+  const total = tour && !tooMany ? tripPrice(tour.price, guests) : null;
+  const priceLabel = total === null ? "—" : formatBaht(total);
+  const depositLabel = total !== null && pickup?.deposit ? formatBaht(depositAmount(total)) : undefined;
 
   const message = buildMessage({
         labels: text.message,
@@ -85,6 +89,7 @@ export default function BookingPanel({ lang, tours, pickups, boats, contact, tex
         name,
         price: tour && !tooMany ? `${priceLabel} ${text.perTrip}` : "—",
         boat: boat?.name,
+        deposit: depositLabel,
       });
 
   function validate(): boolean {
@@ -319,6 +324,12 @@ export default function BookingPanel({ lang, tours, pickups, boats, contact, tex
                   {priceLabel} <span className="text-sm font-normal text-muted">{text.perTrip}</span>
                 </Swap>
               </div>
+              {depositLabel && (
+                <div className="mt-2 flex items-baseline justify-between rounded-md bg-sand/60 px-3 py-2 text-sm">
+                  <span className="font-medium text-accent">{text.depositLabel}</span>
+                  <span className="font-semibold text-brand-dark">{depositLabel}</span>
+                </div>
+              )}
               <p className="mt-1 text-sm text-muted">{text.confirm}</p>
 
               {error && !dateInvalid && (

@@ -8,10 +8,11 @@ export const contact = {
   phones: [
     { label: "065-446-3694", href: "tel:0654463694" },
     { label: "098-828-9849", href: "tel:0988289849" },
+    { label: "092-459-8595", href: "tel:0924598595" },
   ],
 };
 
-export const pickups: { id: string; name: Bilingual; hint: Bilingual; map?: string; embed?: string; courseOnly?: boolean }[] = [
+export const pickups: { id: string; name: Bilingual; hint: Bilingual; map?: string; embed?: string; courseOnly?: boolean; deposit?: boolean }[] = [
   {
     id: "talat-phlu",
     name: { en: "Talat Phlu Pier", th: "ท่าเรือตลาดพลู" },
@@ -31,7 +32,8 @@ export const pickups: { id: string; name: Bilingual; hint: Bilingual; map?: stri
   {
     id: "kalaya",
     name: { en: "Wat Kalayanamit", th: "วัดกัลยาณมิตร" },
-    hint: { en: "Luang Pho To Pier", th: "ท่าเรือหลวงพ่อโต" },
+    hint: { en: "Luang Pho To Pier. 60% deposit required", th: "ท่าเรือหลวงพ่อโต ต้องมัดจำ 60% ของค่าเรือ" },
+    deposit: true,
     map: "https://www.google.com/maps/search/?api=1&query=Wat+Kalayanamit+Bangkok",
     embed: "https://www.google.com/maps?q=Wat+Kalayanamit+Bangkok&z=16&output=embed",
   },
@@ -44,7 +46,7 @@ export const pickups: { id: string; name: Bilingual; hint: Bilingual; map?: stri
   {
     id: "other",
     name: { en: "Not sure yet", th: "ยังไม่แน่ใจ" },
-    hint: { en: "We'll help you choose", th: "เราช่วยแนะนำให้" },
+    hint: { en: "We'll help you choose. Piers other than Talat Phlu and Wutthakat need a 60% deposit", th: "เราช่วยแนะนำให้ ท่าอื่นนอกจากตลาดพลูและวุฒากาศต้องมัดจำ 60% ของค่าเรือ" },
   },
 ];
 
@@ -60,6 +62,8 @@ export const boatBySize: { max: number; name: Bilingual }[] = [
 export const MAX_GUESTS = 10;
 export const INCLUDED_GUESTS = 5;
 export const EXTRA_GUEST_PRICE = 100;
+/** Share of the boat price paid up front for piers other than the two regular ones. */
+export const DEPOSIT_RATE = 0.6;
 
 export const heroImage = "/images/gallery_8.jpg";
 

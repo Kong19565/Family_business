@@ -61,6 +61,7 @@
     "suggested": "Suggested boat",
     "total": "Price",
     "perTrip": "per boat",
+    "depositLabel": "60% deposit for this pier",
     "confirm": "Up to 5 guests included, then ฿100 per extra guest. We confirm availability in the chat.",
     "line": "Copy & open LINE",
     "lineHint": "We copy your details. Just paste them in the chat.",
@@ -80,7 +81,8 @@
       "guests": "Guests",
       "pickup": "Meeting point",
       "name": "Name",
-      "price": "Price"
+      "price": "Price",
+      "deposit": "60% deposit"
     }
   },
   "meeting": { "eyebrow": "Meeting points", "title": "Where we meet", "map": "Open in Google Maps" },
