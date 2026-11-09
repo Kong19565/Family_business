@@ -38,6 +38,12 @@ export const pickups: { id: string; name: Bilingual; hint: Bilingual; map?: stri
     embed: "https://www.google.com/maps?q=Wat+Kalayanamit+Bangkok&z=16&output=embed",
   },
   {
+    id: "maiyainui",
+    name: { en: "Wat Mai Yai Nui", th: "วัดใหม่ยายนุ้ย" },
+    hint: { en: "Join tour pick-up", th: "จุดขึ้นเรือจอยทัวร์" },
+    courseOnly: true,
+  },
+  {
     id: "poomjai",
     name: { en: "Poomjai Garden", th: "ภูมิใจการ์เด้น" },
     hint: { en: "Route 1 starts here", th: "เส้นทาง 1 เริ่มที่นี่" },

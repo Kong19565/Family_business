@@ -128,16 +128,16 @@ export function Tours({ lang, dict }: Props) {
     <section id="tours" className="section bg-white">
       <div className="container-page">
         <Heading eyebrow={dict.tours.eyebrow} title={dict.tours.title} sub={dict.tours.subtitle} />
-        <Stagger className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <Stagger className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-6">
           {courses.map((t) => (
             <StaggerItem
               as="article"
               key={t.id}
-              className={`lift flex flex-col overflow-hidden rounded-lg border border-line bg-background ${t.no === 7 ? "md:col-span-2 lg:col-span-3" : ""}`}
+              className={`lift flex flex-col overflow-hidden rounded-lg border border-line bg-background ${t.no === 0 ? "border-gold md:col-span-2 lg:col-span-6" : t.no >= 7 ? "lg:col-span-3" : "lg:col-span-2"}`}
             >
               <Link
                 href={`/${lang}/tours/${t.id}`}
-                className={`relative block aspect-[16/10] overflow-hidden ${t.no === 7 ? "md:aspect-[21/9] lg:aspect-[4/1]" : ""}`}
+                className={`relative block aspect-[16/10] overflow-hidden ${t.no === 0 ? "md:aspect-[21/9] lg:aspect-[4/1]" : t.no >= 7 ? "lg:aspect-[16/9]" : ""}`}
               >
                 <Image
                   src={t.image}
@@ -147,7 +147,7 @@ export function Tours({ lang, dict }: Props) {
                   className="zoom object-cover"
                 />
                 <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded bg-white/95 px-2.5 py-1 text-sm font-medium text-foreground">
-                  {dict.tours.route_no} {t.no}
+                  {t.tag ? pick(t.tag, lang) : `${dict.tours.route_no} ${t.no}`}
                 </span>
               </Link>
               <div className="flex flex-1 flex-col p-5 md:p-6">
@@ -156,7 +156,7 @@ export function Tours({ lang, dict }: Props) {
                 <div className="mt-auto pt-4">
                   <p className="text-2xl font-semibold text-brand-dark">
                     {t.options.length > 1 && <span className="text-sm font-normal text-muted">{dict.tours.from} </span>}
-                    {formatBaht(Math.min(...t.options.map((o) => o.price)))} <span className="text-sm font-normal text-muted">{dict.tours.perTrip}</span>
+                    {formatBaht(Math.min(...t.options.map((o) => o.price)))} <span className="text-sm font-normal text-muted">{t.unit ? pick(t.unit, lang) : dict.tours.perTrip}</span>
                   </p>
                   <div className="mt-3 grid grid-cols-2 gap-2">
                     <Link href={`/${lang}/tours/${t.id}`} className="btn btn-ghost !px-3 text-sm">

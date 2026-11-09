@@ -22,7 +22,7 @@ import type { Locale } from "@/lib/i18n";
 
 export interface BookingPanelProps {
   lang: Locale;
-  tours: { id: string; title: string; summary: string; price: number; image: string; fixedPickup?: string; included?: number; extra?: number; max?: number; confirm?: string }[];
+  tours: { id: string; title: string; summary: string; price: number; image: string; fixedPickups?: string[]; unit?: string; departures?: string[]; included?: number; extra?: number; max?: number; confirm?: string }[];
   pickups: { id: string; name: string; hint: string; courseOnly?: boolean; deposit?: boolean }[];
   boats: { max: number; name: string; image: string }[];
   contact: { lineUrl: string; whatsappUrl: string; phoneHref: string };
@@ -42,6 +42,7 @@ export interface BookingPanelProps {
     perTrip: string;
     confirm: string;
     depositLabel: string;
+    departure: string;
     line: string;
     lineHint: string;
     whatsapp: string;
@@ -65,17 +66,21 @@ export default function BookingPanel({ lang, tours, pickups, boats, contact, tex
   const [guests, setGuests] = useState(2);
   const [name, setName] = useState("");
   const [error, setError] = useState("");
+  const [departureId, setDepartureId] = useState("");
   const [copy, setCopy] = useState<Copy>(null);
   const dateRef = useRef<HTMLInputElement>(null);
 
   const tour = tours.find((t) => t.id === tourId);
   // A course with its own pier offers only that one.
-  const pickupChoices = tour?.fixedPickup ? pickups.filter((p) => p.id === tour.fixedPickup) : pickups.filter((p) => !p.courseOnly);
-  const pickup = pickupChoices.find((p) => p.id === pickupId) ?? (tour?.fixedPickup ? pickupChoices[0] : undefined);
+  const pickupChoices = tour?.fixedPickups ? pickups.filter((p) => tour.fixedPickups?.includes(p.id)) : pickups.filter((p) => !p.courseOnly);
+  const pickup = pickupChoices.find((p) => p.id === pickupId) ?? (tour?.fixedPickups ? pickupChoices[0] : undefined);
+  const perUnit = tour?.unit ?? text.perTrip;
+  const departure = tour?.departures ? (tour.departures.includes(departureId) ? departureId : tour.departures[0]) : undefined;
   const maxGuests = tour?.max ?? MAX_GUESTS;
   const tooMany = guests > maxGuests;
   const guestsLabel = tooMany ? `${maxGuests}+` : String(guests);
-  const boat = tooMany ? undefined : boats.find((b) => guests <= b.max);
+  // A join tour shares one boat, so there is nothing to suggest.
+  const boat = tooMany || tour?.departures ? undefined : boats.find((b) => guests <= b.max);
   const dateLabel = date ? formatDate(date, lang) : "—";
   const total = tour && !tooMany ? tripPrice(tour.price, guests, tour.included, tour.extra) : null;
   const priceLabel = total === null ? "—" : formatBaht(total);
@@ -88,9 +93,10 @@ export default function BookingPanel({ lang, tours, pickups, boats, contact, tex
         guests: guestsLabel,
         pickup: pickup?.name ?? "—",
         name,
-        price: tour && !tooMany ? `${priceLabel} ${text.perTrip}` : "—",
+        price: tour && !tooMany ? total === null ? "—" : `${formatBaht(total)}${tour?.departures ? "" : ` ${perUnit}`}` : "—",
         boat: boat?.name,
         deposit: depositLabel,
+        departure,
       });
 
   function validate(): boolean {
@@ -227,6 +233,25 @@ export default function BookingPanel({ lang, tours, pickups, boats, contact, tex
               </div>
             </div>
 
+            {tour?.departures && (
+              <fieldset>
+                <legend className="mb-3 font-semibold">{text.departure}</legend>
+                <div className="flex flex-wrap gap-2">
+                  {tour.departures.map((d) => (
+                    <label
+                      key={d}
+                      className={`flex min-h-11 cursor-pointer items-center rounded-full border px-4 text-sm font-medium transition-colors focus-within:outline-2 focus-within:outline-accent ${
+                        d === departure ? "border-brand bg-brand text-white" : "border-line bg-white hover:bg-sand"
+                      }`}
+                    >
+                      <input type="radio" name="departure" value={d} checked={d === departure} onChange={() => setDepartureId(d)} className="sr-only" />
+                      {d}
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
+            )}
+
             <fieldset>
               <legend className="mb-3 flex items-center gap-2 font-semibold">
                 <MapPin className="h-5 w-5 text-brand" aria-hidden /> {text.pickup}
@@ -289,6 +314,12 @@ export default function BookingPanel({ lang, tours, pickups, boats, contact, tex
                   <dt className="text-muted">{text.message.date}</dt>
                   <dd className="text-right font-medium">{dateLabel}</dd>
                 </div>
+                {departure && (
+                  <div className="flex justify-between gap-4">
+                    <dt className="text-muted">{text.departure}</dt>
+                    <dd className="text-right font-medium">{departure}</dd>
+                  </div>
+                )}
                 <div className="flex justify-between gap-4">
                   <dt className="text-muted">{text.message.guests}</dt>
                   <dd className="text-right font-medium">{guestsLabel}</dd>
@@ -313,16 +344,16 @@ export default function BookingPanel({ lang, tours, pickups, boats, contact, tex
                     </Swap>
                   </div>
                 </div>
-              ) : (
+              ) : tooMany ? (
                 <p aria-live="polite" className="mt-4 rounded-md bg-sand/60 p-3 text-sm font-medium text-accent">
                   {text.tooMany.replace("{max}", String(maxGuests))}
                 </p>
-              )}
+              ) : null}
 
               <div className="mt-4 flex items-baseline justify-between border-t border-line pt-4">
                 <span className="text-sm text-muted">{text.total}</span>
                 <Swap swapKey={`${tour?.id}-${priceLabel}`} className="text-2xl font-semibold text-brand-dark">
-                  {priceLabel} <span className="text-sm font-normal text-muted">{text.perTrip}</span>
+                  {priceLabel} {!tour?.departures && <span className="text-sm font-normal text-muted">{perUnit}</span>}
                 </Swap>
               </div>
               {depositLabel && (

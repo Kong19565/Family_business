@@ -52,6 +52,7 @@ describe("tripPrice", () => {
   it("supports a course with its own rule", () => {
     expect(tripPrice(6000, 10, 10, 400)).toBe(6000);
     expect(tripPrice(6000, 12, 10, 400)).toBe(6800);
+    expect(tripPrice(500, 3, 1, 500)).toBe(1500);
   });
 });
 

@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-import { courses } from "@/constants/courses";
 import { contact } from "@/constants/site";
 import { getDictionary } from "@/dictionaries/dictionaries";
 import { isLocale } from "@/lib/i18n";
@@ -17,7 +16,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   const p = { lang, dict };
 
   return (
-    <BookingProvider initialTourId={courses[0].options[0].id}>
+    <BookingProvider initialTourId="route-1">
       <Navbar {...p} />
       <main>
         <Hero {...p} />

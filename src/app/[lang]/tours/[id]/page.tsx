@@ -47,7 +47,7 @@ export default async function TourPage({ params }: { params: Promise<{ lang: str
             <Image src={course.image} alt={pick(course.title, lang)} fill priority sizes="(min-width:1152px) 1152px, 100vw" className="ken-burns object-cover" />
           </div>
 
-          <p className="eyebrow mt-6">{dict.tours.route_no} {course.no}</p>
+          <p className="eyebrow mt-6">{course.tag ? pick(course.tag, lang) : `${dict.tours.route_no} ${course.no}`}</p>
           <h1 className="text-3xl leading-tight sm:text-4xl">{pick(course.title, lang)}</h1>
           <p className="mt-3 max-w-3xl text-lg text-muted">{pick(course.description, lang)}</p>
 

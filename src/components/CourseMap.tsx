@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import type { LayerGroup, Map as LeafletMap } from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -31,25 +31,7 @@ function RealMap({ pier, stops, startLabel }: { pier: CourseMapProps["piers"][nu
   const layer = useRef<LayerGroup | null>(null);
   const lib = useRef<typeof import("leaflet") | null>(null);
 
-  const draw = useRef(() => {});
-  draw.current = () => {
-    const L = lib.current;
-    if (!L || !map.current || !layer.current) return;
-    layer.current.clearLayers();
-    L.polyline(pier.line, { color: "#fff", weight: 8, opacity: 0.9 }).addTo(layer.current);
-    const route = L.polyline(pier.line, { color: NAVY, weight: 4 }).addTo(layer.current);
-    const pin = (at: [number, number], label: string, name: string, start = false) =>
-      L.marker(at, {
-        title: name,
-        alt: name,
-        icon: L.divIcon({ html: pinHtml(label, start), className: "", iconSize: [28, 28], iconAnchor: [14, 14] }),
-      })
-        .bindTooltip(name, { direction: "top", offset: [0, -14] })
-        .addTo(layer.current as LayerGroup);
-    pin(pier.at, "S", `${startLabel}: ${pier.name}`, true);
-    stops.forEach((s, i) => pin(s.at, String(i + 1), s.name));
-    map.current.fitBounds(route.getBounds(), { padding: [34, 34] });
-  };
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -66,7 +48,7 @@ function RealMap({ pier, stops, startLabel }: { pier: CourseMapProps["piers"][nu
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       }).addTo(map.current);
       layer.current = L.layerGroup().addTo(map.current);
-      draw.current();
+      setReady(true);
     });
     return () => {
       cancelled = true;
@@ -76,8 +58,24 @@ function RealMap({ pier, stops, startLabel }: { pier: CourseMapProps["piers"][nu
   }, []);
 
   useEffect(() => {
-    draw.current();
-  }, [pier]);
+    const L = lib.current;
+    const group = layer.current;
+    if (!ready || !L || !map.current || !group) return;
+    group.clearLayers();
+    L.polyline(pier.line, { color: "#fff", weight: 8, opacity: 0.9 }).addTo(group);
+    const route = L.polyline(pier.line, { color: NAVY, weight: 4 }).addTo(group);
+    const pin = (at: [number, number], label: string, name: string, start = false) =>
+      L.marker(at, {
+        title: name,
+        alt: name,
+        icon: L.divIcon({ html: pinHtml(label, start), className: "", iconSize: [28, 28], iconAnchor: [14, 14] }),
+      })
+        .bindTooltip(name, { direction: "top", offset: [0, -14] })
+        .addTo(group);
+    pin(pier.at, "S", `${startLabel}: ${pier.name}`, true);
+    stops.forEach((s, i) => pin(s.at, String(i + 1), s.name));
+    map.current.fitBounds(route.getBounds(), { padding: [34, 34] });
+  }, [ready, pier, stops, startLabel]);
 
   return <div ref={box} className="relative z-0 h-full w-full bg-sand" />;
 }

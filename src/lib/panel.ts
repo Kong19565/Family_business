@@ -13,11 +13,13 @@ export function panelProps(lang: Locale, dict: Dictionary): BookingPanelProps {
     tours: courses.flatMap((c) =>
       c.options.map((o) => ({
         id: o.id,
-        title: `${c.no}. ${pick(c.title, lang)}${o.label ? ` (${pick(o.label, lang)})` : ""}`,
+        title: `${c.no ? `${c.no}. ` : ""}${pick(c.title, lang)}${o.label ? ` (${pick(o.label, lang)})` : ""}`,
         summary: pick(c.summary, lang),
         price: o.price,
         image: c.image,
-        fixedPickup: c.starts?.length === 1 ? c.starts[0] : undefined,
+        fixedPickups: c.starts && (c.starts.length === 1 || c.lockStarts) ? c.starts : undefined,
+        unit: c.unit ? pick(c.unit, lang) : undefined,
+        departures: c.departures,
         included: c.pricing?.included,
         extra: c.pricing?.extra,
         max: c.pricing?.max,

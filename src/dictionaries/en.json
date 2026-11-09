@@ -10,13 +10,13 @@
     "subtitle": "Temples, old teak houses and local life. Only your group on board.",
     "cta": "Choose a tour",
     "cta2": "Chat on LINE",
-    "facts": ["Private boat, your group only", "From ฿1,200 per boat", "08:00 – 18:00, other times on request", "Accident insurance and life jackets for everyone"]
+    "facts": ["Private boat, your group only", "Join tour ฿500 per person · Private boats from ฿1,200", "08:00 – 18:00, other times on request", "Accident insurance and life jackets for everyone"]
   },
   "steps": {
     "eyebrow": "How it works",
     "title": "Book in 3 easy steps",
     "items": [
-      { "title": "Pick a tour", "desc": "Seven routes through the canals and river." },
+      { "title": "Pick a tour", "desc": "A join tour or eight private routes." },
       { "title": "Choose date and guests", "desc": "We suggest the right boat for your group." },
       { "title": "Send us a message", "desc": "We write it for you. Just paste and send on LINE." }
     ]
@@ -24,7 +24,7 @@
   "tours": {
     "eyebrow": "Curated journeys",
     "title": "Choose your tour",
-    "subtitle": "Price per boat for up to 5 guests. Extra guests ฿100 each, up to 10.",
+    "subtitle": "Most private routes are per boat for up to 5 guests. See each route for details.",
     "perTrip": "per boat",
     "from": "From",
     "route_no": "Route",
@@ -62,6 +62,7 @@
     "total": "Price",
     "perTrip": "per boat",
     "depositLabel": "60% deposit for this pier",
+    "departure": "Boat time",
     "confirm": "Up to 5 guests included, then ฿100 per extra guest. We confirm availability in the chat.",
     "line": "Copy & open LINE",
     "lineHint": "We copy your details. Just paste them in the chat.",
@@ -82,7 +83,8 @@
       "pickup": "Meeting point",
       "name": "Name",
       "price": "Price",
-      "deposit": "60% deposit"
+      "deposit": "60% deposit",
+      "departure": "Boat time"
     }
   },
   "meeting": { "eyebrow": "Meeting points", "title": "Where we meet", "map": "Open in Google Maps" },

@@ -57,6 +57,7 @@ export interface MessageLabels {
   name: string;
   price: string;
   deposit: string;
+  departure: string;
 }
 
 export interface MessageInput {
@@ -69,6 +70,7 @@ export interface MessageInput {
   price: string;
   boat?: string;
   deposit?: string;
+  departure?: string;
 }
 
 /** Plain-text message that the customer sends on LINE / WhatsApp. */
@@ -78,6 +80,7 @@ export function buildMessage(input: MessageInput): string {
     l.hello,
     `• ${l.tour}: ${input.tour}`,
     `• ${l.date}: ${input.date}`,
+    ...(input.departure ? [`• ${l.departure}: ${input.departure}`] : []),
     `• ${l.guests}: ${input.guests}${input.boat ? ` (${input.boat})` : ""}`,
     `• ${l.pickup}: ${input.pickup}`,
     `• ${l.price}: ${input.price}`,

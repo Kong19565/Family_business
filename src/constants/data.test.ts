@@ -12,9 +12,9 @@ describe("fleet", () => {
 });
 
 describe("courses", () => {
-  it("has the seven routes with their prices", () => {
-    expect(courses.map((c) => c.no)).toEqual([1, 2, 3, 4, 5, 6, 7]);
-    expect(courses.flatMap((c) => c.options.map((o) => o.price))).toEqual([1200, 1800, 2400, 2200, 1600, 2000, 2400, 6000]);
+  it("has the join tour and eight routes with their prices", () => {
+    expect(courses.map((c) => c.no)).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8]);
+    expect(courses.flatMap((c) => c.options.map((o) => o.price))).toEqual([500, 1200, 1800, 2400, 2200, 1600, 2000, 2400, 6000, 5000]);
   });
 
   it("has a real-map line from every pier", () => {
