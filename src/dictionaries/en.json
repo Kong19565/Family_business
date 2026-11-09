@@ -10,7 +10,7 @@
     "subtitle": "Temples, old teak houses and local life. Only your group on board.",
     "cta": "Choose a tour",
     "cta2": "Chat on LINE",
-    "facts": ["Private boat, your group only", "From ฿1,200 per boat", "08:00 – 18:00, other times on request"]
+    "facts": ["Private boat, your group only", "From ฿1,200 per boat", "08:00 – 18:00, other times on request", "Accident insurance and life jackets for everyone"]
   },
   "steps": {
     "eyebrow": "How it works",
@@ -35,6 +35,7 @@
     "notFound": "Tour not found",
     "back": "All tours",
     "price": "Price per boat (up to 5)",
+    "durationLabel": "Time",
     "extraLabel": "Extra guests",
     "extraValue": "฿100 each, up to 10",
     "route": "Highlights",

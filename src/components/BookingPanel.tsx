@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import { Calendar, Check, MapPin, Minus, Phone, Plus, Send, Ship, Users } from "lucide-react";
 import { useBooking } from "./BookingProvider";
@@ -21,8 +21,8 @@ import type { Locale } from "@/lib/i18n";
 
 export interface BookingPanelProps {
   lang: Locale;
-  tours: { id: string; title: string; summary: string; price: number; image: string }[];
-  pickups: { id: string; name: string; hint: string }[];
+  tours: { id: string; title: string; summary: string; price: number; image: string; fixedPickup?: string }[];
+  pickups: { id: string; name: string; hint: string; courseOnly?: boolean }[];
   boats: { max: number; name: string; image: string }[];
   contact: { lineUrl: string; whatsappUrl: string; phoneHref: string };
   text: {
@@ -67,16 +67,16 @@ export default function BookingPanel({ lang, tours, pickups, boats, contact, tex
   const dateRef = useRef<HTMLInputElement>(null);
 
   const tour = tours.find((t) => t.id === tourId);
-  const pickup = pickups.find((p) => p.id === pickupId);
+  // A course with its own pier offers only that one.
+  const pickupChoices = tour?.fixedPickup ? pickups.filter((p) => p.id === tour.fixedPickup) : pickups.filter((p) => !p.courseOnly);
+  const pickup = pickupChoices.find((p) => p.id === pickupId) ?? (tour?.fixedPickup ? pickupChoices[0] : undefined);
   const tooMany = guests > MAX_GUESTS;
   const guestsLabel = tooMany ? `${MAX_GUESTS}+` : String(guests);
   const boat = tooMany ? undefined : boats.find((b) => guests <= b.max);
   const dateLabel = date ? formatDate(date, lang) : "—";
   const priceLabel = tour && !tooMany ? formatBaht(tripPrice(tour.price, guests)) : "—";
 
-  const message = useMemo(
-    () =>
-      buildMessage({
+  const message = buildMessage({
         labels: text.message,
         tour: tour?.title ?? "—",
         date: dateLabel,
@@ -85,9 +85,7 @@ export default function BookingPanel({ lang, tours, pickups, boats, contact, tex
         name,
         price: tour && !tooMany ? `${priceLabel} ${text.perTrip}` : "—",
         boat: boat?.name,
-      }),
-    [text.message, text.perTrip, tour, tooMany, priceLabel, dateLabel, guestsLabel, pickup, name, boat],
-  );
+      });
 
   function validate(): boolean {
     if (!tour) {
@@ -228,18 +226,18 @@ export default function BookingPanel({ lang, tours, pickups, boats, contact, tex
                 <MapPin className="h-5 w-5 text-brand" aria-hidden /> {text.pickup}
               </legend>
               <div className="flex flex-wrap gap-2">
-                {pickups.map((p) => (
+                {pickupChoices.map((p) => (
                   <label
                     key={p.id}
                     className={`flex min-h-11 cursor-pointer items-center rounded-full border px-4 text-sm font-medium transition-colors focus-within:outline-2 focus-within:outline-accent ${
-                      p.id === pickupId ? "border-brand bg-brand text-white" : "border-line bg-white hover:bg-sand"
+                      p.id === pickup?.id ? "border-brand bg-brand text-white" : "border-line bg-white hover:bg-sand"
                     }`}
                   >
                     <input
                       type="radio"
                       name="pickup"
                       value={p.id}
-                      checked={p.id === pickupId}
+                      checked={p.id === pickup?.id}
                       onChange={() => setPickupId(p.id)}
                       className="sr-only"
                     />

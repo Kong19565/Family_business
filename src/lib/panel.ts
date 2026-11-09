@@ -17,9 +17,10 @@ export function panelProps(lang: Locale, dict: Dictionary): BookingPanelProps {
         summary: pick(c.summary, lang),
         price: o.price,
         image: c.image,
+        fixedPickup: c.starts?.length === 1 ? c.starts[0] : undefined,
       })),
     ),
-    pickups: pickups.map((p) => ({ id: p.id, name: pick(p.name, lang), hint: pick(p.hint, lang) })),
+    pickups: pickups.map((p) => ({ id: p.id, name: pick(p.name, lang), hint: pick(p.hint, lang), courseOnly: p.courseOnly })),
     boats: boatBySize.map((b) => ({
       max: b.max,
       name: pick(b.name, lang),

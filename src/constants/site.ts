@@ -11,7 +11,7 @@ export const contact = {
   ],
 };
 
-export const pickups: { id: string; name: Bilingual; hint: Bilingual; map?: string; embed?: string }[] = [
+export const pickups: { id: string; name: Bilingual; hint: Bilingual; map?: string; embed?: string; courseOnly?: boolean }[] = [
   {
     id: "talat-phlu",
     name: { en: "Talat Phlu Pier", th: "ท่าเรือตลาดพลู" },
@@ -34,6 +34,12 @@ export const pickups: { id: string; name: Bilingual; hint: Bilingual; map?: stri
     hint: { en: "Luang Pho To Pier", th: "ท่าเรือหลวงพ่อโต" },
     map: "https://www.google.com/maps/search/?api=1&query=Wat+Kalayanamit+Bangkok",
     embed: "https://www.google.com/maps?q=Wat+Kalayanamit+Bangkok&z=16&output=embed",
+  },
+  {
+    id: "poomjai",
+    name: { en: "Poomjai Garden", th: "ภูมิใจการ์เด้น" },
+    hint: { en: "Route 1 starts here", th: "เส้นทาง 1 เริ่มที่นี่" },
+    courseOnly: true,
   },
   {
     id: "other",

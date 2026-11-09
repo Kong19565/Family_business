@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Check, Users, Wallet } from "lucide-react";
+import { ArrowLeft, Check, Clock, Users, Wallet } from "lucide-react";
 import { courses, included, mapPiers, pierIds, places } from "@/constants/courses";
 import routes from "@/constants/routes.geo.json";
 import { contact, pickups } from "@/constants/site";
@@ -51,10 +51,11 @@ export default async function TourPage({ params }: { params: Promise<{ lang: str
           <h1 className="text-3xl leading-tight sm:text-4xl">{pick(course.title, lang)}</h1>
           <p className="mt-3 max-w-3xl text-lg text-muted">{pick(course.description, lang)}</p>
 
-          <dl className="mt-6 grid grid-cols-2 gap-3">
+          <dl className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-3">
             {[
               { icon: Wallet, label: dict.tour.price, value: `${course.options.length > 1 ? dict.tours.from + " " : ""}${formatBaht(fromPrice)}` },
               { icon: Users, label: dict.tour.extraLabel, value: dict.tour.extraValue },
+              ...(course.duration ? [{ icon: Clock, label: dict.tour.durationLabel, value: pick(course.duration, lang) }] : []),
             ].map(({ icon: Icon, label, value }) => (
               <div key={label} className="flex items-start gap-3 rounded-lg border border-line bg-white p-4">
                 <Icon className="mt-0.5 h-5 w-5 shrink-0 text-accent" aria-hidden />
@@ -72,7 +73,7 @@ export default async function TourPage({ params }: { params: Promise<{ lang: str
               loop={!!course.loop}
               via={course.via ?? course.stops}
               stops={course.stops.map((s) => ({ id: s, name: pick(places[s].name, lang), at: places[s].at as [number, number] }))}
-              piers={pierIds.map((pid) => ({ id: pid, name: pierName(pid), at: mapPiers[pid].at, km: geo[pid].km, line: geo[pid].line }))}
+              piers={(course.starts ?? pierIds).map((pid) => ({ id: pid, name: pierName(pid), at: mapPiers[pid].at, km: geo[pid].km, line: geo[pid].line }))}
               text={dict.map}
             />
           </div>
