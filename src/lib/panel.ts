@@ -1,4 +1,5 @@
-import { allDestinations, fleet } from "@/constants/data";
+import { fleet } from "@/constants/data";
+import { courses } from "@/constants/courses";
 import { boatBySize, contact, pickups } from "@/constants/site";
 import { pick, type Locale } from "./i18n";
 import type { Dictionary } from "@/dictionaries/dictionaries";
@@ -8,13 +9,16 @@ import type { BookingPanelProps } from "@/components/BookingPanel";
 export function panelProps(lang: Locale, dict: Dictionary): BookingPanelProps {
   return {
     lang,
-    tours: allDestinations.map((t) => ({
-      id: t.id,
-      title: pick(t.title, lang),
-      duration: pick(t.duration, lang),
-      price: t.price,
-      image: t.image,
-    })),
+    // A course with several price options becomes one choice per option.
+    tours: courses.flatMap((c) =>
+      c.options.map((o) => ({
+        id: o.id,
+        title: `${c.no}. ${pick(c.title, lang)}${o.label ? ` (${pick(o.label, lang)})` : ""}`,
+        summary: pick(c.summary, lang),
+        price: o.price,
+        image: c.image,
+      })),
+    ),
     pickups: pickups.map((p) => ({ id: p.id, name: pick(p.name, lang), hint: pick(p.hint, lang) })),
     boats: boatBySize.map((b) => ({
       max: b.max,

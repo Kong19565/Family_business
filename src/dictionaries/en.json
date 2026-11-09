@@ -10,39 +10,44 @@
     "subtitle": "Temples, old teak houses and local life. Only your group on board.",
     "cta": "Choose a tour",
     "cta2": "Chat on LINE",
-    "facts": ["Private boat, your group only", "From ฿1,500 per trip", "08:00 – 18:00, other times on request"]
+    "facts": ["Private boat, your group only", "From ฿1,200 per boat", "08:00 – 18:00, other times on request"]
   },
   "steps": {
+    "eyebrow": "How it works",
     "title": "Book in 3 easy steps",
     "items": [
-      { "title": "Pick a tour", "desc": "From 1 hour to a full day." },
+      { "title": "Pick a tour", "desc": "Six routes through the canals and river." },
       { "title": "Choose date and guests", "desc": "We suggest the right boat for your group." },
       { "title": "Send us a message", "desc": "We write it for you. Just paste and send on LINE." }
     ]
   },
   "tours": {
+    "eyebrow": "Curated journeys",
     "title": "Choose your tour",
-    "subtitle": "Prices are for the whole private trip, not per person.",
-    "perTrip": "per trip",
+    "subtitle": "Price per boat for up to 5 guests. Extra guests ฿100 each, up to 10.",
+    "perTrip": "per boat",
+    "from": "From",
+    "route_no": "Route",
     "book": "Book this tour",
-    "route": "See route"
+    "route": "See map"
   },
   "tour": {
     "notFound": "Tour not found",
     "back": "All tours",
-    "duration": "Duration",
-    "start": "Starts at",
-    "price": "Price per trip",
-    "priceNote": "For the whole private trip, including taxes and fees.",
-    "route": "Your route",
+    "price": "Price per boat (up to 5)",
+    "extraLabel": "Extra guests",
+    "extraValue": "฿100 each, up to 10",
+    "route": "Highlights",
     "included": "What's included",
     "book": "Book this tour"
   },
   "boats": {
+    "eyebrow": "The fleet",
     "title": "A boat for every group size",
     "subtitle": "We match the boat to your group when you book."
   },
   "booking": {
+    "eyebrow": "Reservation",
     "title": "Book your trip",
     "subtitle": "Choose your tour, date and group size, then send us the details.",
     "tour": "1. Tour",
@@ -54,8 +59,8 @@
     "summary": "Your trip",
     "suggested": "Suggested boat",
     "total": "Price",
-    "perTrip": "per trip",
-    "confirm": "We confirm availability and the final price for your group in the chat.",
+    "perTrip": "per boat",
+    "confirm": "Up to 5 guests included, then ฿100 per extra guest. We confirm availability in the chat.",
     "line": "Copy & open LINE",
     "lineHint": "We copy your details. Just paste them in the chat.",
     "whatsapp": "WhatsApp",
@@ -64,7 +69,7 @@
     "copyFailed": "Could not copy. Please copy the message below.",
     "pickDate": "Please choose today or a later date",
     "pickTour": "Please choose a tour",
-    "tooMany": "More than 25 guests? Message us for a custom plan.",
+    "tooMany": "More than 10 guests? Message us for a custom plan.",
     "decrease": "Fewer guests",
     "increase": "More guests",
     "message": {
@@ -77,9 +82,20 @@
       "price": "Price"
     }
   },
-  "meeting": { "title": "Where we meet", "map": "Open in Google Maps" },
-  "gallery": { "title": "Life on the water" },
-  "contact": { "title": "Questions? Talk to us", "line": "Add us on LINE" },
+  "meeting": { "eyebrow": "Meeting points", "title": "Where we meet", "map": "Open in Google Maps" },
+  "gallery": { "eyebrow": "Gallery", "title": "Life on the water" },
+  "contact": { "eyebrow": "Contact", "title": "Questions? Talk to us", "line": "Add us on LINE" },
   "footer": { "rights": "All rights reserved.", "tagline": "Private canal tours in Bangkok" },
+  "map": {
+    "title": "Route map",
+    "sub": "The diagram and the real map show the same trip.",
+    "start": "Start",
+    "diagram": "Diagram",
+    "real": "Real map",
+    "distance": "One-way distance about",
+    "distanceLoop": "Full loop from the pier about",
+    "km": "km",
+    "note": "The line is approximate. Your captain may adjust it for tide and traffic."
+  },
   "lang": { "label": "Language" }
 }

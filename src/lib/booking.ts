@@ -1,4 +1,4 @@
-import { boatBySize, MAX_GUESTS } from "@/constants/site";
+import { boatBySize, EXTRA_GUEST_PRICE, INCLUDED_GUESTS, MAX_GUESTS } from "@/constants/site";
 import type { Bilingual, Locale } from "./i18n";
 
 /** Smallest boat that fits the group, or null when the group is too big. */
@@ -10,6 +10,15 @@ export function suggestBoat(guests: number): Bilingual | null {
 export function clampGuests(n: number): number {
   if (!Number.isFinite(n)) return 2;
   return Math.max(1, Math.min(MAX_GUESTS + 1, Math.round(n)));
+}
+
+/** Per-boat price: the base covers the first guests, then a fee per extra guest. */
+export function tripPrice(base: number, guests: number): number {
+  return base + Math.max(0, guests - INCLUDED_GUESTS) * EXTRA_GUEST_PRICE;
+}
+
+export function formatBaht(amount: number): string {
+  return `฿${amount.toLocaleString("en-US")}`;
 }
 
 /** Local calendar date as YYYY-MM-DD. */

@@ -50,7 +50,10 @@ export const boatBySize: { max: number; name: Bilingual }[] = [
   { max: 20, name: { en: "Grand Longtail Boat", th: "เรือหางยาวแกรนด์" } },
   { max: 25, name: { en: "Express Canal Boat", th: "เรือด่วนพิเศษ" } },
 ];
-export const MAX_GUESTS = 25;
+/** The price list covers up to this many guests on one boat. */
+export const MAX_GUESTS = 10;
+export const INCLUDED_GUESTS = 5;
+export const EXTRA_GUEST_PRICE = 100;
 
 export const heroImage = "/images/gallery_8.jpg";
 

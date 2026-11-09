@@ -4,12 +4,15 @@ import { useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { Calendar, Check, MapPin, Minus, Phone, Plus, Send, Ship, Users } from "lucide-react";
 import { useBooking } from "./BookingProvider";
+import { Reveal, Swap } from "./Motion";
 import {
   buildMessage,
   clampGuests,
+  formatBaht,
   formatDate,
   isFutureOrToday,
   todayIso,
+  tripPrice,
   whatsappLink,
   type MessageLabels,
 } from "@/lib/booking";
@@ -18,11 +21,12 @@ import type { Locale } from "@/lib/i18n";
 
 export interface BookingPanelProps {
   lang: Locale;
-  tours: { id: string; title: string; duration: string; price: string; image: string }[];
+  tours: { id: string; title: string; summary: string; price: number; image: string }[];
   pickups: { id: string; name: string; hint: string }[];
   boats: { max: number; name: string; image: string }[];
   contact: { lineUrl: string; whatsappUrl: string; phoneHref: string };
   text: {
+    eyebrow: string;
     title: string;
     subtitle: string;
     tour: string;
@@ -54,10 +58,9 @@ export interface BookingPanelProps {
 type Copy = { state: "copied" | "failed"; message: string } | null;
 
 export default function BookingPanel({ lang, tours, pickups, boats, contact, text }: BookingPanelProps) {
-  const { tourId, setTourId } = useBooking();
+  const { tourId, setTourId, pickupId, setPickupId } = useBooking();
   const [date, setDate] = useState("");
   const [guests, setGuests] = useState(2);
-  const [pickupId, setPickupId] = useState(pickups[0]?.id ?? "");
   const [name, setName] = useState("");
   const [error, setError] = useState("");
   const [copy, setCopy] = useState<Copy>(null);
@@ -69,6 +72,7 @@ export default function BookingPanel({ lang, tours, pickups, boats, contact, tex
   const guestsLabel = tooMany ? `${MAX_GUESTS}+` : String(guests);
   const boat = tooMany ? undefined : boats.find((b) => guests <= b.max);
   const dateLabel = date ? formatDate(date, lang) : "—";
+  const priceLabel = tour && !tooMany ? formatBaht(tripPrice(tour.price, guests)) : "—";
 
   const message = useMemo(
     () =>
@@ -79,10 +83,10 @@ export default function BookingPanel({ lang, tours, pickups, boats, contact, tex
         guests: guestsLabel,
         pickup: pickup?.name ?? "—",
         name,
-        price: tour ? `${tour.price} ${text.perTrip}` : "—",
+        price: tour && !tooMany ? `${priceLabel} ${text.perTrip}` : "—",
         boat: boat?.name,
       }),
-    [text.message, text.perTrip, tour, dateLabel, guestsLabel, pickup, name, boat],
+    [text.message, text.perTrip, tour, tooMany, priceLabel, dateLabel, guestsLabel, pickup, name, boat],
   );
 
   function validate(): boolean {
@@ -118,12 +122,15 @@ export default function BookingPanel({ lang, tours, pickups, boats, contact, tex
   return (
     <section id="book" className="section bg-mist">
       <div className="container-page">
-        <h2 className="section-title">{text.title}</h2>
-        <p className="section-sub">{text.subtitle}</p>
+        <Reveal>
+          <p className="eyebrow">{text.eyebrow}</p>
+          <h2 className="section-title">{text.title}</h2>
+          <p className="section-sub">{text.subtitle}</p>
+        </Reveal>
 
-        <div className="mt-8 grid items-start gap-5 lg:grid-cols-[1.25fr_1fr] lg:gap-8">
+        <div className="mt-9 grid items-start gap-5 lg:grid-cols-[1.25fr_1fr] lg:gap-8">
           {/* Form */}
-          <div className="space-y-7 rounded-3xl border border-line bg-white p-5 sm:p-7">
+          <div className="space-y-7 rounded-lg border border-line bg-white p-5 sm:p-7">
             <fieldset>
               <legend className="mb-3 flex items-center gap-2 font-semibold">
                 <Ship className="h-5 w-5 text-brand" aria-hidden /> {text.tour}
@@ -132,7 +139,7 @@ export default function BookingPanel({ lang, tours, pickups, boats, contact, tex
                 {tours.map((t) => (
                   <label
                     key={t.id}
-                    className={`flex cursor-pointer items-center justify-between gap-3 rounded-2xl border p-3 transition-colors focus-within:outline-2 focus-within:outline-accent ${
+                    className={`flex cursor-pointer items-center justify-between gap-3 rounded-md border p-3 transition-colors focus-within:outline-2 focus-within:outline-accent ${
                       t.id === tourId ? "border-brand bg-brand/5 ring-1 ring-brand" : "border-line hover:bg-sand/50"
                     }`}
                   >
@@ -147,10 +154,10 @@ export default function BookingPanel({ lang, tours, pickups, boats, contact, tex
                       />
                       <span className="min-w-0">
                         <span className="block font-medium leading-snug">{t.title}</span>
-                        <span className="text-sm text-muted">{t.duration}</span>
+                        <span className="text-sm text-muted">{t.summary}</span>
                       </span>
                     </span>
-                    <span className="whitespace-nowrap font-semibold text-brand-dark">{t.price}</span>
+                    <span className="whitespace-nowrap font-semibold text-brand-dark">{formatBaht(t.price)}</span>
                   </label>
                 ))}
               </div>
@@ -175,7 +182,7 @@ export default function BookingPanel({ lang, tours, pickups, boats, contact, tex
                     setDate(e.target.value);
                     setError("");
                   }}
-                  className={`h-12 w-full min-w-0 rounded-2xl border bg-white px-4 text-base ${
+                  className={`h-12 w-full min-w-0 rounded-md border bg-white px-4 text-base ${
                     dateInvalid ? "border-red-600 ring-1 ring-red-600" : "border-line"
                   }`}
                 />
@@ -255,16 +262,18 @@ export default function BookingPanel({ lang, tours, pickups, boats, contact, tex
                 maxLength={60}
                 placeholder={text.namePlaceholder}
                 onChange={(e) => setName(e.target.value)}
-                className="h-12 w-full rounded-2xl border border-line bg-white px-4 text-base"
+                className="h-12 w-full rounded-md border border-line bg-white px-4 text-base"
               />
             </div>
           </div>
 
           {/* Summary + send */}
-          <aside className="overflow-hidden rounded-3xl border border-line bg-white lg:sticky lg:top-20">
+          <aside className="overflow-hidden rounded-lg border border-line bg-white lg:sticky lg:top-20">
             {tour && (
-              <div className="relative aspect-[16/7]">
-                <Image src={tour.image} alt="" fill sizes="(min-width:1024px) 440px, 100vw" className="object-cover" />
+              <div className="relative aspect-[16/7] overflow-hidden">
+                <Swap swapKey={tour.id} className="absolute inset-0">
+                  <Image src={tour.image} alt="" fill sizes="(min-width:1024px) 440px, 100vw" className="object-cover" />
+                </Swap>
               </div>
             )}
             <div className="p-5 sm:p-6">
@@ -287,26 +296,30 @@ export default function BookingPanel({ lang, tours, pickups, boats, contact, tex
               </dl>
 
               {boat ? (
-                <div aria-live="polite" className="mt-4 flex items-center gap-3 rounded-2xl bg-sand/60 p-2.5">
-                  <div className="relative h-14 w-20 shrink-0 overflow-hidden rounded-xl">
-                    <Image src={boat.image} alt="" fill sizes="80px" className="object-cover" />
+                <div aria-live="polite" className="mt-4 flex items-center gap-3 rounded-md bg-sand/60 p-2.5">
+                  <div className="relative h-14 w-20 shrink-0 overflow-hidden rounded">
+                    <Swap swapKey={boat.name} className="absolute inset-0">
+                      <Image src={boat.image} alt="" fill sizes="80px" className="object-cover" />
+                    </Swap>
                   </div>
                   <div className="min-w-0">
                     <p className="text-xs text-muted">{text.suggested}</p>
-                    <p className="font-semibold leading-snug">{boat.name}</p>
+                    <Swap swapKey={boat.name}>
+                      <p className="font-semibold leading-snug">{boat.name}</p>
+                    </Swap>
                   </div>
                 </div>
               ) : (
-                <p aria-live="polite" className="mt-4 rounded-2xl bg-sand/60 p-3 text-sm font-medium text-accent">
+                <p aria-live="polite" className="mt-4 rounded-md bg-sand/60 p-3 text-sm font-medium text-accent">
                   {text.tooMany}
                 </p>
               )}
 
               <div className="mt-4 flex items-baseline justify-between border-t border-line pt-4">
                 <span className="text-sm text-muted">{text.total}</span>
-                <span className="text-2xl font-bold text-brand-dark">
-                  {tour?.price ?? "—"} <span className="text-sm font-normal text-muted">{text.perTrip}</span>
-                </span>
+                <Swap swapKey={`${tour?.id}-${priceLabel}`} className="text-2xl font-semibold text-brand-dark">
+                  {priceLabel} <span className="text-sm font-normal text-muted">{text.perTrip}</span>
+                </Swap>
               </div>
               <p className="mt-1 text-sm text-muted">{text.confirm}</p>
 

@@ -5,6 +5,9 @@ import { createContext, useContext, useMemo, useState } from "react";
 interface BookingState {
   tourId: string;
   setTourId: (id: string) => void;
+  /** Shared so the pier picked on the map is also the pier in the booking. */
+  pickupId: string;
+  setPickupId: (id: string) => void;
   /** Select a tour and scroll the booking panel into view. */
   chooseTour: (id: string) => void;
 }
@@ -19,17 +22,20 @@ export function BookingProvider({
   children: React.ReactNode;
 }) {
   const [tourId, setTourId] = useState(initialTourId);
+  const [pickupId, setPickupId] = useState("talat-phlu");
 
   const value = useMemo<BookingState>(
     () => ({
       tourId,
       setTourId,
+      pickupId,
+      setPickupId,
       chooseTour: (id) => {
         setTourId(id);
         document.getElementById("book")?.scrollIntoView({ behavior: "smooth", block: "start" });
       },
     }),
-    [tourId],
+    [tourId, pickupId],
   );
 
   return <BookingContext.Provider value={value}>{children}</BookingContext.Provider>;
