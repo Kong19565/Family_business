@@ -7,14 +7,14 @@ export function suggestBoat(guests: number): Bilingual | null {
   return boatBySize.find((b) => guests <= b.max)?.name ?? null;
 }
 
-export function clampGuests(n: number): number {
+export function clampGuests(n: number, max = MAX_GUESTS): number {
   if (!Number.isFinite(n)) return 2;
-  return Math.max(1, Math.min(MAX_GUESTS + 1, Math.round(n)));
+  return Math.max(1, Math.min(max + 1, Math.round(n)));
 }
 
 /** Per-boat price: the base covers the first guests, then a fee per extra guest. */
-export function tripPrice(base: number, guests: number): number {
-  return base + Math.max(0, guests - INCLUDED_GUESTS) * EXTRA_GUEST_PRICE;
+export function tripPrice(base: number, guests: number, included = INCLUDED_GUESTS, extra = EXTRA_GUEST_PRICE): number {
+  return base + Math.max(0, guests - included) * extra;
 }
 
 export function depositAmount(total: number): number {

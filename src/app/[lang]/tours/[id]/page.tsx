@@ -53,8 +53,8 @@ export default async function TourPage({ params }: { params: Promise<{ lang: str
 
           <dl className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-3">
             {[
-              { icon: Wallet, label: dict.tour.price, value: `${course.options.length > 1 ? dict.tours.from + " " : ""}${formatBaht(fromPrice)}` },
-              { icon: Users, label: dict.tour.extraLabel, value: dict.tour.extraValue },
+              { icon: Wallet, label: course.pricing ? pick(course.pricing.label, lang) : dict.tour.price, value: `${course.options.length > 1 ? dict.tours.from + " " : ""}${formatBaht(fromPrice)}` },
+              { icon: Users, label: dict.tour.extraLabel, value: course.pricing ? pick(course.pricing.extraValue, lang) : dict.tour.extraValue },
               ...(course.duration ? [{ icon: Clock, label: dict.tour.durationLabel, value: pick(course.duration, lang) }] : []),
             ].map(({ icon: Icon, label, value }) => (
               <div key={label} className="flex items-start gap-3 rounded-lg border border-line bg-white p-4">

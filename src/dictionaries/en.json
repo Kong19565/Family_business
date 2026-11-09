@@ -16,7 +16,7 @@
     "eyebrow": "How it works",
     "title": "Book in 3 easy steps",
     "items": [
-      { "title": "Pick a tour", "desc": "Six routes through the canals and river." },
+      { "title": "Pick a tour", "desc": "Seven routes through the canals and river." },
       { "title": "Choose date and guests", "desc": "We suggest the right boat for your group." },
       { "title": "Send us a message", "desc": "We write it for you. Just paste and send on LINE." }
     ]
@@ -71,7 +71,7 @@
     "copyFailed": "Could not copy. Please copy the message below.",
     "pickDate": "Please choose today or a later date",
     "pickTour": "Please choose a tour",
-    "tooMany": "More than 10 guests? Message us for a custom plan.",
+    "tooMany": "More than {max} guests? Message us for a custom plan.",
     "decrease": "Fewer guests",
     "increase": "More guests",
     "message": {
@@ -96,7 +96,7 @@
     "diagram": "Diagram",
     "real": "Real map",
     "distance": "One-way distance about",
-    "distanceLoop": "Full loop from the pier about",
+    "distanceLoop": "Full trip from the pier and back about",
     "km": "km",
     "note": "The line is approximate. Your captain may adjust it for tide and traffic."
   },

@@ -133,11 +133,11 @@ export function Tours({ lang, dict }: Props) {
             <StaggerItem
               as="article"
               key={t.id}
-              className="lift flex flex-col overflow-hidden rounded-lg border border-line bg-background"
+              className={`lift flex flex-col overflow-hidden rounded-lg border border-line bg-background ${t.no === 7 ? "md:col-span-2 lg:col-span-3" : ""}`}
             >
               <Link
                 href={`/${lang}/tours/${t.id}`}
-                className="relative block aspect-[16/10] overflow-hidden"
+                className={`relative block aspect-[16/10] overflow-hidden ${t.no === 7 ? "md:aspect-[21/9] lg:aspect-[4/1]" : ""}`}
               >
                 <Image
                   src={t.image}

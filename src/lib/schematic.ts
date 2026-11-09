@@ -7,8 +7,10 @@ export const nodes: Record<string, [number, number]> = {
   kalaya: [560, 105],
   mouth: [560, 135],
   iconsiam: [560, 300],
+  intharam: [505, 154],
   "talat-phlu": [445, 175],
   paknam: [345, 175],
+  nangchi: [345, 208],
   artist: [195, 75],
   wutthakat: [345, 240],
   ratcha: [345, 295],
@@ -19,14 +21,23 @@ export const nodes: Record<string, [number, number]> = {
   se: [345, 402],
 };
 
+/** Where a point's name goes when the default spot would collide with a neighbour. */
+export const labelAt: Record<string, { dx: number; dy: number; anchor: "start" | "middle" | "end" }> = {
+  intharam: { dx: 0, dy: -22, anchor: "middle" },
+  "talat-phlu": { dx: 0, dy: 34, anchor: "middle" },
+  nangchi: { dx: -22, dy: 5, anchor: "end" },
+};
+
 const edges: [string, string][] = [
   ["arun", "kalaya"],
   ["kalaya", "mouth"],
   ["mouth", "iconsiam"],
-  ["mouth", "talat-phlu"],
+  ["mouth", "intharam"],
+  ["intharam", "talat-phlu"],
   ["talat-phlu", "paknam"],
   ["paknam", "artist"],
-  ["paknam", "wutthakat"],
+  ["paknam", "nangchi"],
+  ["nangchi", "wutthakat"],
   ["wutthakat", "ratcha"],
   ["ratcha", "fork"],
   ["fork", "sai"],
@@ -39,8 +50,8 @@ const edges: [string, string][] = [
 /** Each waterway drawn as one continuous band. */
 export const canals: { points: string[]; width: number; label: { en: string; th: string }; at: [number, number]; anchor?: "start" | "middle" | "end" }[] = [
   { points: ["arun", "kalaya", "mouth", "iconsiam"], width: 26, label: { en: "Chao Phraya River", th: "แม่น้ำเจ้าพระยา" }, at: [540, 240], anchor: "end" },
-  { points: ["mouth", "talat-phlu", "paknam", "artist"], width: 13, label: { en: "Khlong Bangkok Yai", th: "คลองบางกอกใหญ่" }, at: [480, 200] },
-  { points: ["paknam", "wutthakat", "ratcha", "fork"], width: 13, label: { en: "Khlong Dan", th: "คลองด่าน" }, at: [360, 212], anchor: "start" },
+  { points: ["mouth", "talat-phlu", "paknam", "artist"], width: 13, label: { en: "Khlong Bangkok Yai", th: "คลองบางกอกใหญ่" }, at: [290, 118], anchor: "start" },
+  { points: ["paknam", "wutthakat", "ratcha", "fork"], width: 13, label: { en: "Khlong Dan", th: "คลองด่าน" }, at: [360, 270], anchor: "start" },
   { points: ["fork", "sai", "sw"], width: 13, label: { en: "Khlong Sanam Chai", th: "คลองสนามชัย" }, at: [250, 350] },
   { points: ["fork", "poomjai", "se"], width: 13, label: { en: "Khlong Bang Khun Thian", th: "คลองบางขุนเทียน" }, at: [360, 398], anchor: "start" },
   { points: ["sw", "se"], width: 13, label: { en: "Khlong Bang Mot", th: "คลองบางมด" }, at: [250, 425] },

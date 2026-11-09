@@ -49,6 +49,10 @@ describe("tripPrice", () => {
     expect(tripPrice(1600, 8)).toBe(1900);
     expect(formatBaht(1900)).toBe("฿1,900");
   });
+  it("supports a course with its own rule", () => {
+    expect(tripPrice(6000, 10, 10, 400)).toBe(6000);
+    expect(tripPrice(6000, 12, 10, 400)).toBe(6800);
+  });
 });
 
 describe("depositAmount", () => {

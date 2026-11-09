@@ -22,7 +22,7 @@ import type { Locale } from "@/lib/i18n";
 
 export interface BookingPanelProps {
   lang: Locale;
-  tours: { id: string; title: string; summary: string; price: number; image: string; fixedPickup?: string }[];
+  tours: { id: string; title: string; summary: string; price: number; image: string; fixedPickup?: string; included?: number; extra?: number; max?: number; confirm?: string }[];
   pickups: { id: string; name: string; hint: string; courseOnly?: boolean; deposit?: boolean }[];
   boats: { max: number; name: string; image: string }[];
   contact: { lineUrl: string; whatsappUrl: string; phoneHref: string };
@@ -72,11 +72,12 @@ export default function BookingPanel({ lang, tours, pickups, boats, contact, tex
   // A course with its own pier offers only that one.
   const pickupChoices = tour?.fixedPickup ? pickups.filter((p) => p.id === tour.fixedPickup) : pickups.filter((p) => !p.courseOnly);
   const pickup = pickupChoices.find((p) => p.id === pickupId) ?? (tour?.fixedPickup ? pickupChoices[0] : undefined);
-  const tooMany = guests > MAX_GUESTS;
-  const guestsLabel = tooMany ? `${MAX_GUESTS}+` : String(guests);
+  const maxGuests = tour?.max ?? MAX_GUESTS;
+  const tooMany = guests > maxGuests;
+  const guestsLabel = tooMany ? `${maxGuests}+` : String(guests);
   const boat = tooMany ? undefined : boats.find((b) => guests <= b.max);
   const dateLabel = date ? formatDate(date, lang) : "—";
-  const total = tour && !tooMany ? tripPrice(tour.price, guests) : null;
+  const total = tour && !tooMany ? tripPrice(tour.price, guests, tour.included, tour.extra) : null;
   const priceLabel = total === null ? "—" : formatBaht(total);
   const depositLabel = total !== null && pickup?.deposit ? formatBaht(depositAmount(total)) : undefined;
 
@@ -205,7 +206,7 @@ export default function BookingPanel({ lang, tours, pickups, boats, contact, tex
                     type="button"
                     aria-label={text.decrease}
                     disabled={guests <= 1}
-                    onClick={() => setGuests((g) => clampGuests(g - 1))}
+                    onClick={() => setGuests((g) => clampGuests(g - 1, maxGuests))}
                     className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-line bg-white hover:bg-sand disabled:cursor-not-allowed disabled:opacity-40"
                   >
                     <Minus className="h-5 w-5" aria-hidden />
@@ -217,7 +218,7 @@ export default function BookingPanel({ lang, tours, pickups, boats, contact, tex
                     type="button"
                     aria-label={text.increase}
                     disabled={tooMany}
-                    onClick={() => setGuests((g) => clampGuests(g + 1))}
+                    onClick={() => setGuests((g) => clampGuests(g + 1, maxGuests))}
                     className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-line bg-white hover:bg-sand disabled:cursor-not-allowed disabled:opacity-40"
                   >
                     <Plus className="h-5 w-5" aria-hidden />
@@ -314,7 +315,7 @@ export default function BookingPanel({ lang, tours, pickups, boats, contact, tex
                 </div>
               ) : (
                 <p aria-live="polite" className="mt-4 rounded-md bg-sand/60 p-3 text-sm font-medium text-accent">
-                  {text.tooMany}
+                  {text.tooMany.replace("{max}", String(maxGuests))}
                 </p>
               )}
 
@@ -330,7 +331,7 @@ export default function BookingPanel({ lang, tours, pickups, boats, contact, tex
                   <span className="font-semibold text-brand-dark">{depositLabel}</span>
                 </div>
               )}
-              <p className="mt-1 text-sm text-muted">{text.confirm}</p>
+              <p className="mt-1 text-sm text-muted">{tour?.confirm ?? text.confirm}</p>
 
               {error && !dateInvalid && (
                 <p role="alert" className="mt-4 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">

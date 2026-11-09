@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 import type { LayerGroup, Map as LeafletMap } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useBooking } from "./BookingProvider";
-import { canals, coursePath, nodes, toSvgPath } from "@/lib/schematic";
+import { canals, coursePath, labelAt, nodes, toSvgPath } from "@/lib/schematic";
 import type { Locale } from "@/lib/i18n";
 
 export interface CourseMapProps {
@@ -133,9 +133,9 @@ function Diagram({ lang, via, loop, pier, stops, startLabel }: {
               {p.mark}
             </text>
             <text
-              x={labelX(x)}
-              y={y - 12}
-              textAnchor={labelSide(x)}
+              x={labelAt[p.id] ? x + labelAt[p.id].dx : labelX(x)}
+              y={labelAt[p.id] ? y + labelAt[p.id].dy : y - 12}
+              textAnchor={labelAt[p.id]?.anchor ?? labelSide(x)}
               fontSize="14"
               fontWeight="600"
               fill={NAVY}

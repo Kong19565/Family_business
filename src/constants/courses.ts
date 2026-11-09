@@ -9,6 +9,8 @@ export const places = {
   iconsiam: { name: { en: "ICONSIAM", th: "ไอคอนสยาม" }, at: [13.72663, 100.51185] },
   ratcha: { name: { en: "Wat Ratchaorasaram", th: "วัดราชโอรส" }, at: [13.70259, 100.46441] },
   sai: { name: { en: "Wat Sai Market", th: "ตลาดน้ำวัดไทร" }, at: [13.68977, 100.45725] },
+  intharam: { name: { en: "Wat Intharam", th: "วัดอินทาราม" }, at: [13.72333, 100.48276] },
+  nangchi: { name: { en: "Wat Nang Chi", th: "วัดนางชี" }, at: [13.7168, 100.46816] },
 } satisfies Record<string, { name: Bilingual; at: [number, number] }>;
 
 export type PlaceId = keyof typeof places;
@@ -41,6 +43,8 @@ export interface Course {
   /** True when the boat returns by a different way, so the line closes at the pier. */
   loop?: boolean;
   highlights: Bilingual<string[]>;
+  /** Replaces the standard rule of 5 guests, then 100 baht each, up to 10. */
+  pricing?: { included: number; extra: number; max: number; label: Bilingual; extraValue: Bilingual; confirm: Bilingual };
   /** Bookable price options, per boat for up to 5 guests. */
   options: { id: string; label?: Bilingual; price: number }[];
 }
@@ -169,5 +173,49 @@ export const courses: Course[] = [
       ],
     },
     options: [{ id: "route-6", price: 2400 }],
+  },
+  {
+    id: "route-7",
+    no: 7,
+    title: { en: "6-Hour Sai Mu Merit Charter", th: "เหมาทัวร์สายมู 6 ชั่วโมง" },
+    summary: { en: "6 hours · 4 temples and markets", th: "6 ชั่วโมง · วัดและตลาดเก่า" },
+    duration: { en: "6 hours, starting 8:30 to 9:00", th: "6 ชั่วโมง เริ่ม 8:30 ถึง 9:00 น." },
+    description: {
+      en: "A full merit-making day of canal temples, local food and a 100-year-old market. We can adjust the route to suit you.",
+      th: "ทริปไหว้พระเต็มวัน ล่องคลองแวะวัด ทานอาหาร และเดินตลาดเก่า 100 ปี ปรับเส้นทางได้ตามต้องการ",
+    },
+    image: "/images/Wat_NakProk.jpg",
+    starts: ["talat-phlu", "wutthakat"],
+    stops: ["intharam", "paknam", "nangchi", "artist"],
+    loop: true,
+    pricing: {
+      included: 10,
+      extra: 400,
+      max: 25,
+      label: { en: "Price per boat (up to 10)", th: "ราคาต่อลำ (ไม่เกิน 10 คน)" },
+      extraValue: { en: "฿400 each above 10", th: "เกิน 10 คน คิดคนละ ฿400" },
+      confirm: { en: "Up to 10 guests included, then ฿400 per extra guest. We confirm availability in the chat.", th: "รวม 10 คนแรก คนถัดไปเพิ่มคนละ ฿400 เราจะยืนยันวันว่างในแชท" },
+    },
+    highlights: {
+      en: [
+        "Wat Intharam: pay respect to King Taksin, walk Wat Klang Market, and stop at the 100-year-old Suriya coffee shop",
+        "Along Khlong Bangkok Yai to Wat Paknam for photos and to pay respect to Luang Pho Sot",
+        "Lunch at Luang Chura Cafe",
+        "Into Khlong Dan to Wat Nang Chi, a Rama I temple and the only one continuing the Chak Phra tradition",
+        "Walk to Wat Nak Prok to pay respect to Luang Pho Chao Sua and pass under the ordination hall",
+        "Khlong Bang Luang floating market and Artist House, then the 100-year-old market",
+        "Return to the pier. The route can be changed to suit you, or we can recommend one",
+      ],
+      th: [
+        "วัดอินทาราม ไหว้พระเจ้าตากสิน เดินชมตลาดวัดกลาง แวะร้านกาแฟสุริยา 100 ปี",
+        "ล่องคลองบางกอกใหญ่ไปวัดปากน้ำภาษีเจริญ ถ่ายรูปจุดเช็คอินและสักการะหลวงพ่อสด",
+        "ทานอาหารที่คาเฟ่หลวงชุระ",
+        "เข้าคลองด่านไปวัดนางชี วัดของรัชกาลที่ 1 วัดเดียวที่สืบสานประเพณีชักพระ",
+        "เดินไปวัดนาคปรก สักการะหลวงพ่อเจ้าสัว และรอดโบสถ์",
+        "ตลาดน้ำคลองบางหลวง บ้านศิลปิน พักและเดินชมตลาดเก่า 100 ปี",
+        "เดินทางกลับท่าเรือ เส้นทางปรับเปลี่ยนได้ตามที่ลูกค้าต้องการ หรือให้ทางเราแนะนำ",
+      ],
+    },
+    options: [{ id: "route-7", price: 6000 }],
   },
 ];
