@@ -1,6 +1,6 @@
 import { fleet } from "@/constants/data";
 import { courses } from "@/constants/courses";
-import { boatBySize, contact, pickups } from "@/constants/site";
+import { boatBySize, contact, ownerPhone, pickups } from "@/constants/site";
 import { pick, type Locale } from "./i18n";
 import type { Dictionary } from "@/dictionaries/dictionaries";
 import type { BookingPanelProps } from "@/components/BookingPanel";
@@ -35,7 +35,7 @@ export function panelProps(lang: Locale, dict: Dictionary): BookingPanelProps {
     contact: {
       lineUrl: contact.line.url,
       whatsappUrl: contact.whatsapp.url,
-      phoneHref: contact.phones[1].href,
+      phoneHref: ownerPhone.href,
     },
     text: dict.booking,
   };

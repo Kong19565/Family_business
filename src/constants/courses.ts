@@ -12,6 +12,8 @@ export const places = {
   intharam: { name: { en: "Wat Intharam", th: "วัดอินทาราม" }, at: [13.72333, 100.48276] },
   nangchi: { name: { en: "Wat Nang Chi", th: "วัดนางชี" }, at: [13.7168, 100.46816] },
   "talat-phlu": { name: { en: "Talat Phlu Market", th: "ตลาดพลู" }, at: [13.72244, 100.47712] },
+  watko: { name: { en: "Wat Ko", th: "วัดเกาะ" }, at: [13.74307, 100.45631] },
+  orchid: { name: { en: "Uncle Niyom's Orchid Garden", th: "สวนกล้วยไม้ลุงนิยม" }, at: [13.74852, 100.41136] },
   ladmayom: { name: { en: "Khlong Lat Mayom Market", th: "ตลาดน้ำคลองลัดมะยม" }, at: [13.76108, 100.4157] },
 } satisfies Record<string, { name: Bilingual; at: [number, number] }>;
 
@@ -73,7 +75,7 @@ export const courses: Course[] = [
     tag: { en: "Join tour", th: "จอยทัวร์" },
     unit: { en: "per person", th: "ต่อคน" },
     title: { en: "Join Tour: Temples and Canal Markets", th: "จอยทัวร์ ไหว้พระ ชมตลาดริมคลอง" },
-    summary: { en: "Boats at 9:00, 11:30 and 14:30", th: "รอบ 9:00, 11:30 และ 14:30 น." },
+    summary: { en: "Daily at 9:00, 11:30 and 14:30", th: "ทุกวัน รอบ 9:00, 11:30 และ 14:30 น." },
     description: {
       en: "Share a boat and visit Wat Nang Chi, Wat Paknam, Khlong Bang Luang Floating Market and Talat Phlu, with about 20 minutes at each stop.",
       th: "ร่วมเรือกับผู้อื่น แวะวัดนางชี วัดปากน้ำ ตลาดน้ำคลองบางหลวง และตลาดพลู จุดละประมาณ 20 นาที",
@@ -90,11 +92,14 @@ export const courses: Course[] = [
       max: 10,
       label: { en: "Price per person", th: "ราคาต่อคน" },
       extraValue: { en: "฿500 each", th: "คนละ ฿500" },
-      confirm: { en: "We confirm the day, boat time and seats in the chat.", th: "เราจะยืนยันวัน รอบเรือ และที่นั่งในแชท" },
+      confirm: {
+        en: "Runs daily. The boat leaves once at least 4 guests have booked that time. We confirm the day, boat time and seats in the chat.",
+        th: "มีทุกวัน เรือออกเมื่อมีผู้โดยสารรวมอย่างน้อย 4 คนต่อรอบ เราจะยืนยันวัน รอบเรือ และที่นั่งในแชท",
+      },
     },
     highlights: {
-      en: ["Board at Wutthakat Pier or Wat Mai Yai Nui", "Wat Nang Chi, about 20 minutes", "Wat Paknam Phasi Charoen, about 20 minutes", "Khlong Bang Luang Floating Market, about 20 minutes", "Talat Phlu Market, about 20 minutes, then back to where you boarded"],
-      th: ["ขึ้นเรือที่ท่าเรือวุฒากาศ หรือวัดใหม่ยายนุ้ย", "วัดนางชี ประมาณ 20 นาที", "วัดปากน้ำภาษีเจริญ ประมาณ 20 นาที", "ตลาดน้ำคลองบางหลวง ประมาณ 20 นาที", "ตลาดพลู ประมาณ 20 นาที แล้วกลับที่เดิม"],
+      en: ["Runs daily, at least 4 guests per boat", "Board at Wutthakat Pier or Wat Mai Yai Nui", "Wat Nang Chi, about 20 minutes", "Wat Paknam Phasi Charoen, about 20 minutes", "Khlong Bang Luang Floating Market, about 20 minutes", "Talat Phlu Market, about 20 minutes, then back to where you boarded"],
+      th: ["มีทุกวัน ขั้นต่ำ 4 คนต่อรอบ", "ขึ้นเรือที่ท่าเรือวุฒากาศ หรือวัดใหม่ยายนุ้ย", "วัดนางชี ประมาณ 20 นาที", "วัดปากน้ำภาษีเจริญ ประมาณ 20 นาที", "ตลาดน้ำคลองบางหลวง ประมาณ 20 นาที", "ตลาดพลู ประมาณ 20 นาที แล้วกลับที่เดิม"],
     },
     options: [{ id: "join-tour", price: 500 }],
   },
@@ -264,7 +269,7 @@ export const courses: Course[] = [
     id: "route-8",
     no: 8,
     title: { en: "Khlong Lat Mayom Floating Market", th: "ตลาดน้ำคลองลัดมะยม" },
-    summary: { en: "4 hours · orchid garden and market", th: "4 ชั่วโมง · สวนกล้วยไม้และตลาดน้ำ" },
+    summary: { en: "4 hours · weekends and public holidays", th: "4 ชั่วโมง · เสาร์ อาทิตย์ และวันนักขัตฤกษ์" },
     duration: { en: "About 4 hours", th: "ประมาณ 4 ชั่วโมง" },
     description: {
       en: "Cruise the old canals to Uncle Niyom's orchid garden, a favourite with overseas visitors, then enjoy Khlong Lat Mayom Floating Market.",
@@ -272,18 +277,20 @@ export const courses: Course[] = [
     },
     image: "/images/gallery_4.jpg",
     starts: ["talat-phlu", "wutthakat"],
-    stops: ["paknam", "ladmayom"],
-    pricing: {
+    stops: ["paknam", "watko", "orchid", "ladmayom"],    pricing: {
       included: 5,
-      extra: 0,
-      max: 5,
-      label: { en: "Private boat, 4 to 5 guests", th: "ราคาเหมาลำ 4-5 ท่าน" },
-      extraValue: { en: "Ask us in the chat", th: "สอบถามในแชท" },
-      confirm: { en: "Price for 4 to 5 guests. Ask us in the chat about larger groups and market days.", th: "ราคาสำหรับ 4-5 ท่าน กลุ่มใหญ่กว่านี้และวันเปิดตลาดสอบถามในแชท" },
+      extra: 1000,
+      max: 10,
+      label: { en: "Private boat, up to 5 guests", th: "ราคาเหมาลำ ไม่เกิน 5 ท่าน" },
+      extraValue: { en: "฿1,000 each above 5", th: "เกิน 5 ท่าน คิดคนละ ฿1,000" },
+      confirm: {
+        en: "Up to 5 guests included, then ฿1,000 per extra guest. The market opens on Saturdays, Sundays and public holidays only. We confirm availability in the chat.",
+        th: "รวม 5 ท่านแรก ท่านถัดไปเพิ่มคนละ ฿1,000 ตลาดเปิดเฉพาะเสาร์ อาทิตย์ และวันนักขัตฤกษ์ เราจะยืนยันวันว่างในแชท",
+      },
     },
     highlights: {
-      en: ["Start at Talat Phlu Pier or BTS Wutthakat Pier", "Past Wat Paknam Phasi Charoen, along Khlong Bangkok Yai and Khlong Bang Luang", "Uncle Niyom's orchid garden, 30-minute stop", "Khlong Lat Mayom Floating Market, about 1 hour", "Cruise back to the pier"],
-      th: ["เริ่มที่ท่าเรือตลาดพลู หรือท่าเรือ BTS วุฒากาศ", "ผ่านวัดปากน้ำภาษีเจริญ ล่องคลองบางกอกใหญ่และคลองบางหลวง", "แวะสวนกล้วยไม้ลุงนิยม 30 นาที", "ตลาดน้ำคลองลัดมะยม ประมาณ 1 ชั่วโมง", "ล่องเรือกลับท่าเรือ"],
+      en: ["Saturdays, Sundays and public holidays only, when the market is open", "Start at Talat Phlu Pier or BTS Wutthakat Pier", "Along Khlong Bang Luang past Wat Paknam Phasi Charoen and Wat Ko", "Follow the canal to Uncle Niyom's orchid garden, 30-minute stop", "Khlong Lat Mayom Floating Market, about 1 hour", "Cruise back to the pier"],
+      th: ["เฉพาะเสาร์ อาทิตย์ และวันนักขัตฤกษ์ ซึ่งเป็นวันที่ตลาดเปิด", "เริ่มที่ท่าเรือตลาดพลู หรือท่าเรือ BTS วุฒากาศ", "ไปทางคลองบางหลวง ผ่านวัดปากน้ำภาษีเจริญ และวัดเกาะ", "ล่องตามคลองไปแวะสวนกล้วยไม้ลุงนิยม 30 นาที", "ตลาดน้ำคลองลัดมะยม ประมาณ 1 ชั่วโมง", "ล่องเรือกลับท่าเรือ"],
     },
     options: [{ id: "route-8", price: 5000 }],
   },

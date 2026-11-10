@@ -3,6 +3,14 @@ import { fleet } from "./data";
 import { courses, pierIds, places } from "./courses";
 import routes from "./routes.geo.json";
 import { coursePath } from "@/lib/schematic";
+import { contact, phonesFor } from "./site";
+
+describe("phones", () => {
+  it("shows foreigners only the owner's number in international format", () => {
+    expect(phonesFor("en")).toEqual([{ label: "+66 98 828 9849", href: "tel:+66988289849" }]);
+    expect(phonesFor("th")).toEqual(contact.phones);
+  });
+});
 
 describe("fleet", () => {
   it("lists boats with capacity", () => {

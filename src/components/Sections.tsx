@@ -17,7 +17,7 @@ import { Reveal, Stagger, StaggerItem } from "./Motion";
 import { fleet } from "@/constants/data";
 import { courses } from "@/constants/courses";
 import { formatBaht } from "@/lib/booking";
-import { boatBySize, contact, gallery, heroImage, pickups } from "@/constants/site";
+import { boatBySize, contact, gallery, heroImage, phonesFor, pickups } from "@/constants/site";
 import { pick, type Locale } from "@/lib/i18n";
 import type { Dictionary } from "@/dictionaries/dictionaries";
 
@@ -278,7 +278,7 @@ function QrCard({ src, label, caption }: { src: string; label: string; caption: 
   );
 }
 
-export function Contact({ dict }: Props) {
+export function Contact({ lang, dict }: Props) {
   return (
     <section id="contact" className="section bg-brand-dark text-white">
       <div className="container-page">
@@ -291,7 +291,7 @@ export function Contact({ dict }: Props) {
             <a href={contact.whatsapp.url} target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
               WhatsApp
             </a>
-            {contact.phones.map((p) => (
+            {phonesFor(lang).map((p) => (
               <a key={p.href} href={p.href} className="btn btn-ghost">
                 <Phone className="h-4 w-4" aria-hidden /> {p.label}
               </a>

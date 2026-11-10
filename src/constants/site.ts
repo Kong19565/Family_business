@@ -1,4 +1,4 @@
-import type { Bilingual } from "@/lib/i18n";
+import type { Bilingual, Locale } from "@/lib/i18n";
 
 export const contact = {
   // Friend link decoded from the account's own QR. 0988289849 is a phone number, not a LINE ID, so `~0988289849` links fail.
@@ -11,6 +11,14 @@ export const contact = {
     { label: "092-459-8595", href: "tel:0924598595" },
   ],
 };
+
+/** The owner's number, written so it also dials from a foreign SIM. */
+export const ownerPhone = { label: "+66 98 828 9849", href: "tel:+66988289849" };
+
+/** English pages show only the owner's number. */
+export function phonesFor(lang: Locale) {
+  return lang === "en" ? [ownerPhone] : contact.phones;
+}
 
 export const pickups: { id: string; name: Bilingual; hint: Bilingual; map?: string; embed?: string; courseOnly?: boolean; deposit?: boolean }[] = [
   {
