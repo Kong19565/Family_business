@@ -1,3 +1,23 @@
+const isDev = process.env.NODE_ENV !== 'production';
+
+// Only the places the site really loads from. Next.js needs inline scripts for
+// its page data and the map/animations set inline styles, so those stay allowed.
+const csp = [
+    "default-src 'self'",
+    `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}`,
+    "style-src 'self' 'unsafe-inline'",
+    "img-src 'self' data: blob: https://tile.openstreetmap.org",
+    "font-src 'self'",
+    `connect-src 'self'${isDev ? ' ws:' : ''}`,
+    // Google Maps embeds for the meeting points.
+    "frame-src https://www.google.com",
+    "frame-ancestors 'none'",
+    "object-src 'none'",
+    "base-uri 'self'",
+    "form-action 'self'",
+    ...(isDev ? [] : ['upgrade-insecure-requests']),
+].join('; ');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
@@ -21,6 +41,10 @@ const nextConfig = {
             {
                 source: '/(.*)',
                 headers: [
+                    {
+                        key: 'Content-Security-Policy',
+                        value: csp,
+                    },
                     {
                         key: 'X-Frame-Options',
                         value: 'DENY',
